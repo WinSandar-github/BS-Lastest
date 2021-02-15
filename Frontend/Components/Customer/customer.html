@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BS | Customer</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../Utilities/plugins/fontawesome-free/css/all.min.css">
+  <!-- Icheck-->
+  <link rel="stylesheet" href="../../Utilities/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../Utilities/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <!--Toastr-->
+  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
+  
+  <link rel="stylesheet" href="../../Utilities/css/user.css" class="css">
+  <style>
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+  </style>
+</head>
+<body class="sidebar-mini layout-fixed layout-navbar-fixed accent-info text-sm">
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    <header class="main-header navbar navbar-expand navbar-dark navbar-info text-sm"></header>
+
+    <!-- /.navbar -->
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar elevation-4 sidebar-dark-info"></aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+
+      </div>
+      <!-- /.content-header -->
+      <!-- Main content -->
+      <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-12 col-sm-12">
+                <div class="card card-outline card-info">
+                    <div class="card-header">
+                        <h3 class="card-title">Users Information</h3>
+                      </div>
+                  <div class="card-body">
+                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#insertModal">
+                        <i class="fas fa-plus fa-sm"> Add New</i>
+                    </button>
+                    <table id="tbl_customer" class="table table-bordered table-striped full-width mt-3">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>ID</th>
+                                <th>Address</th>
+                                <th>IP</th>
+                                <th>Plan</th>
+                                <th>Pon</th>
+                                <th>Sn</th>  
+                                <th>Dn</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl_customer_body" class="hoverTable"></tbody>
+                    </table>
+
+                </div> 
+                  <!-- /.card -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer"></footer>
+    <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="customerForm">
+                <div class="form-group row">
+                    <!-- User Name -->
+                    <div class="col-md-6">
+                        <label class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label class="col-form-label">ID</label>
+                        <input type="email" class="form-control" id="code" placeholder="Enter ID">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <!-- Phone -->
+                    <div class="col-md-12">
+                        <label class="col-form-label">Address</label>
+                        <input type="tel" class="form-control" id="address" placeholder="Enter Address">
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <!-- User Name -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">IP</label>
+                      <input type="text" class="form-control" id="ip" placeholder="Enter IP">
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">PLan</label>
+                      <input type="email" class="form-control" id="plan" placeholder="Enter Plan">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <!-- User Name -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Pon</label>
+                      <input type="text" class="form-control" id="pon" placeholder="Enter Pon">
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Sn</label>
+                      <input type="text" class="form-control" id="sn" placeholder="Enter Sn">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <!-- User Name -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Dn</label>
+                      <input type="text" class="form-control" id="dn" placeholder="Enter Dn">
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Price</label>
+                      <input type="number" class="form-control" id="price" placeholder="Enter Price">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <!-- User Name -->
+                  <div class="col-md-12">
+                      <label class="col-form-label">Description</label>
+                      <textarea type="text" class="form-control" id="desc" placeholder="Enter Description"></textarea>
+
+                  </div>
+              </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info btn-sm" onclick="createCustomer();"><i class="fas fa-save fa-sm"> Save</i> </button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update System User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form id="updateUserForm">
+                <input type="hidden" name="" id="userId">
+              <!-- <div class="text-center"> 
+                  <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
+                  <input id="profile-image-upload" class="hidden" type="file">
+               <div style="color:#999;" >click here to change profile image</div>
+              </div>  -->
+              <div class="form-group row">
+                  <!-- User Name -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">User Name</label>
+                      <input type="text" class="form-control" id="update_name" placeholder="Enter Name">
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Email</label>
+                      <input type="email" class="form-control" id="update_email" placeholder="Enter Email Address">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <!-- Phone -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">Phone</label>
+                      <input type="tel" class="form-control" id="update_phone" placeholder="Enter Phone Number">
+                  </div>
+
+                  <!-- User Roles -->
+                  <div class="col-md-6">
+                      <label class="col-form-label">User Role</label>
+                      <select class="form-control" id="update_role">
+                          <option selected disabled>Seect</option>
+                          <option value="0">Admin</optilon>
+                          <option value="1">Receptionist</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="inputDob" class="col-form-label">Password</label>
+                  <div class="input-group" id="show_hide_password">
+                    <input type="password" class="form-control add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
+                    <div class="input-group-append">
+                      <a href="" class="btn btn-default update_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                  <p class="text-red">*Compulsory*</p>
+              </div>
+              <div class="form-group">
+                  <label for="inputDob" class="col-form-label">Confirm Password</label>
+                  <div class="input-group" id="show_hide_password">
+                    <input type="password" class="form-control confirm_add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
+                    <div class="input-group-append">
+                      <a href="" class="btn btn-default update_confirm_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                    </div>
+                  </div>
+                  <p class="text-red">*Compulsory*</p>
+              </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info btn-sm" onclick="updateUser();"><i class="fas fa-save"></i>Update</button>
+          </div>
+        </div>
+      </div>
+  </div>
+    <!-- /.control-sidebar -->
+  </div>
+  <!-- ./wrapper -->
+  <!-- jQuery -->
+  <script src="../../Utilities/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="../../Utilities/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4-->
+  <script src="../../Utilities/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="../../Utilities/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../Utilities/dist/js/adminlte.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../Utilities/dist/js/demo.js"></script>
+  <script src="../../Components/Main/js/adminlte_view.js"></script>
+  <!-- DataTables -->
+  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <!-- InputMask -->
+  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
+  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
+  <!--Toastr-->
+  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
+
+  <script src="../../Utilities/js/customer.js"></script>
+  
+  <script>
+    $('#dob').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $(function() {
+        $('#profile-image1').on('click', function() {
+        $('#profile-image-upload').click();
+        });
+    });     
+    getCustomer();  
+  </script>
+</body>
+</html>
