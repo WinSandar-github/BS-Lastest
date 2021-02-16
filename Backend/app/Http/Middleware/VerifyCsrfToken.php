@@ -28,5 +28,11 @@ class VerifyCsrfToken extends Middleware
         'deleteOutcome',
         'createOutcomeDetail',
         'getOutcomeDetailByOutcomeId',
+        'createUser',
+        'getUser',
+        'showUserInfo',
+        'updateUser',
+        'deleteUser',
+        'loginValidate'
     ];
 }

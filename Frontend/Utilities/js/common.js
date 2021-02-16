@@ -123,3 +123,11 @@ function startDataTable(table) {
      });
     
 }
+function logout() {
+    (localStorage.getItem("userinfo")) && localStorage.removeItem("userinfo");
+    location.href = "../../Components/Auth/login.html";
+}
+function showLoad() {
+    document.getElementById("overlay").style.display = "block";
+    
+}
