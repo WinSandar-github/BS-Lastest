@@ -38,3 +38,15 @@ Route::post('deleteOutcome', array('middleware' => 'cors', 'uses' => 'OutcomeCon
 Route::post('createOutcomeDetail', array('middleware' => 'cors', 'uses' => 'OutcomeDetailController@createOutcomeDetail'));
 //for Outcome detail by Outcome id
 Route::post('getOutcomeDetailByOutcomeId', array('middleware' => 'cors', 'uses' => 'OutcomeDetailController@getOutcomeDetailByOutcomeId'));
+//for User
+Route::post('createUser', array('middleware' => 'cors', 'uses' => 'UserController@createUser'));
+Route::post('getUser', array('middleware' => 'cors', 'uses' => 'UserController@getUser'));
+Route::post('showUserInfo', array('middleware' => 'cors', 'uses' => 'UserController@showUserInfo'));
+Route::post('updateUser', array('middleware' => 'cors', 'uses' => 'UserController@updateUser'));
+Route::post('deleteUser', array('middleware' => 'cors', 'uses' => 'UserController@deleteUser'));
+//for login
+Route::post('loginValidate', array('middleware' => 'cors', 'uses' => 'LoginController@loginValidate'));
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
