@@ -102,3 +102,24 @@ function removeComma(number){
     var number_part=parseInt(number.split(',').join(""));
     return number_part;
 }
+function startDataTable(table) {
+
+    $(table).DataTable({
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': false,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        "order": [[0, "desc"]]
+    });
+    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust();
+     });
+    
+}
