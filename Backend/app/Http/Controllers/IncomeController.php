@@ -8,14 +8,24 @@ use App\tbl_income_detail;
 
 class IncomeController extends Controller
 {
-    public function getIncome()
+    public function getIncome(Request $request)
     {
-        $income = tbl_income::all();
-        if(sizeof($income)){
-            return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
-        else{
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+        if($request->create_date){
+            $income = tbl_income::whereDate('income_date', $request->create_date)->get();
+            if(sizeof($income)){
+                return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+            $income = tbl_income::all();
+            if(sizeof($income)){
+                return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
         }
     }
 

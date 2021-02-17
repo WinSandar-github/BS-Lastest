@@ -1,5 +1,5 @@
 function createIncome() {
-    var income = "income_date=" + $("#income_date").val()+"&income_total=" + $("#income_amount").val();
+    var income = "income_date=" + $("#income_date").val()+"&income_total=" + removeComma($("#income_amount").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createIncome",
@@ -25,7 +25,7 @@ function getIncome() {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
                 tr += "<td >" + element.income_date + "</td>";
-                tr += "<td >" + thousands_separators(element.income_total) + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
@@ -118,4 +118,45 @@ function deleteIncome(income_date, incomeId) {
             }
         });
     }
+}
+function getIncomeBySelectMonth(select){
+    if(select!='Monthly'){
+        $('.datetimepicker-input').attr('disabled',false);
+    }else{
+        $('.datetimepicker-input').val("");
+        $('.datetimepicker-input').attr('disabled',true);
+        getIncome();
+    }
+}
+function getIncomeByDate(date){
+    var income_date=date.split('/');
+    var create_date=income_date[2]+'-'+income_date[0]+'-'+income_date[1];
+    destroyDatatable("#tbl_income", "#tbl_income_container");
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "getIncome",
+        data: "create_date="+create_date,
+        success: function (data) {
+            data.forEach(function (element) {
+                var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
+                tr += "<td >" + element.income_date + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
+                tr += "<td class='alignright'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                    "<li class='fas fa-hand-holding-usd'></li></button> ";
+                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
+                //     "<li class='fas fa-pencil-alt'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.income_date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                tr += "</tr>";
+                $("#tbl_income_container").append(tr);
+
+            });
+            startDataTable('#tbl_income');
+            
+
+        },
+        error: function (message) {
+            dataMessage(message,"#tbl_income", "#tbl_income_container");
+        }
+    });
 }

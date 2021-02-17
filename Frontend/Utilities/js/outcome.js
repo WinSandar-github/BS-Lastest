@@ -1,5 +1,5 @@
 function createOutcome() {
-    var outcome = "outcome_date=" + $("#outcome_date").val()+"&outcome_total=" + $("#outcome_amount_paid").val();
+    var outcome = "outcome_date=" + $("#outcome_date").val()+"&outcome_total=" + removeComma($("#outcome_amount_paid").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createOutcome",
@@ -25,7 +25,7 @@ function getOutcome() {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
                 tr += "<td >" + element.outcome_date + "</td>";
-                tr += "<td >" + thousands_separators(element.outcome_total) + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";

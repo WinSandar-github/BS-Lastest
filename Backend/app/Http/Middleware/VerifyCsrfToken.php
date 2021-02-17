@@ -33,6 +33,7 @@ class VerifyCsrfToken extends Middleware
         'showUserInfo',
         'updateUser',
         'deleteUser',
-        'loginValidate'
+        'loginValidate',
+        'getTotal'
     ];
 }
