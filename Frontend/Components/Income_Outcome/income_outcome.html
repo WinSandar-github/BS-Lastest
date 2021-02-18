@@ -78,17 +78,22 @@
                                     </button><br/><br/>
                                     <div class="row">
                                       
-                                      <div class="col-3">
-                                        <select class="form-control" id="selected_date" style="width: 100%;" onchange='getIncomeBySelectMonth(this.value);'>
-                                          <option value="" disabled selected>Search</option>
-                                          <option value="Monthly">Monthly</option>
-                                          <option value="Custom">Custom</option>
-                                        </select>
-                                        
+                                      <div class="col-3 form-group">
+                                       
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                          </div>
+                                        </div>
                                       </div>
                                       <div class="col-3 form-group">
                                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" disabled onchange='getIncomeByDate(this.value);'/>
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getIncomeByDate(this.value);'/>
                                           <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                           </div>
@@ -99,6 +104,8 @@
                                     <table id='tbl_income' class="table table-bordered table-hover mt-3">
                                         <thead>
                                             <tr>
+                                                <th>Year</th>
+                                                <th>Month</th>
                                                 <th>Date</th>
                                                 <th>Amount</th>
                                                 <th></th>
@@ -144,10 +151,37 @@
                                   <div class="card-body">
                                     <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
                                       <i class="fas fa-plus fa-sm"> Add New</i>
-                                    </button>
+                                    </button><br/><br/>
+                                    <div class="row">
+                                      
+                                      <div class="col-3 form-group">
+                                       
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-3 form-group">
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getOutcomeByDate(this.value);'/>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
                                     <table id='tbl_outcome' class="table table-bordered table-hover mt-3">
                                         <thead>
                                             <tr>
+                                                <th>Year</th>
+                                                <th>Month</th>
                                                 <th>Date</th>
                                                 <th>Amount</th>
                                                 <th></th>
@@ -332,7 +366,7 @@
                     <div class="col-md-12 col-sm-12">
                       <label class="col-form-label">Date</label>
                       <div class="input-group">
-                          <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
+                          <input type="text" id="income_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
                           <div class="input-group-append">
                             <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                           </div>
@@ -375,7 +409,7 @@
                     <div class="col-md-12 col-sm-12">
                       <label class="col-form-label">Date</label>
                       <div class="input-group">
-                          <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
+                          <input type="text" id="outcome_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
                           <div class="input-group-append">
                             <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                           </div>
@@ -436,10 +470,11 @@
  <script src="../../Utilities/js/outcome.js"></script>
  <script src="../../Utilities/js/outcome_detail.js"></script>
   <script>
-    $('#income_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-    $('#outcome_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+    $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+    $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
     $('.datetimepicker-input').datepicker({
-        
+      dateFormat: 'dd-mm-yy',
+      
     });
     getIncome();
     getOutcome();

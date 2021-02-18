@@ -1,7 +1,7 @@
 function createOutcomeDetail() {
     var outcome_detail = {};
     outcome_detail['outcome_id']=$("#outcome_id").val();
-    outcome_detail['outcome_date']=$("#outcome_date").val();
+    outcome_detail['outcome_date']=formatDate($("#outcome_date").val());
     outcome_detail['outcome_reason']=$("#outcome_reason").val();
     outcome_detail['outcome_unit_amount']=removeComma($("#outcome_amount_paid").val());
     $.ajax({
@@ -26,7 +26,7 @@ function createOutcomeDetail() {
 function addOutcomeDetail() {
     var outcome_detail = {};
     outcome_detail['outcome_id']=$("#outcome_id").val();
-    outcome_detail['outcome_date']=$("#outcome_detail_date").val();
+    outcome_detail['outcome_date']=formatDate($("#outcome_detail_date").val());
     outcome_detail['outcome_reason']=$("#outcome_detail_reason").val();
     outcome_detail['outcome_unit_amount']=removeComma($("#outcome_detail_amount").val());
     $.ajax({
@@ -58,7 +58,7 @@ function getOutcomeDetailByOutcomeId(outcome_id) {
             data.forEach(function (element) {
                 
                 var tr = "<tr>";
-                tr += "<td >" + element.outcome_date + "</td>";
+                tr += "<td >" + formatDate(element.outcome_date) + "</td>";
                 tr += "<td >" +  element.outcome_reason+ "</td>";
                 tr += "<td class='text-right'>" + thousands_separators( element.outcome_unit_amount)+ "</td>";
                 tr += "</tr>";

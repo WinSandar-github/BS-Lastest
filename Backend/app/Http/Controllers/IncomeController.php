@@ -33,12 +33,13 @@ class IncomeController extends Controller
     {
         try{
             $income=new tbl_income();
-            $date=explode('/',$request->income_date);
-            $income->income_date=$date[2].'-'.$date[1].'-'.$date[0];
+            $income->income_date=$request->income_date;
             $income->income_total=$request->income_total;
             $income->save();
            return response()->json($income, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
+            return $e->getMessage();
+
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }

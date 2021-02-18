@@ -116,7 +116,40 @@ function startDataTable(table) {
         'autoWidth': false,
         "scrollX": true,
         'select': true,
-        "order": [[0, "desc"]]
+        "order": [[0, "desc"]],
+        
+    });
+    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust();
+     });
+    
+}
+function customDataTable(table) {
+
+    $(table).DataTable({
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': false,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        "order": [[0, "desc"]],
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [1],
+                "visible": false
+            }
+        ]
     });
     $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
@@ -131,4 +164,13 @@ function logout() {
 function showLoad() {
     document.getElementById("overlay").style.display = "block";
     
+}
+function formatDate(date){
+    var income_date=date.split('-');
+    var date=income_date[2]+'-'+income_date[1]+'-'+income_date[0];
+    return date;
+}
+function formatMonth(month){
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    return months[new Date(month).getMonth()];
 }
