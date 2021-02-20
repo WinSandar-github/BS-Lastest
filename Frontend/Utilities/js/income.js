@@ -168,13 +168,13 @@ function getIncomeByMonth(){
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "getIncome",
-        data: "",
+        data: "monthly=allmonth",
         success: function (data) {
             data.forEach(function (element) {
-                var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td >" + new Date(element.income_date).getFullYear() + "</td>";
-                tr += "<td >" + formatMonth(element.income_date) + "</td>";
-                tr += "<td >" + formatDate(element.income_date) + "</td>";
+                var tr = "<tr>";
+                tr += "<td >" + element.year + "</td>";
+                tr += "<td >" + element.month + "</td>";
+                tr += "<td >" + element.status + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
@@ -187,7 +187,7 @@ function getIncomeByMonth(){
 
             });
             startDataTable('#tbl_income');
-            
+           
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");

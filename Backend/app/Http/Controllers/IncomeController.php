@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\tbl_income;
 use App\tbl_income_detail;
 
@@ -18,9 +19,26 @@ class IncomeController extends Controller
             else{
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
-        }else{
-            $income = tbl_income::all();
+        }else if($request->monthly=='allmonth'){
+                
+                $income=DB::table('tbl_income')
+                            ->select(DB::raw('YEAR(tbl_income.income_date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income.income_total) as income_total'))
+                            ->join('tbl_month', function ($join) {
+                                $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_income.income_date)'));
+                                    
+                            })
+                            ->groupBy(DB::raw('YEAR(tbl_income.income_date)'),'tbl_month.month_name')
+                            ->get();
+                          
             if(sizeof($income)){
+                return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+             $income = tbl_income::all();
+             if(sizeof($income)){
                 return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
             else{

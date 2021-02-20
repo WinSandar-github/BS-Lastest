@@ -45,7 +45,6 @@ function getOutcome() {
         }
     });
 }
-
 function addOutcomeDetailInfo(outcomeId) {
     $("#outcomeForm").attr('action', 'javascript:updateOutcome()');
     $("#outcome_id").val(outcomeId);
@@ -166,19 +165,17 @@ function getOutcomeByMonth(){
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "getOutcome",
-        data: "",
+        data: "monthly=allmonth",
         success: function (data) {
             data.forEach(function (element) {
-                var tr = "<tr  onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td >" + new Date(element.outcome_date).getFullYear() + "</td>";
-                tr += "<td >" + formatMonth(element.outcome_date) + "</td>";
-                tr += "<td >" + formatDate(element.outcome_date) + "</td>";
+                var tr = "<tr>";
+                tr += "<td >" + element.year + "</td>";
+                tr += "<td >" + element.month + "</td>";
+                tr += "<td >" + element.status + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"" + encodeURIComponent(element.outcome_date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_outcome_container").append(tr);

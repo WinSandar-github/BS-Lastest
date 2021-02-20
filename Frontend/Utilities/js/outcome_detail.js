@@ -56,7 +56,6 @@ function getOutcomeDetailByOutcomeId(outcome_id) {
         data: "outcome_id=" +outcome_id,
         success: function (data) {
             data.forEach(function (element) {
-                
                 var tr = "<tr>";
                 tr += "<td >" + formatDate(element.outcome_date) + "</td>";
                 tr += "<td >" +  element.outcome_reason+ "</td>";

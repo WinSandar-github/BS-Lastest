@@ -123,7 +123,16 @@ function startDataTable(table) {
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
-    
+     $(table).DataTable().columns().header().each(function(column){
+        if($(column).text() === 'Income Date'){
+            column = $(column).text("Income Status");
+            
+        }else if($(column).text() === 'Outcome Date'){
+            column = $(column).text("Outcome Status");
+            
+        }
+        
+    });
 }
 function customDataTable(table) {
 
@@ -174,3 +183,4 @@ function formatMonth(month){
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     return months[new Date(month).getMonth()];
 }
+

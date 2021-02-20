@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\tbl_outcome;
 use App\tbl_outcome_detail;
 
@@ -18,8 +19,25 @@ class OutcomeController extends Controller
             else{
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
+        }else if($request->monthly=='allmonth'){
+                
+            $outcome=DB::table('tbl_outcome')
+                        ->select(DB::raw('YEAR(tbl_outcome.outcome_date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_outcome.outcome_total) as outcome_total'))
+                        ->join('tbl_month', function ($join) {
+                            $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_outcome.outcome_date)'));
+                                
+                        })
+                        ->groupBy(DB::raw('YEAR(tbl_outcome.outcome_date)'),'tbl_month.month_name')
+                        ->get();
+                      
+            if(sizeof($outcome)){
+                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
         }else{
-            $outcome = tbl_outcome::all();
+                $outcome = tbl_outcome::all();
             if(sizeof($outcome)){
                 return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
@@ -27,7 +45,7 @@ class OutcomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }
-            
+                
     }
 
     public function createOutcome(Request $request)
