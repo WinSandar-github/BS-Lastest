@@ -62,25 +62,18 @@
                         <h3 class="card-title">Users Information</h3>
                       </div>
                   <div class="card-body">
-                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#insertModal">
-                        <i class="fas fa-plus fa-sm"> Add New</i>
-                    </button>
                     <table id="tbl_customer" class="table table-bordered table-striped full-width mt-3">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>ID</th>
-                                <th>Phone</th>
                                 <th>Address</th>
-                                <th>IP</th>
+                                <th>Phone</th>
                                 <th>Plan</th>
-                                <th>Pon</th>
-                                <th>Sn</th>  
-                                <th>Dn</th>
-                                <th>Price</th>
-                                <th>Description</th>
-                                <th></th>
+                                <th>Billing Date</th>
+                                <th>Total Price</th>  
+                                <th>Paid For</th>
                             </tr>
                         </thead>
                         <tbody id="tbl_customer_body" class="hoverTable"></tbody>
@@ -111,28 +104,21 @@
             </div>
             <div class="modal-body">
                 <form id="customerForm">
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <label class="col-form-label">Registeration Date</label>
-                      <input type="text" class="form-control" id="registeration_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Enter Name">
-                  </div>
-
-                  </div>
                 <div class="form-group row">
+                    <!-- User Name -->
+                    <div class="col-md-6">
+                        <label class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter Name">
+                    </div>
+
+                    <!-- Email -->
                     <div class="col-md-6">
                         <label class="col-form-label">ID</label>
                         <input type="email" class="form-control" id="code" placeholder="Enter ID">
                     </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Phone</label>
-                      <input type="email" class="form-control" id="phone" placeholder="Enter Phone No">
-                  </div>
                 </div>
                 <div class="form-group row">
+                    <!-- Phone -->
                     <div class="col-md-12">
                         <label class="col-form-label">Address</label>
                         <input type="tel" class="form-control" id="address" placeholder="Enter Address">
@@ -193,77 +179,35 @@
           </div>
         </div>
     </div>
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update System User</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-              <form id="updateUserForm">
-                <input type="hidden" name="" id="userId">
-              <!-- <div class="text-center"> 
-                  <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
-                  <input id="profile-image-upload" class="hidden" type="file">
-               <div style="color:#999;" >click here to change profile image</div>
-              </div>  -->
+              <form id="paymentForm">
+               <input type="hidden" id="customerId">
               <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">User Name</label>
-                      <input type="text" class="form-control" id="update_name" placeholder="Enter Name">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" id="update_email" placeholder="Enter Email Address">
+                  <div class="col-md-12">
+                      <label class="col-form-label">Pay Date</label>
+                      <input type="text" class="form-control" id="pay_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
                   </div>
               </div>
               <div class="form-group row">
-                  <!-- Phone -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Phone</label>
-                      <input type="tel" class="form-control" id="update_phone" placeholder="Enter Phone Number">
-                  </div>
 
-                  <!-- User Roles -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">User Role</label>
-                      <select class="form-control" id="update_role">
-                          <option selected disabled>Seect</option>
-                          <option value="0">Admin</optilon>
-                          <option value="1">Receptionist</option>
-                      </select>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
-              </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Confirm Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control confirm_add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_confirm_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
+                <div class="col-md-12">
+                  <label class="col-form-label">Additional Charges</label>
+                  <input type="number" class="form-control" id="charges" placeholder="Enter Additional Charges">
+                </div>
               </div>
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-sm" onclick="updateUser();"><i class="fas fa-save"></i>Update</button>
+            <button type="button" class="btn btn-info btn-sm" onclick="createPayment();"><i class="fas fa-save"></i> Add</button>
           </div>
         </div>
       </div>
@@ -300,10 +244,10 @@
   <!--Toastr-->
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
 
-  <script src="../../Utilities/js/customer.js"></script>
+  <script src="../../Utilities/js/customer_payment.js"></script>
   
   <script>
-    $('#dob').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     $(function() {
         $('#profile-image1').on('click', function() {

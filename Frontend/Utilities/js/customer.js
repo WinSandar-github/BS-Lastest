@@ -3,6 +3,8 @@ function createCustomer(){
     if(result){
         var customer={};
         customer["name"]=$("#name").val();
+        customer["regDate"]=$("#registeration_date").val();
+        customer["phone"]=$("#phone").val();
         customer["code"]=$("#code").val();
         customer["address"]=$("#address").val();
         customer["code"]=$("#code").val();
@@ -44,6 +46,7 @@ function getCustomer(){
                 tr += "<td >" +  + "</td>";
                 tr += "<td >" + element.name + "</td>";
                 tr += "<td >" + element.code + "</td>";
+                tr += "<td >" + element.phone + "</td>";
                 tr += "<td >" + element.address + "</td>";
                 tr += "<td >" + element.ip + "</td>";
                 tr += "<td >" + element.plan + "</td>";
