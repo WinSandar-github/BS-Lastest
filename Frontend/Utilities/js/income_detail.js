@@ -1,7 +1,7 @@
 function createIncomeDetail() {
     var income_detail = {};
     income_detail['income_id']=$("#income_id").val();
-    income_detail['income_date']=$("#income_date").val();
+    income_detail['income_date']=formatDate($("#income_date").val());
     income_detail['income_reason']=$("#income_reason").val();
     income_detail['income_unit_amount']=removeComma($("#income_amount").val());
     $.ajax({
@@ -26,7 +26,7 @@ function createIncomeDetail() {
 function addIncomeDetail() {
     var income_detail = {};
     income_detail['income_id']=$("#income_id").val();
-    income_detail['income_date']=$("#income_detail_date").val();
+    income_detail['income_date']=formatDate($("#income_detail_date").val());
     income_detail['income_reason']=$("#income_detail_reason").val();
     income_detail['income_unit_amount']=removeComma($("#income_detail_amount").val());
     $.ajax({
@@ -58,7 +58,7 @@ function getIncomeDetailByIncomeId(income_id) {
             data.forEach(function (element) {
                 
                 var tr = "<tr>";
-                tr += "<td >" + element.income_date + "</td>";
+                tr += "<td >" + formatDate(element.income_date) + "</td>";
                 tr += "<td >" +  element.income_reason+ "</td>";
                 tr += "<td class='text-right'>" + thousands_separators( element.income_unit_amount)+ "</td>";
                 tr += "</tr>";

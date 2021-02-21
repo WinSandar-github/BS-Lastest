@@ -14,8 +14,7 @@ class IncomeDetailController extends Controller
             $data=json_decode($request->getContent(), true);
             $income_detail=new tbl_income_detail();
             $income_detail->income_id=$data['income_id'];
-            $date=explode('/',$data['income_date']);
-            $income_detail->income_date=$date[2].'-'.$date[1].'-'.$date[0];
+            $income_detail->income_date=$data['income_date'];
             $income_detail->income_reason=$data['income_reason'];
             $income_detail->income_unit_amount=$data['income_unit_amount'];
             $income_detail->save();

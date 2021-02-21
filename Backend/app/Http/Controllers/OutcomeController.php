@@ -3,28 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 use App\tbl_outcome;
 use App\tbl_outcome_detail;
 
 class OutcomeController extends Controller
 {
-    public function getOutcome()
+    public function getOutcome(Request $request)
     {
-        $outcome = tbl_outcome::all();
-        if(sizeof($outcome)){
-            return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        if($request->create_date){
+            $outcome = tbl_outcome::whereDate('outcome_date', $request->create_date)->get();
+            if(sizeof($outcome)){
+                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        }else if($request->monthly=='allmonth'){
+                
+            $outcome=DB::table('tbl_outcome')
+                        ->select(DB::raw('YEAR(tbl_outcome.outcome_date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_outcome.outcome_total) as outcome_total'))
+                        ->join('tbl_month', function ($join) {
+                            $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_outcome.outcome_date)'));
+                                
+                        })
+                        ->groupBy(DB::raw('YEAR(tbl_outcome.outcome_date)'),'tbl_month.month_name')
+                        ->get();
+                      
+            if(sizeof($outcome)){
+                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        }else{
+                $outcome = tbl_outcome::all();
+            if(sizeof($outcome)){
+                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+            else{
+                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
         }
-        else{
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
+                
     }
 
     public function createOutcome(Request $request)
     {
         try{
             $outcome=new tbl_outcome();
-            $date=explode('/',$request->outcome_date);
-            $outcome->outcome_date=$date[2].'-'.$date[1].'-'.$date[0];
+            $outcome->outcome_date=$request->outcome_date;
             $outcome->outcome_total=$request->outcome_total;
             $outcome->save();
            return response()->json($outcome, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
