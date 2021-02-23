@@ -13,10 +13,11 @@ class CreateTblIncomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_income', function (Blueprint $table) {
+        Schema::create('tbl_income_outcome', function (Blueprint $table) {
             $table->id();
-            $table->date('income_date');
-            $table->string('income_total',225);
+            $table->date('date');
+            $table->bigInteger('income_total')->default(0);
+            $table->bigInteger('outcome_total')->default(0);
             $table->timestamps();
         });
     }
