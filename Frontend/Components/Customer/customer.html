@@ -1,134 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BS | Customer</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../Utilities/plugins/fontawesome-free/css/all.min.css">
-  <!-- Icheck-->
-  <link rel="stylesheet" href="../../Utilities/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../Utilities/dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-  <!--Toastr-->
-  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
-  
-  <link rel="stylesheet" href="../../Utilities/css/user.css" class="css">
-  <link rel="stylesheet" href="../../Utilities/css/common.css">
-  <link rel="stylesheet" href="../../Utilities/css/login.css">
-  <style>
-    tfoot input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>IQNet &mdash; Users</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- CSS Libraries -->
+  <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+   <!--Authentication JS-->
+   <script src="../../Utilities/js/auth.js"></script>
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed accent-info text-sm">
-  <div id="overlay">
-    <div id="loader" class="spinner-border">
-    </div>
-  </div>
-  <div class="wrapper">
+
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
     
-    <!-- Navbar -->
-    <header class="main-header navbar navbar-expand navbar-dark navbar-info text-sm"></header>
-
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar elevation-4 sidebar-dark-info"></aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="../../Components/Auth/auth-login.html" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
       </div>
-      <!-- /.content-header -->
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="col-12 col-sm-12">
-                <div class="card card-outline card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Users Information</h3>
-                      </div>
-                  <div class="card-body">
-                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#insertModal">
-                        <i class="fas fa-plus fa-sm"> Add New</i>
-                    </button>
-                    <table id="tbl_customer" class="table table-bordered full-width mt-3">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>ID</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>IP</th>
-                                <th>Plan</th>
-                                <th>Pon</th>
-                                <th>Sn</th>  
-                                <th>Dn</th>
-                                <th>Price</th>
-                                <th>Description</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbl_customer_body" class="hoverTable"></tbody>
-                    </table>
 
-                </div> 
-                  <!-- /.card -->
-                </div>
-              </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Users</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item">Users</div>
             </div>
-
           </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer"></footer>
-    <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form id="customerForm">
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <label class="col-form-label">Registeration Date</label>
-                      <input type="text" class="form-control" id="registeration_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Enter Name">
-                  </div>
 
+          <div class="section-body">
+            <div class="row">
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Default</h4>
                   </div>
+<<<<<<< HEAD
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label class="col-form-label">ID</label>
@@ -143,198 +81,256 @@
                     <div class="col-md-12">
                         <label class="col-form-label">Address</label>
                         <input type="tel" class="form-control" id="address" placeholder="Enter Address">
+=======
+                  <div class="card-body">
+                    <div class="alert alert-primary">
+                      This is a primary alert.
                     </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">IP</label>
-                      <input type="text" class="form-control" id="ip" placeholder="Enter IP">
+                    <div class="alert alert-secondary">
+                      This is a secondary alert.
+                    </div>
+                    <div class="alert alert-success">
+                      This is a success alert.
+>>>>>>> 35e7de03b4c1a420eaf441407a1a476aeeebb683
+                    </div>
+                    <div class="alert alert-danger">
+                      This is a danger alert.
+                    </div>
+                    <div class="alert alert-warning">
+                      This is a warning alert.
+                    </div>
+                    <div class="alert alert-info">
+                      This is a info alert.
+                    </div>
+                    <div class="alert alert-light">
+                      This is a light alert.
+                    </div>
+                    <div class="alert alert-dark">
+                      This is a dark alert.
+                    </div>
                   </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Icon</h4>
+                  </div>
+<<<<<<< HEAD
 
                   <!-- Email -->
                   <div class="col-md-6">
                       <label class="col-form-label">PLan</label>
                       <input type="text" class="form-control" id="plan" placeholder="Enter Plan">
+=======
+                  <div class="card-body">
+                    <div class="alert alert-primary alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Primary</div>
+                        This is a primary alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-secondary alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Secondary</div>
+                        This is a secondary alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-success alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Success</div>
+                        This is a success alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-danger alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Danger</div>
+                        This is a danger alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-warning alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Warning</div>
+                        This is a warning alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-info alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Info</div>
+                        This is a info alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-light alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Light</div>
+                        This is a light alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-dark alert-has-icon">
+                      <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                      <div class="alert-body">
+                        <div class="alert-title">Dark</div>
+                        This is a dark alert.
+                      </div>
+                    </div>
+>>>>>>> 35e7de03b4c1a420eaf441407a1a476aeeebb683
                   </div>
                 </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Pon</label>
-                      <input type="text" class="form-control" id="pon" placeholder="Enter Pon">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Sn</label>
-                      <input type="text" class="form-control" id="sn" placeholder="Enter Sn">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Dn</label>
-                      <input type="text" class="form-control" id="dn" placeholder="Enter Dn">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Price</label>
-                      <input type="number" class="form-control" id="price" placeholder="Enter Price">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-12">
-                      <label class="col-form-label">Description</label>
-                      <textarea type="text" class="form-control" id="desc" placeholder="Enter Description"></textarea>
-
-                  </div>
               </div>
-                </form>
+              <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Title</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="alert alert-primary">
+                      <div class="alert-title">Primary</div>
+                      This is a primary alert.
+                    </div>
+                    <div class="alert alert-secondary">
+                      <div class="alert-title">Secondary</div>
+                      This is a secondary alert.
+                    </div>
+                    <div class="alert alert-success">
+                      <div class="alert-title">Success</div>
+                      This is a success alert.
+                    </div>
+                    <div class="alert alert-danger">
+                      <div class="alert-title">Danger</div>
+                      This is a danger alert.
+                    </div>
+                    <div class="alert alert-warning">
+                      <div class="alert-title">Warning</div>
+                      This is a warning alert.
+                    </div>
+                    <div class="alert alert-info">
+                      <div class="alert-title">Info</div>
+                      This is a info alert.
+                    </div>
+                    <div class="alert alert-light">
+                      <div class="alert-title">Light</div>
+                      This is a light alert.
+                    </div>
+                    <div class="alert alert-dark">
+                      <div class="alert-title">Dark</div>
+                      This is a dark alert.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Dismissable</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="alert alert-primary alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a primary alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-secondary alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a secondary alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-success alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a success alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a danger alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a warning alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-info alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a info alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-light alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a light alert.
+                      </div>
+                    </div>
+                    <div class="alert alert-dark alert-dismissible show fade">
+                      <div class="alert-body">
+                        <button class="close" data-dismiss="alert">
+                          <span>&times;</span>
+                        </button>
+                        This is a dark alert.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-info btn-sm" onclick="createCustomer();"><i class="fas fa-save fa-sm"> Save</i> </button>
-            </div>
           </div>
-        </div>
-    </div>
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form id="updateUserForm">
-                <input type="hidden" name="" id="userId">
-              <!-- <div class="text-center"> 
-                  <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
-                  <input id="profile-image-upload" class="hidden" type="file">
-               <div style="color:#999;" >click here to change profile image</div>
-              </div>  -->
-              <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Name</label>
-                      <input type="text" class="form-control" id="update_name" placeholder="Enter Name">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">ID</label>
-                      <input type="text" class="form-control" id="update_code" placeholder="Enter ID">
-                  </div>
-              </div>
-              <div class="form-group row">
-                <!-- Phone -->
-                <div class="col-md-12">
-                    <label class="col-form-label">Address</label>
-                    <input type="tel" class="form-control" id="update_address" placeholder="Enter Address">
-                </div>
-              </div>
-              <div class="form-group row">
-                <!-- User Name -->
-                <div class="col-md-6">
-                    <label class="col-form-label">IP</label>
-                    <input type="text" class="form-control" id="update_ip" placeholder="Enter IP">
-                </div>
-
-                <!-- Email -->
-                <div class="col-md-6">
-                    <label class="col-form-label">PLan</label>
-                    <input type="text" class="form-control" id="update_plan" placeholder="Enter Plan">
-                </div>
-              </div>
-              <div class="form-group row">
-                <!-- User Name -->
-                <div class="col-md-6">
-                    <label class="col-form-label">Pon</label>
-                    <input type="text" class="form-control" id="update_pon" placeholder="Enter Pon">
-                </div>
-
-                <!-- Email -->
-                <div class="col-md-6">
-                    <label class="col-form-label">Sn</label>
-                    <input type="text" class="form-control" id="update_sn" placeholder="Enter Sn">
-                </div>
-              </div>
-              <div class="form-group row">
-                <!-- User Name -->
-                <div class="col-md-6">
-                    <label class="col-form-label">Dn</label>
-                    <input type="text" class="form-control" id="update_dn" placeholder="Enter Dn">
-                </div>
-
-                <!-- Email -->
-                <div class="col-md-6">
-                    <label class="col-form-label">Price</label>
-                    <input type="number" class="form-control" id="update_price" placeholder="Enter Price">
-                </div>
-              </div>
-              <div class="form-group row">
-                <!-- User Name -->
-                <div class="col-md-12">
-                    <label class="col-form-label">Description</label>
-                    <textarea type="text" class="form-control" id="update_desc" placeholder="Enter Description"></textarea>
-
-                </div>
-            </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-info btn-sm" form="updateUserForm"><i class="fas fa-save"></i>Update</button>
-          </div>
-        </div>
+        </section>
       </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+        </div>
+        <div class="footer-right">
+          2.3.0
+        </div>
+      </footer>
+    </div>
   </div>
-    <!-- /.control-sidebar -->
-  </div>
-  <!-- ./wrapper -->
-  <!-- jQuery -->
-  <script src="../../Utilities/plugins/jquery/jquery.min.js"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="../../Utilities/plugins/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge('uibutton', $.ui.button)
-  </script>
-  <!-- Bootstrap 4-->
-  <script src="../../Utilities/plugins/bootstrap/js/bootstrap.min.js"></script>
-  <!-- overlayScrollbars -->
-  <script src="../../Utilities/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../../Utilities/dist/js/adminlte.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="../../Utilities/dist/js/demo.js"></script>
-  <script src="../../Components/Main/js/adminlte_view.js"></script>
-  <!-- DataTables -->
-  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <!-- InputMask -->
-  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
-  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
-  <script src="../../Utilities/js/common.js"></script>
-  <!--Toastr-->
-  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
 
+  <!-- General JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="../../assets/js/stisla.js"></script>
+
+  <!-- JS Libraies -->
+  <script src="../node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+  <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+  <script src="../node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
+  <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+  <script src="../Main/js/default_template.js.js"></script>
+  <!-- Template JS File -->
+  <script src="../../assets/js/scripts.js"></script>
+  <script src="../../assets/js/custom.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="../../assets/js/page/index.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
-  
-  <script>
-    $('#dob').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    $(function() {
-        $('#profile-image1').on('click', function() {
-        $('#profile-image-upload').click();
-        });
-    });     
-    getCustomer();  
-  </script>
 </body>
 </html>

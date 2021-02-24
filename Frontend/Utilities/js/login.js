@@ -1,5 +1,6 @@
-function login()
+function login(e)
 {
+    e.preventDefault();
     var email = $('#email').val();
     var password = $('#password').val();
     var data = {};
@@ -10,7 +11,6 @@ function login()
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             if (xhttp.responseText.trim() ==0) {
                 errorMessage("Authentication Failed!");
-                
             }
             else {
                 var obj = JSON.parse((xhttp.responseText));
