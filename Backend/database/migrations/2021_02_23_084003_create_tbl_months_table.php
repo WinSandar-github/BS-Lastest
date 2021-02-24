@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblOutcomesTable extends Migration
+class CreateTblMonthsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateTblOutcomesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_outcome', function (Blueprint $table) {
+        Schema::create('tbl_month', function (Blueprint $table) {
             $table->id();
-            $table->date('outcome_date');
-            $table->string('outcome_total',225);
+            $table->string('month_name',225);
             $table->timestamps();
         });
+        Artisan::call('db:seed',[
+            '--class' => MonthSeeder::class
+     ]);
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateTblOutcomesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_outcomes');
+        Schema::dropIfExists('tbl_months');
     }
 }

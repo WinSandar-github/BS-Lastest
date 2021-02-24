@@ -25,9 +25,13 @@
   <!--Toastr-->
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="../../Utilities/css/common.css">
-
+  <link rel="stylesheet" href="../../Utilities/css/login.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-navbar-fixed accent-info text-sm">
+  <div id="overlay">
+    <div id="loader" class="spinner-border">
+    </div>
+  </div>
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -63,53 +67,50 @@
                                 <div class="card">
                                   
                                   <div class="card-body">
-                                    <table id='tbl_total' class="table table-bordered mt-3">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Income</th>
-                                                <th>Outcome</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbl_total_container"></tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th colspan="3" class="text-right">Total:</th>
-                                                <th class="text-right" id="total"></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <table id='tbl_total' class="table table-bordered mt-3">
+                                          <thead>
+                                              <tr>
+                                                  <th>Date</th>
+                                                  <th>Income</th>
+                                                  <th>Outcome</th>
+                                                  <th>Total</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_total_container"></tbody>
+                                          <tfoot>
+                                              <tr>
+                                                  <th colspan="3" class="text-right">Total:</th>
+                                                  <th class="text-right" id="total"></th>
+                                              </tr>
+                                          </tfoot>
+                                      </table>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <u>Detail</u>
+                                        <table id='tbl_total_detail' class="table table-bordered table-striped">
+                                          <thead>
+                                              <tr>
+                                                  <th>Date</th>
+                                                  <th>Reason</th>
+                                                  <th>Amount</th>
+                                                  
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_total_detail_container"></tbody>
+                                      </table>
+                                      </div>
+                                    </div>
                                   </div>
                                   <!-- /.card-body -->
                                 </div>
                                 
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                  <div class="card-header">
-                                    <h3 class="card-title">Detail</h3>
-                                  </div>
-                                  <div class="card-body">
-                                    <table id='tbl_total_detail' class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Reason</th>
-                                                <th>Amount</th>
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbl_total_detail_container"></tbody>
-                                    </table>
-                                  </div>
-                                  <!-- /.card-body -->
-                                </div>
-                                
-                            </div>
-                          </div>
+                          
                           
                       </div>
                       

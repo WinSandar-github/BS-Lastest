@@ -47,30 +47,35 @@ function addIncomeDetail() {
         }
     });
 }
-function getIncomeDetailByIncomeId(income_id) {
+function getIncomeDetailByIncomeId(income_outcome_id) {
     destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
     destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getIncomeDetailByIncomeId",
-        data: "income_id=" +income_id,
+        data: "income_outcome_id=" +income_outcome_id,
         success: function (data) {
             data.forEach(function (element) {
                 
                 var tr = "<tr>";
-                tr += "<td >" + formatDate(element.income_date) + "</td>";
-                tr += "<td >" +  element.income_reason+ "</td>";
-                tr += "<td class='text-right'>" + thousands_separators( element.income_unit_amount)+ "</td>";
+                tr += "<td >" + formatDate(element.date) + "</td>";
+                tr += "<td >" +  element.reason+ "</td>";
+                tr += "<td class='text-right'>" + thousands_separators( element.unit_amount)+ "</td>";
                 tr += "</tr>";
                 $('#tbl_income_detail_container').append(tr);
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_income_detail");
             startDataTable("#tbl_total_detail");
+            timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income_detail", "#tbl_income_detail_container");
             dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
+            hideLoad();
         }
     });
 }

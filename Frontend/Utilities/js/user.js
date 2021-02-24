@@ -38,6 +38,9 @@ function getUser(){
     
     destroyDatatable("#tbl_user", "#tbl_user_container");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getUser",
         data: "",
@@ -59,7 +62,7 @@ function getUser(){
 
             });
             startDataTable("#tbl_user");
-
+            timeLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_user", "#tbl_user_container");

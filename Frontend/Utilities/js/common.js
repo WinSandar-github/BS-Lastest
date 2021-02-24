@@ -88,6 +88,7 @@ function dataMessage(message, table, tableBody) {
     if(noOfColumn>=11){
       $(table).addClass('table-responsive');
     }
+    
 }
 function numberRows() {
     $('table tbody tr').each(function (idx) {
@@ -123,48 +124,7 @@ function startDataTable(table) {
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
-     $(table).DataTable().columns().header().each(function(column){
-        if($(column).text() === 'Income Date'){
-            column = $(column).text("Income Status");
-            
-        }else if($(column).text() === 'Outcome Date'){
-            column = $(column).text("Outcome Status");
-            
-        }
-        
-    });
-}
-function customDataTable(table) {
-
-    $(table).DataTable({
-        'destroy': true,
-        'paging': true,
-        'lengthChange': false,
-        "pageLength": 5,
-        'searching': false,
-        'ordering': true,
-        'info': false,
-        'autoWidth': false,
-        "scrollX": true,
-        'select': true,
-        "order": [[0, "desc"]],
-        "columnDefs": [
-            {
-                "targets": [0],
-                "visible": false,
-                "searchable": false
-            },
-            {
-                "targets": [1],
-                "visible": false
-            }
-        ]
-    });
-    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
-        $($.fn.dataTable.tables(true)).DataTable()
-           .columns.adjust();
-     });
-    
+     
 }
 function logout() {
     (localStorage.getItem("userinfo")) && localStorage.removeItem("userinfo");
@@ -172,6 +132,11 @@ function logout() {
 }
 function showLoad() {
     document.getElementById("overlay").style.display = "block";
+    
+    
+}
+function hideLoad() {
+    document.getElementById("overlay").style.display = "none";
     
 }
 function formatDate(date){
@@ -183,4 +148,8 @@ function formatMonth(month){
     var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
     return months[new Date(month).getMonth()];
 }
-
+function timeLoad(){
+    setTimeout(() => {
+        hideLoad();
+      }, 1000);
+}
