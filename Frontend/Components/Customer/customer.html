@@ -120,7 +120,7 @@
                     <!-- Email -->
                     <div class="col-md-6">
                         <label class="col-form-label">ID</label>
-                        <input type="email" class="form-control" id="code" placeholder="Enter ID">
+                        <input type="text" class="form-control" id="code" placeholder="Enter ID">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -140,7 +140,7 @@
                   <!-- Email -->
                   <div class="col-md-6">
                       <label class="col-form-label">PLan</label>
-                      <input type="email" class="form-control" id="plan" placeholder="Enter Plan">
+                      <input type="text" class="form-control" id="plan" placeholder="Enter Plan">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -189,7 +189,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update System User</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -205,57 +205,74 @@
               <div class="form-group row">
                   <!-- User Name -->
                   <div class="col-md-6">
-                      <label class="col-form-label">User Name</label>
+                      <label class="col-form-label">Name</label>
                       <input type="text" class="form-control" id="update_name" placeholder="Enter Name">
                   </div>
 
                   <!-- Email -->
                   <div class="col-md-6">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" id="update_email" placeholder="Enter Email Address">
+                      <label class="col-form-label">ID</label>
+                      <input type="text" class="form-control" id="update_code" placeholder="Enter ID">
                   </div>
               </div>
               <div class="form-group row">
-                  <!-- Phone -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Phone</label>
-                      <input type="tel" class="form-control" id="update_phone" placeholder="Enter Phone Number">
-                  </div>
+                <!-- Phone -->
+                <div class="col-md-12">
+                    <label class="col-form-label">Address</label>
+                    <input type="tel" class="form-control" id="update_address" placeholder="Enter Address">
+                </div>
+              </div>
+              <div class="form-group row">
+                <!-- User Name -->
+                <div class="col-md-6">
+                    <label class="col-form-label">IP</label>
+                    <input type="text" class="form-control" id="update_ip" placeholder="Enter IP">
+                </div>
 
-                  <!-- User Roles -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">User Role</label>
-                      <select class="form-control" id="update_role">
-                          <option selected disabled>Seect</option>
-                          <option value="0">Admin</optilon>
-                          <option value="1">Receptionist</option>
-                      </select>
-                  </div>
+                <!-- Email -->
+                <div class="col-md-6">
+                    <label class="col-form-label">PLan</label>
+                    <input type="text" class="form-control" id="update_plan" placeholder="Enter Plan">
+                </div>
               </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
+              <div class="form-group row">
+                <!-- User Name -->
+                <div class="col-md-6">
+                    <label class="col-form-label">Pon</label>
+                    <input type="text" class="form-control" id="update_pon" placeholder="Enter Pon">
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                    <label class="col-form-label">Sn</label>
+                    <input type="text" class="form-control" id="update_sn" placeholder="Enter Sn">
+                </div>
               </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Confirm Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control confirm_add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_confirm_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
+              <div class="form-group row">
+                <!-- User Name -->
+                <div class="col-md-6">
+                    <label class="col-form-label">Dn</label>
+                    <input type="text" class="form-control" id="update_dn" placeholder="Enter Dn">
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                    <label class="col-form-label">Price</label>
+                    <input type="number" class="form-control" id="update_price" placeholder="Enter Price">
+                </div>
               </div>
+              <div class="form-group row">
+                <!-- User Name -->
+                <div class="col-md-12">
+                    <label class="col-form-label">Description</label>
+                    <textarea type="text" class="form-control" id="update_desc" placeholder="Enter Description"></textarea>
+
+                </div>
+            </div>
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-sm" onclick="updateUser();"><i class="fas fa-save"></i>Update</button>
+            <button type="submit" class="btn btn-info btn-sm" form="updateUserForm"><i class="fas fa-save"></i>Update</button>
           </div>
         </div>
       </div>

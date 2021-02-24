@@ -48,7 +48,10 @@ Route::post('deleteUser', array('middleware' => 'cors', 'uses' => 'UserControlle
 Route::post('loginValidate', array('middleware' => 'cors', 'uses' => 'LoginController@loginValidate'));
 //for Total
 Route::post('getTotal', array('middleware' => 'cors', 'uses' => 'TotalController@getTotal'));
-
+//for customer edit and delete
+Route::post('showCustomerInfo', array('middleware' => 'cors', 'uses' => 'CustomerController@showCustomerInfo'));
+Route::post('updateCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@updateCustomer'));
+Route::post('deleteCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@deleteCustomer'));
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
