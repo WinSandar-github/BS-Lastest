@@ -46,6 +46,7 @@ function getIncome() {
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");
+            timeLoad();
         }
     });
 }
@@ -194,7 +195,7 @@ function getIncomeByMonth(){
 
             });
             startDataTable('#tbl_yearincome');
-            hideLoad();
+            timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_yearincome", "#tbl_yearincome_container");

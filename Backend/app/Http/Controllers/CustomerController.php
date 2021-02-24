@@ -22,8 +22,8 @@ class CustomerController extends Controller
                 $user=new tbl_customer();
                 $user->name=$data["name"];
                 $user->code =$data["code"];
-                $timestamp = strtotime($data['regDate']);
-                $new_date = date("Y-m-d", $timestamp);
+                $timestamp =str_replace('/', '-', $data['regDate']);
+                $new_date = date('Y-m-d', strtotime($timestamp));
                 $user->reg_date=$new_date;
                 $user->phone =$data["phone"];
                 $user->address=$data["address"];

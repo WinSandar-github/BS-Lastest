@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>BS | Customer</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../Utilities/js/auth.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../Utilities/plugins/fontawesome-free/css/all.min.css">
+  <!-- Icheck-->
+  <link rel="stylesheet" href="../../Utilities/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../Utilities/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  
+</head>
+<body>
+  <!-- Main content -->
+      <section>
+        <div class="company_info">
+
+              <img src="../../Utilities/dist/img/Iqnet.png" width="200" ><br/>
+              <h4>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့</h4><br/><br/>
+              <h4 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h4>
+              <h4 class="text-orange">Thai & Chinese Call : 09 688788188</h4>
+        </div>
+        
+        <br/>
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col-2">Date:<span id="get_date"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Name:<span id="name"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            User ID  :<span id="userid"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Address:<span id="address"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Phone:<span id="phone"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            PON:<span id="pon"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Plan:<span id="plan"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Amount:<span id="amount"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Month:<span id="month"></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-8">
+            Total:<span id="total"></span>
+          </div>
+        </div>
+    </section>
+     
+  <!-- jQuery -->
+  <script src="../../Utilities/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="../../Utilities/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <!-- Bootstrap 4-->
+  <script src="../../Utilities/plugins/bootstrap/js/bootstrap.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="../../Utilities/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="../../Utilities/dist/js/adminlte.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="../../Utilities/dist/js/demo.js"></script>
+  <script src="../../Components/Main/js/adminlte_view.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
+  <script src="../../Utilities/js/customer_payment.js"></script>
+  
+  <script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    $('#get_date').append(today);
+    loadPayment();
+  </script>
+</body>
+</html>

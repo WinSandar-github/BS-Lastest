@@ -45,6 +45,7 @@ function getOutcome() {
         },
         error: function (message) {
             dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
+            timeLoad();
         }
     });
 }

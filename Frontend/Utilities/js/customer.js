@@ -37,6 +37,9 @@ function getCustomer(){
     
     destroyDatatable("#tbl_customer", "#tbl_customer_body");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getCustomer",
         data: "",
@@ -66,11 +69,12 @@ function getCustomer(){
             });
             getIndexNumber('#tbl_customer tr')
             createDataTableForCustomer("#tbl_customer");
-           
+            timeLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
+            timeLoad();
         }
     });
 
