@@ -1,5 +1,5 @@
 function createIncome() {
-    var income = "income_date=" + formatDate($("#income_date").val())+"&income_total=" + removeComma($("#income_amount").val());
+    var income = "date=" + formatDate($("#income_date").val())+"&income_total=" + removeComma($("#income_amount").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createIncome",
@@ -16,30 +16,33 @@ function createIncome() {
 }
 
 function getIncome() {
+    document.getElementById('income').style.display='block';
+    document.getElementById('yearincome').style.display='none';
     destroyDatatable("#tbl_income", "#tbl_income_container");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getIncome",
         data: "",
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td >" + new Date(element.income_date).getFullYear() + "</td>";
-                tr += "<td >" + formatMonth(element.income_date) + "</td>";
-                tr += "<td >" + formatDate(element.income_date) + "</td>";
+                tr += "<td >" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.income_date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_income_container").append(tr);
 
             });
-            customDataTable('#tbl_income');
-            
+            startDataTable('#tbl_income');
+            timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");
@@ -57,9 +60,7 @@ function addIncomeDetailInfo(incomeId) {
         data: data,
         success: function (data) {
             $("#income_id").val(data.id);
-            //var income_date=data.income_date.split('-');
-            //$("#income_detail_date").val(income_date[2]+'/'+income_date[1]+'/'+income_date[0]);
-            $('#income_detail_date').val(formatDate(data.income_date));
+            $('#income_detail_date').val(formatDate(data.date));
             $('#income_total').val(data.income_total);
             $('#income_modal').modal('toggle');
         },
@@ -77,7 +78,7 @@ function showIncomeInfo(incomeId) {
         url: BACKEND_URL + "showIncomeInfo",
         data: data,
         success: function (data) {
-            $("#income_date").val(formatDate(data.income_date));
+            $("#income_date").val(formatDate(data.date));
             $('#income_total').val(data.income_total);
         },
         error:function (message){
@@ -134,38 +135,44 @@ function getIncomeByDate(date){
     destroyDatatable("#tbl_income", "#tbl_income_container");
     destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getIncome",
         data: "create_date="+formatDate(date),
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td >" + new Date(element.income_date).getFullYear() + "</td>";
-                tr += "<td >" + formatMonth(element.income_date) + "</td>";
-                tr += "<td >" + formatDate(element.income_date) + "</td>";
+                tr += "<td >" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.income_date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_income_container").append(tr);
 
             });
-            customDataTable('#tbl_income');
-            
+            startDataTable('#tbl_income');
+            timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");
+            timeLoad();
         }
     });
 }
 function getIncomeByMonth(){
-    destroyDatatable("#tbl_income", "#tbl_income_container");
-    destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
+    document.getElementById('income').style.display='none';
+    document.getElementById('yearincome').style.display='block';
+    destroyDatatable("#tbl_yearincome", "#tbl_yearincome_container");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getIncome",
         data: "monthly=allmonth",
@@ -181,16 +188,17 @@ function getIncomeByMonth(){
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.income_date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
-                $("#tbl_income_container").append(tr);
+                $("#tbl_yearincome_container").append(tr);
 
             });
-            startDataTable('#tbl_income');
-           
+            startDataTable('#tbl_yearincome');
+            hideLoad();
         },
         error: function (message) {
-            dataMessage(message,"#tbl_income", "#tbl_income_container");
+            dataMessage(message,"#tbl_yearincome", "#tbl_yearincome_container");
         }
     });
 }
+
