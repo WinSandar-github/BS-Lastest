@@ -48,7 +48,9 @@ Route::post('deleteUser', array('middleware' => 'cors', 'uses' => 'UserControlle
 Route::post('loginValidate', array('middleware' => 'cors', 'uses' => 'LoginController@loginValidate'));
 //for Total
 Route::post('getTotal', array('middleware' => 'cors', 'uses' => 'TotalController@getTotal'));
-
+//for user payment
+Route::post('createPayment', array('middleware' => 'cors', 'uses' => 'PaymentController@createPayment'));
+Route::post('getPaymentDetail', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetail'));
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

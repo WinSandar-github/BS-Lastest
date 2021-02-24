@@ -16,7 +16,9 @@ class CreateTblCustomersTable extends Migration
         Schema::create('tbl_customer', function (Blueprint $table) {
             $table->id();
             $table->string('name','225');
+            $table->date('reg_date');
             $table->string('code','125');
+            $table->string('phone','125');
             $table->string('address','225');
             $table->string('ip','125');
             $table->string('plan','225');
@@ -24,6 +26,7 @@ class CreateTblCustomersTable extends Migration
             $table->string('sn','225');
             $table->string('dn','225');
             $table->integer('price');
+            $table->integer('total_price');
             $table->string('desc','225');
             $table->timestamps();
         });
