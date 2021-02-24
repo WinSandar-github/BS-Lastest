@@ -1,323 +1,565 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BS | Customer</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../Utilities/plugins/fontawesome-free/css/all.min.css">
-  <!-- Icheck-->
-  <link rel="stylesheet" href="../../Utilities/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../Utilities/dist/css/adminlte.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-  <!--Toastr-->
-  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
-  
-  <link rel="stylesheet" href="../../Utilities/css/user.css" class="css">
-  <link rel="stylesheet" href="../../Utilities/css/common.css">
-  <link rel="stylesheet" href="../../Utilities/css/login.css">
-  <style>
-    tfoot input {
-        width: 100%;
-        padding: 3px;
-        box-sizing: border-box;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>IQNet &mdash; Users</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!-- CSS Libraries -->
+  <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+   <!--Authentication JS-->
+   <script src="../../Utilities/js/auth.js"></script>
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed accent-info text-sm">
-  
-  <div class="wrapper">
-    <div id="overlay" style='display:block;'>
-      <div id="loader" class="spinner-border">
+
+<body>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+    
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="../../Components/Auth/auth-login.html" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
       </div>
-  </div>
-    <!-- Navbar -->
-    <header class="main-header navbar navbar-expand navbar-dark navbar-info text-sm"></header>
 
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar elevation-4 sidebar-dark-info"></aside>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <div class="content-header">
-
-      </div>
-      <!-- /.content-header -->
-      <!-- Main content -->
-      <section class="content">
-        <div class="container-fluid">
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
           <div class="row">
-            <div class="col-md-12">
-              <div class="col-12 col-sm-12">
-                <div class="card card-outline card-info">
-                    <div class="card-header">
-                        <h3 class="card-title">Users Information</h3>
-                      </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="card card-statistic-2">
+                <div class="card-stats">
+                  <div class="card-stats-title">Order Statistics -
+                    <div class="dropdown d-inline">
+                      <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
+                      <ul class="dropdown-menu dropdown-menu-sm">
+                        <li class="dropdown-title">Select Month</li>
+                        <li><a href="#" class="dropdown-item">January</a></li>
+                        <li><a href="#" class="dropdown-item">February</a></li>
+                        <li><a href="#" class="dropdown-item">March</a></li>
+                        <li><a href="#" class="dropdown-item">April</a></li>
+                        <li><a href="#" class="dropdown-item">May</a></li>
+                        <li><a href="#" class="dropdown-item">June</a></li>
+                        <li><a href="#" class="dropdown-item">July</a></li>
+                        <li><a href="#" class="dropdown-item active">August</a></li>
+                        <li><a href="#" class="dropdown-item">September</a></li>
+                        <li><a href="#" class="dropdown-item">October</a></li>
+                        <li><a href="#" class="dropdown-item">November</a></li>
+                        <li><a href="#" class="dropdown-item">December</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-stats-items">
+                    <div class="card-stats-item">
+                      <div class="card-stats-item-count">24</div>
+                      <div class="card-stats-item-label">Pending</div>
+                    </div>
+                    <div class="card-stats-item">
+                      <div class="card-stats-item-count">12</div>
+                      <div class="card-stats-item-label">Shipping</div>
+                    </div>
+                    <div class="card-stats-item">
+                      <div class="card-stats-item-count">23</div>
+                      <div class="card-stats-item-label">Completed</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-icon shadow-primary bg-primary">
+                  <i class="fas fa-archive"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Total Orders</h4>
+                  </div>
                   <div class="card-body">
-                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#insertModal">
-                        <i class="fas fa-plus fa-sm"> Add New</i>
-                    </button>
-                    <table id="tbl_customer" class="table table-bordered full-width mt-3">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>ID</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>IP</th>
-                                <th>Plan</th>
-                                <th>Pon</th>
-                                <th>Sn</th>  
-                                <th>Dn</th>
-                                <th>Price</th>
-                                <th>Description</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbl_customer_body" class="hoverTable"></tbody>
+                    59
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="card card-statistic-2">
+                <div class="card-chart">
+                  <canvas id="balance-chart" height="80"></canvas>
+                </div>
+                <div class="card-icon shadow-primary bg-primary">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Balance</h4>
+                  </div>
+                  <div class="card-body">
+                    $187,13
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="card card-statistic-2">
+                <div class="card-chart">
+                  <canvas id="sales-chart" height="80"></canvas>
+                </div>
+                <div class="card-icon shadow-primary bg-primary">
+                  <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Sales</h4>
+                  </div>
+                  <div class="card-body">
+                    4,732
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Budget vs Sales</h4>
+                </div>
+                <div class="card-body">
+                  <canvas id="myChart" height="158"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card gradient-bottom">
+                <div class="card-header">
+                  <h4>Top 5 Products</h4>
+                  <div class="card-header-action dropdown">
+                    <a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle">Month</a>
+                    <ul class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                      <li class="dropdown-title">Select Period</li>
+                      <li><a href="#" class="dropdown-item">Today</a></li>
+                      <li><a href="#" class="dropdown-item">Week</a></li>
+                      <li><a href="#" class="dropdown-item active">Month</a></li>
+                      <li><a href="#" class="dropdown-item">This Year</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="card-body" id="top-5-scroll">
+                  <ul class="list-unstyled list-unstyled-border">
+                    <li class="media">
+                      <img class="mr-3 rounded" width="55" src="../../assets/img/products/product-3-50.png" alt="product">
+                      <div class="media-body">
+                        <div class="float-right"><div class="font-weight-600 text-muted text-small">86 Sales</div></div>
+                        <div class="media-title">oPhone S9 Limited</div>
+                        <div class="mt-1">
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-primary" data-width="64%"></div>
+                            <div class="budget-price-label">$68,714</div>
+                          </div>
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-danger" data-width="43%"></div>
+                            <div class="budget-price-label">$38,700</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded" width="55" src="../../assets/img/products/product-4-50.png" alt="product">
+                      <div class="media-body">
+                        <div class="float-right"><div class="font-weight-600 text-muted text-small">67 Sales</div></div>
+                        <div class="media-title">iBook Pro 2018</div>
+                        <div class="mt-1">
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-primary" data-width="84%"></div>
+                            <div class="budget-price-label">$107,133</div>
+                          </div>
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-danger" data-width="60%"></div>
+                            <div class="budget-price-label">$91,455</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded" width="55" src="../../assets/img/products/product-1-50.png" alt="product">
+                      <div class="media-body">
+                        <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Sales</div></div>
+                        <div class="media-title">Headphone Blitz</div>
+                        <div class="mt-1">
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-primary" data-width="34%"></div>
+                            <div class="budget-price-label">$3,717</div>
+                          </div>
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-danger" data-width="28%"></div>
+                            <div class="budget-price-label">$2,835</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded" width="55" src="../../assets/img/products/product-3-50.png" alt="product">
+                      <div class="media-body">
+                        <div class="float-right"><div class="font-weight-600 text-muted text-small">28 Sales</div></div>
+                        <div class="media-title">oPhone X Lite</div>
+                        <div class="mt-1">
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-primary" data-width="45%"></div>
+                            <div class="budget-price-label">$13,972</div>
+                          </div>
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-danger" data-width="30%"></div>
+                            <div class="budget-price-label">$9,660</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="media">
+                      <img class="mr-3 rounded" width="55" src="../../assets/img/products/product-5-50.png" alt="product">
+                      <div class="media-body">
+                        <div class="float-right"><div class="font-weight-600 text-muted text-small">19 Sales</div></div>
+                        <div class="media-title">Old Camera</div>
+                        <div class="mt-1">
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-primary" data-width="35%"></div>
+                            <div class="budget-price-label">$7,391</div>
+                          </div>
+                          <div class="budget-price">
+                            <div class="budget-price-square bg-danger" data-width="28%"></div>
+                            <div class="budget-price-label">$5,472</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-footer pt-3 d-flex justify-content-center">
+                  <div class="budget-price justify-content-center">
+                    <div class="budget-price-square bg-primary" data-width="20"></div>
+                    <div class="budget-price-label">Selling Price</div>
+                  </div>
+                  <div class="budget-price justify-content-center">
+                    <div class="budget-price-square bg-danger" data-width="20"></div>
+                    <div class="budget-price-label">Budget Price</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Best Products</h4>
+                </div>
+                <div class="card-body">
+                  <div class="owl-carousel owl-theme" id="products-carousel">
+                    <div>
+                      <div class="product-item pb-3">
+                        <div class="product-image">
+                          <img alt="image" src="../../assets/img/products/product-4-50.png" class="img-fluid">
+                        </div>
+                        <div class="product-details">
+                          <div class="product-name">iBook Pro 2018</div>
+                          <div class="product-review">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                          </div>
+                          <div class="text-muted text-small">67 Sales</div>
+                          <div class="product-cta">
+                            <a href="#" class="btn btn-primary">Detail</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <img alt="image" src="../../assets/img/products/product-3-50.png" class="img-fluid">
+                        </div>
+                        <div class="product-details">
+                          <div class="product-name">oPhone S9 Limited</div>
+                          <div class="product-review">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half"></i>
+                          </div>
+                          <div class="text-muted text-small">86 Sales</div>
+                          <div class="product-cta">
+                            <a href="#" class="btn btn-primary">Detail</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <img alt="image" src="../../assets/img/products/product-1-50.png" class="img-fluid">
+                        </div>
+                        <div class="product-details">
+                          <div class="product-name">Headphone Blitz</div>
+                          <div class="product-review">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                          </div>
+                          <div class="text-muted text-small">63 Sales</div>
+                          <div class="product-cta">
+                            <a href="#" class="btn btn-primary">Detail</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Top Countries</h4>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="text-title mb-2">July</div>
+                      <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">Indonesia</div>
+                            <div class="text-small text-muted">3,282 <i class="fas fa-caret-down text-danger"></i></div>
+                          </div>
+                        </li>
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/my.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">Malaysia</div>
+                            <div class="text-small text-muted">2,976 <i class="fas fa-caret-down text-danger"></i></div>
+                          </div>
+                        </li>
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/us.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">United States</div>
+                            <div class="text-small text-muted">1,576 <i class="fas fa-caret-up text-success"></i></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-sm-6 mt-sm-0 mt-4">
+                      <div class="text-title mb-2">August</div>
+                      <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">Indonesia</div>
+                            <div class="text-small text-muted">3,486 <i class="fas fa-caret-up text-success"></i></div>
+                          </div>
+                        </li>
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/ps.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">Palestine</div>
+                            <div class="text-small text-muted">3,182 <i class="fas fa-caret-up text-success"></i></div>
+                          </div>
+                        </li>
+                        <li class="media">
+                          <img class="img-fluid mt-1 img-shadow" src="../node_modules/flag-icon-css/flags/4x3/de.svg" alt="image" width="40">
+                          <div class="media-body ml-3">
+                            <div class="media-title">Germany</div>
+                            <div class="text-small text-muted">2,317 <i class="fas fa-caret-down text-danger"></i></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Invoices</h4>
+                  <div class="card-header-action">
+                    <a href="#" class="btn btn-danger">View More <i class="fas fa-chevron-right"></i></a>
+                  </div>
+                </div>
+                <div class="card-body p-0">
+                  <div class="table-responsive table-invoice">
+                    <table class="table table-striped">
+                      <tr>
+                        <th>Invoice ID</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Action</th>
+                      </tr>
+                      <tr>
+                        <td><a href="#">INV-87239</a></td>
+                        <td class="font-weight-600">Kusnadi</td>
+                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>July 19, 2018</td>
+                        <td>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a href="#">INV-48574</a></td>
+                        <td class="font-weight-600">Hasan Basri</td>
+                        <td><div class="badge badge-success">Paid</div></td>
+                        <td>July 21, 2018</td>
+                        <td>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a href="#">INV-76824</a></td>
+                        <td class="font-weight-600">Muhamad Nuruzzaki</td>
+                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>July 22, 2018</td>
+                        <td>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a href="#">INV-84990</a></td>
+                        <td class="font-weight-600">Agung Ardiansyah</td>
+                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>July 22, 2018</td>
+                        <td>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><a href="#">INV-87320</a></td>
+                        <td class="font-weight-600">Ardian Rahardiansyah</td>
+                        <td><div class="badge badge-success">Paid</div></td>
+                        <td>July 28, 2018</td>
+                        <td>
+                          <a href="#" class="btn btn-primary">Detail</a>
+                        </td>
+                      </tr>
                     </table>
-
-                </div> 
-                  <!-- /.card -->
+                  </div>
                 </div>
               </div>
             </div>
-
-          </div>
-          <!-- /.row (main row) -->
-        </div><!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer"></footer>
-    <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-                <form id="customerForm">
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <label class="col-form-label">Registeration Date</label>
-                      <input type="text" class="form-control" id="registeration_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Name</label>
-                      <input type="text" class="form-control" id="name" placeholder="Enter Name">
+            <div class="col-md-4">
+              <div class="card card-hero">
+                <div class="card-header">
+                  <div class="card-icon">
+                    <i class="far fa-question-circle"></i>
                   </div>
-
-                  </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label class="col-form-label">ID</label>
-                        <input type="email" class="form-control" id="code" placeholder="Enter ID">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="col-form-label">Phone</label>
-                      <input type="email" class="form-control" id="phone" placeholder="Enter Phone No">
+                  <h4>14</h4>
+                  <div class="card-description">Customers need help</div>
+                </div>
+                <div class="card-body p-0">
+                  <div class="tickets-list">
+                    <a href="#" class="ticket-item">
+                      <div class="ticket-title">
+                        <h4>My order hasn't arrived yet</h4>
+                      </div>
+                      <div class="ticket-info">
+                        <div>Laila Tazkiah</div>
+                        <div class="bullet"></div>
+                        <div class="text-primary">1 min ago</div>
+                      </div>
+                    </a>
+                    <a href="#" class="ticket-item">
+                      <div class="ticket-title">
+                        <h4>Please cancel my order</h4>
+                      </div>
+                      <div class="ticket-info">
+                        <div>Rizal Fakhri</div>
+                        <div class="bullet"></div>
+                        <div>2 hours ago</div>
+                      </div>
+                    </a>
+                    <a href="#" class="ticket-item">
+                      <div class="ticket-title">
+                        <h4>Do you see my mother?</h4>
+                      </div>
+                      <div class="ticket-info">
+                        <div>Syahdan Ubaidillah</div>
+                        <div class="bullet"></div>
+                        <div>6 hours ago</div>
+                      </div>
+                    </a>
+                    <a href="features-tickets.html" class="ticket-item ticket-more">
+                      View All <i class="fas fa-chevron-right"></i>
+                    </a>
                   </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-md-12">
-                        <label class="col-form-label">Address</label>
-                        <input type="tel" class="form-control" id="address" placeholder="Enter Address">
-                    </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">IP</label>
-                      <input type="text" class="form-control" id="ip" placeholder="Enter IP">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">PLan</label>
-                      <input type="email" class="form-control" id="plan" placeholder="Enter Plan">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Pon</label>
-                      <input type="text" class="form-control" id="pon" placeholder="Enter Pon">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Sn</label>
-                      <input type="text" class="form-control" id="sn" placeholder="Enter Sn">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Dn</label>
-                      <input type="text" class="form-control" id="dn" placeholder="Enter Dn">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Price</label>
-                      <input type="number" class="form-control" id="price" placeholder="Enter Price">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-12">
-                      <label class="col-form-label">Description</label>
-                      <textarea type="text" class="form-control" id="desc" placeholder="Enter Description"></textarea>
-
-                  </div>
               </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-info btn-sm" onclick="createCustomer();"><i class="fas fa-save fa-sm"> Save</i> </button>
             </div>
           </div>
-        </div>
-    </div>
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update System User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form id="updateUserForm">
-                <input type="hidden" name="" id="userId">
-              <!-- <div class="text-center"> 
-                  <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
-                  <input id="profile-image-upload" class="hidden" type="file">
-               <div style="color:#999;" >click here to change profile image</div>
-              </div>  -->
-              <div class="form-group row">
-                  <!-- User Name -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">User Name</label>
-                      <input type="text" class="form-control" id="update_name" placeholder="Enter Name">
-                  </div>
-
-                  <!-- Email -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" id="update_email" placeholder="Enter Email Address">
-                  </div>
-              </div>
-              <div class="form-group row">
-                  <!-- Phone -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">Phone</label>
-                      <input type="tel" class="form-control" id="update_phone" placeholder="Enter Phone Number">
-                  </div>
-
-                  <!-- User Roles -->
-                  <div class="col-md-6">
-                      <label class="col-form-label">User Role</label>
-                      <select class="form-control" id="update_role">
-                          <option selected disabled>Seect</option>
-                          <option value="0">Admin</optilon>
-                          <option value="1">Receptionist</option>
-                      </select>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
-              </div>
-              <div class="form-group">
-                  <label for="inputDob" class="col-form-label">Confirm Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control confirm_add_pwd " id="user_password" placeholder="Enter Password" autocomplete="off"/>
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default update_confirm_first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
-                  <p class="text-red">*Compulsory*</p>
-              </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-sm" onclick="updateUser();"><i class="fas fa-save"></i>Update</button>
-          </div>
-        </div>
+        </section>
       </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+        </div>
+        <div class="footer-right">
+          2.3.0
+        </div>
+      </footer>
+    </div>
   </div>
-    <!-- /.control-sidebar -->
-  </div>
-  <!-- ./wrapper -->
-  <!-- jQuery -->
-  <script src="../../Utilities/plugins/jquery/jquery.min.js"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="../../Utilities/plugins/jquery-ui/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge('uibutton', $.ui.button)
-  </script>
-  <!-- Bootstrap 4-->
-  <script src="../../Utilities/plugins/bootstrap/js/bootstrap.min.js"></script>
-  <!-- overlayScrollbars -->
-  <script src="../../Utilities/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="../../Utilities/dist/js/adminlte.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="../../Utilities/dist/js/demo.js"></script>
-  <script src="../../Components/Main/js/adminlte_view.js"></script>
-  <!-- DataTables -->
-  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <!-- InputMask -->
-  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
-  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
-  <script src="../../Utilities/js/common.js"></script>
-  <!--Toastr-->
-  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
 
+  <!-- General JS Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="../../assets/js/stisla.js"></script>
+
+  <!-- JS Libraies -->
+  <script src="../node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+  <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
+  <script src="../node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
+  <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+  <script src="../Main/js/default_template.js.js"></script>
+  <!-- Template JS File -->
+  <script src="../../assets/js/scripts.js"></script>
+  <script src="../../assets/js/custom.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="../../assets/js/page/index.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
-  
-  <script>
-    $('#dob').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    $(function() {
-        $('#profile-image1').on('click', function() {
-        $('#profile-image-upload').click();
-        });
-    });     
-    getCustomer();  
-  </script>
 </body>
 </html>
