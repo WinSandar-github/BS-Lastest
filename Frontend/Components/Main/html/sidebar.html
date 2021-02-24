@@ -1,85 +1,23 @@
-<!-- Brand Logo -->
-<a href="index3.html" class="brand-link navbar-info">
-    <img src="../../Utilities/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">BILLING SYSTEM</span>
-  </a>
-  
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <img src="../../Utilities/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-      </div>
-      <div class="info">
-        <a class="d-block" id="user_name"></a>
-      </div>  
+
+  <aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+      <a href="index.html">
+        IQNet</a>
     </div>
-  
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul id="menu" class="nav nav-pills nav-sidebar flex-column nav-legacy text-sm" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <li class="nav-item ">
-          <a href="../../Components/Home/index.html" class="nav-link">
-            <i class="nav-icon fas fa-home text-info"></i>
-            <p>
-              Home
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../../Components/Customer/customer.html" class="nav-link">
-            <i class="nav-icon fas fa-user-plus fa-sm text-orange"></i>
-            <p>
-              User
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../../Components/Customer/customer_payment.html" class="nav-link">
-            <i class="nav-icon fas fa-money-bill-wave text-warning"></i>
-            <p>
-              User Payment
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../../Components/Income_Outcome/income_outcome.html" class="nav-link">
-            <i class="nav-icon fas fa-dollar-sign text-primary"></i>
-            <p>
-              Income/Outcome
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../../Components/Total/total_price.html" class="nav-link">
-            <i class="nav-icon fas fa-file-invoice-dollar text-info"></i>
-            <p>
-              Total Price
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="../../Components/User/user.html" class="nav-link">
-            <i class="nav-icon fas fa-users text-success"></i>
-            <p>
-              System Users
-            </p>
-          </a>
-        </li>
+    <div class="sidebar-brand sidebar-brand-sm">
+      <a href="index.html">IQ</a>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="menu-header">Dashboard</li>
+        <li><a class="nav-link" href="../../Components/Home/index.html"><i class="fas fa-home"></i> <span>Home</span></a></li>
+        <li><a class="nav-link" href="../../Components/Customer/customer.html"><i class="far fa-user"></i> <span>User Registeration</span></a></li>
+        <li><a class="nav-link" href="../../Components/Customer/customer_payment.html"><i class="fas fa-money-bill"></i> <span>Payment</span></a></li>
       </ul>
-    </nav>
-    <!-- /.sidebar-menu -->
-  </div>
-  <!-- /.sidebar -->
+  </aside>
   <script>
-    //$('#menu').tree('treeview');
      url = window.location.href.split('?')[0];
-    $('#menu a').filter(function () {
-      return this.href == url;
-    }).addClass('active');
-    $("#user_name").html("");
-    $("#user_name").append(user_name);
+     $('.sidebar-menu li a').filter(function () {
+      return this.href==url;
+      
+    }).parent('li').addClass('active');
   </script>
