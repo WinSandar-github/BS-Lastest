@@ -52,6 +52,9 @@ Route::post('getTotal', array('middleware' => 'cors', 'uses' => 'TotalController
 Route::post('showCustomerInfo', array('middleware' => 'cors', 'uses' => 'CustomerController@showCustomerInfo'));
 Route::post('updateCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@updateCustomer'));
 Route::post('deleteCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@deleteCustomer'));
+//for user payment
+Route::post('createPayment', array('middleware' => 'cors', 'uses' => 'PaymentController@createPayment'));
+Route::post('getPaymentDetail', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetail'));
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

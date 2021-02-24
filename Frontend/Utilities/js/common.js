@@ -31,8 +31,7 @@ function getIndexNumber(table){
         $( this ).find( "td" ).first().html( $(this).index() + 1 );
       });
 }
-function createDataTable(table) {
-
+function createDataTableForCustomer(table){
     $(table).DataTable({
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
             { 
@@ -57,6 +56,23 @@ function createDataTable(table) {
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
+    
+}
+function createDataTable(table) {
+
+    $(table).DataTable({
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': false,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        "order": [[0, "desc"]]
+    });
     
 }
 function destroyDatatable(table, tableBody) {
