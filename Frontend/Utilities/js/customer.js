@@ -65,7 +65,7 @@ function getCustomer(){
 
             });
             getIndexNumber('#tbl_customer tr')
-            createDataTable("#tbl_customer");
+            createDataTableForCustomer("#tbl_customer");
            
 
         },

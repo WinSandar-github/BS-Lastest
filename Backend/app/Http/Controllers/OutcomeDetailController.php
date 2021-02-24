@@ -14,8 +14,7 @@ class OutcomeDetailController extends Controller
             $data=json_decode($request->getContent(), true);
             $outcome_detail=new tbl_outcome_detail();
             $outcome_detail->outcome_id=$data['outcome_id'];
-            $date=explode('/',$data['outcome_date']);
-            $outcome_detail->outcome_date=$date[2].'-'.$date[1].'-'.$date[0];
+            $outcome_detail->outcome_date=$data['outcome_date'];
             $outcome_detail->outcome_reason=$data['outcome_reason'];
             $outcome_detail->outcome_unit_amount=$data['outcome_unit_amount'];
             $outcome_detail->save();

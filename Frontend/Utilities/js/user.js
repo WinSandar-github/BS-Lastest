@@ -24,6 +24,7 @@ function createUser(){
         data: JSON.stringify(user),
         success: function (data) {
             document.getElementById("user_form").reset();
+            $('#user_modal').modal('toggle');
             successMessage(data);
             getUser();
         },
@@ -77,7 +78,7 @@ function showUserInfo(userId){
                 $("#name").val(data.name);
                 $("#email").val(data.email);
                 $("#selected_role_id").val(data.role);
-                
+                $('#user_modal').modal('toggle');
         },
         error:function (message){
           errorMessage(message);
@@ -98,6 +99,7 @@ function updateUser(){
         data: JSON.stringify(userData),
         success: function (data) {
             $("#user_form").attr('action', 'javascript:createUser()');
+            $('#user_modal').modal('toggle');
             document.getElementById("user_form").reset();
             successMessage(data);
             getUser();

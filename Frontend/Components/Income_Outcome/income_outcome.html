@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>BS | Income/Outcome</title>
+  <title>BS | Income Outcome</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="../../Utilities/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../Utilities/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/jquery-ui/jquery-ui.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
@@ -66,65 +67,46 @@
                   <div class="card-body">
                     <div class="tab-content" id="custom-tabs-four-tabContent">
                       <div class="tab-pane fade active show" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income-tab">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <form class="form-horizontal" id="income_form" autocomplete="off" name="income_form" enctype="multipart/form-data" method="post" action="javascript:createIncome();">
-                                            <input type="hidden" id="income_id" />
-                                            <input type="hidden" id="income_total" />
-                                            <!-- Form Field Start From Here Below -->
-                                            <div class="form-group row">
-                                                <label class="col-md-1 col-sm-1 col-form-label">Date</label>
-                                                <div class="col-sm-3"></div>
-                                                <label class="col-sm-1 col-form-label">Reason</label>
-                                                <div class="col-sm-3"></div>
-                                                <label class="col-sm-1 col-form-label">Amount</label>
-                                            </div>
-                                            <div class="form-group row">
-                                                
-                                                <div class="col-md-4 col-sm-4">
-                                                  <div class="input-group">
-                                                      <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                                                      <div class="input-group-append">
-                                                        <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason">
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-10"></div>
-                                                <div class="col-sm-2">
-                                                  <button type="submit" class="btn btn-info ml-auto btn-sm float-right"><i class="fas fa-save"></i> Save</button>
-                                                </div>
-                                                
-                                            </div>
-                                        </form>
-                                    </div>
-                                    
-                                </div>
-                              <!-- /.card -->
-                            </div>
-                            <!-- /.col -->
-                            
-                            <!-- /.col -->
-                          </div>
+                        
                           <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                   
                                   <div class="card-body">
+                                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#incometotal_modal">
+                                      <i class="fas fa-plus fa-sm"> Add New</i>
+                                    </button><br/><br/>
+                                    <div class="row">
+                                      
+                                      <div class="col-3 form-group">
+                                       
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-3 form-group">
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getIncomeByDate(this.value);'/>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
                                     <table id='tbl_income' class="table table-bordered table-hover mt-3">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
+                                                <th>Year</th>
+                                                <th>Month</th>
+                                                <th>Income Date</th>
                                                 <th>Amount</th>
                                                 <th></th>
                                             </tr>
@@ -161,67 +143,46 @@
                           </div>
                       </div>
                       <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <form class="form-horizontal" id="outcome_form" autocomplete="off" name="outcome_form" enctype="multipart/form-data" method="post" action="javascript:createOutcome();">
-                                            <input type="hidden" id="outcome_id" />
-                                            <input type="hidden" id="outcome_total" />
-                                            <!-- Form Field Start From Here Below -->
-                                            <div class="form-group row">
-                                                <label class="col-1 col-form-label">Date</label>
-                                                <div class="col-3"></div>
-                                                <label class="col-1 col-form-label">Reason</label>
-                                                <div class="col-3"></div>
-                                                <label class="col-1 col-form-label">Amount</label>
-                                            </div>
-                                            <div class="form-group row">
-                                                
-                                                <div class="col-md-4 col-sm-4">
-                                                   
-                                                  <div class="input-group">
-                                                      <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                                                      <div class="input-group-append">
-                                                        <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason">
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount">
-                                                </div>
-                                                
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class="col-sm-10"></div>
-                                                <div class="col-sm-2">
-                                                  <button type="submit" class="btn btn-info ml-auto btn-sm float-right"><i class="fas fa-save"></i> Save</button>
-                                                </div>
-                                                <div class="col-sm-1"></div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    
-                                </div>
-                              <!-- /.card -->
-                            </div>
-                            <!-- /.col -->
-                            
-                            <!-- /.col -->
-                          </div>
+                        
                           <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                   
                                   <div class="card-body">
+                                    <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
+                                      <i class="fas fa-plus fa-sm"> Add New</i>
+                                    </button><br/><br/>
+                                    <div class="row">
+                                      
+                                      <div class="col-3 form-group">
+                                       
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-3 form-group">
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getOutcomeByDate(this.value);'/>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                    </div>
                                     <table id='tbl_outcome' class="table table-bordered table-hover mt-3">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
+                                                <th>Year</th>
+                                                <th>Month</th>
+                                                <th>Outcome Date</th>
                                                 <th>Amount</th>
                                                 <th></th>
                                             </tr>
@@ -385,6 +346,93 @@
           </div>
         </div>
     </div>
+      <div class="modal fade" id="incometotal_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Income</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="income_form" autocomplete="off" name="income_form" enctype="multipart/form-data" method="post" action="javascript:createIncome();">
+                <input type="hidden" id="income_id" />
+                <input type="hidden" id="income_total" />
+                <!-- Form Field Start From Here Below -->
+                
+                <div class="form-group row">
+                    
+                    <div class="col-md-12 col-sm-12">
+                      <label class="col-form-label">Date</label>
+                      <div class="input-group">
+                          <input type="text" id="income_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Reason</label>
+                        <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason">
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Amount</label>
+                        <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount">
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="income_form"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="outcometotal_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Outcome</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="outcome_form" autocomplete="off" name="outcome_form" enctype="multipart/form-data" method="post" action="javascript:createOutcome();">
+                <input type="hidden" id="outcome_id" />
+                <input type="hidden" id="outcome_total" />
+                <!-- Form Field Start From Here Below -->
+                
+                <div class="form-group row">
+                     <div class="col-md-12 col-sm-12">
+                      <label class="col-form-label">Date</label>
+                      <div class="input-group">
+                          <input type="text" id="outcome_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Reason</label>
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason">
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Amount</label>
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount">
+                    </div>
+                    
+                </div>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="outcome_form"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+    </div>
   </div>
   <!-- ./wrapper -->
  <!-- jQuery -->
@@ -421,8 +469,12 @@
  <script src="../../Utilities/js/outcome.js"></script>
  <script src="../../Utilities/js/outcome_detail.js"></script>
   <script>
-    $('#income_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-    $('#outcome_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+    $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+    $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+    $('.datetimepicker-input').datepicker({
+      dateFormat: 'dd-mm-yy',
+      
+    });
     getIncome();
     getOutcome();
   </script>

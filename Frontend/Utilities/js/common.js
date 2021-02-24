@@ -1,4 +1,5 @@
 BACKEND_URL="http://localhost/bs/Backend/public/";
+//BACKEND_URL="http://localhost:8000/";
 
 var toastOptions = {
     "closeButton": true,
@@ -30,8 +31,7 @@ function getIndexNumber(table){
         $( this ).find( "td" ).first().html( $(this).index() + 1 );
       });
 }
-function createDataTable(table) {
-
+function createDataTableForCustomer(table){
     $(table).DataTable({
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
             { 
@@ -56,6 +56,23 @@ function createDataTable(table) {
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
+    
+}
+function createDataTable(table) {
+
+    $(table).DataTable({
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': false,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        "order": [[0, "desc"]]
+    });
     
 }
 function destroyDatatable(table, tableBody) {
@@ -115,7 +132,49 @@ function startDataTable(table) {
         'autoWidth': false,
         "scrollX": true,
         'select': true,
-        "order": [[0, "desc"]]
+        "order": [[0, "desc"]],
+        
+    });
+    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust();
+     });
+     $(table).DataTable().columns().header().each(function(column){
+        if($(column).text() === 'Income Date'){
+            column = $(column).text("Income Status");
+            
+        }else if($(column).text() === 'Outcome Date'){
+            column = $(column).text("Outcome Status");
+            
+        }
+        
+    });
+}
+function customDataTable(table) {
+
+    $(table).DataTable({
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': false,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        "order": [[0, "desc"]],
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [1],
+                "visible": false
+            }
+        ]
     });
     $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
@@ -131,3 +190,13 @@ function showLoad() {
     document.getElementById("overlay").style.display = "block";
     
 }
+function formatDate(date){
+    var income_date=date.split('-');
+    var date=income_date[2]+'-'+income_date[1]+'-'+income_date[0];
+    return date;
+}
+function formatMonth(month){
+    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    return months[new Date(month).getMonth()];
+}
+

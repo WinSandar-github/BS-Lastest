@@ -6,6 +6,7 @@
   <title>BS | Customer</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../../Utilities/js/auth.js"></script>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../Utilities/plugins/fontawesome-free/css/all.min.css">
   <!-- Icheck-->
@@ -21,7 +22,9 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   <!--Toastr-->
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
   
@@ -59,10 +62,10 @@
               <div class="col-12 col-sm-12">
                 <div class="card card-outline card-info">
                     <div class="card-header">
-                        <h3 class="card-title">Users Information</h3>
+                        <h3 class="card-title">Payment Information</h3>
                       </div>
                   <div class="card-body">
-                    <table id="tbl_customer" class="table table-bordered table-striped full-width mt-3">
+                    <table id="tbl_customer" class="table table-bordered full-width mt-3">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -78,6 +81,18 @@
                         </thead>
                         <tbody id="tbl_customer_body" class="hoverTable"></tbody>
                     </table>
+
+                    <u>Payment Detail</u>
+                    <table id="tbl_payment" class="table table-bordered full-width mt-3">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Date</th>
+                              <th>Additional Charges</th>
+                          </tr> 
+                      </thead>
+                      <tbody id="tbl_payment_body" class="hoverTable"></tbody>
+                  </table>
 
                 </div> 
                   <!-- /.card -->
@@ -181,7 +196,7 @@
     </div>
     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
-        <div class="modal-content">
+        <div class="modal-content">d
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
