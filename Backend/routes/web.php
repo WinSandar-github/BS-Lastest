@@ -48,6 +48,10 @@ Route::post('deleteUser', array('middleware' => 'cors', 'uses' => 'UserControlle
 Route::post('loginValidate', array('middleware' => 'cors', 'uses' => 'LoginController@loginValidate'));
 //for Total
 Route::post('getTotal', array('middleware' => 'cors', 'uses' => 'TotalController@getTotal'));
+//for customer edit and delete
+Route::post('showCustomerInfo', array('middleware' => 'cors', 'uses' => 'CustomerController@showCustomerInfo'));
+Route::post('updateCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@updateCustomer'));
+Route::post('deleteCustomer', array('middleware' => 'cors', 'uses' => 'CustomerController@deleteCustomer'));
 //for user payment
 Route::post('createPayment', array('middleware' => 'cors', 'uses' => 'PaymentController@createPayment'));
 Route::post('getPaymentDetail', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetail'));

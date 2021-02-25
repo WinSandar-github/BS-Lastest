@@ -26,6 +26,7 @@ function loadTotal(){
         },
         error: function (message) {
             dataMessage(message,"#tbl_total", "#tbl_total_container");
+            timeLoad();
         }
     });
 }

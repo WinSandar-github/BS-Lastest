@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>IQNet &mdash; Income/Outcome</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <!--Toastr-->
+  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <link rel="stylesheet" href="../../Utilities/css/login.css">
+</head>
+<body>
+  <div id="overlay">
+    <div id="loader" class="spinner-border">
+    </div>
+  </div>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+    
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="../../Components/Auth/auth-login.html" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar">
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-header">
+            <h1>Income/Outcome</h1>
+            <div class="section-header-breadcrumb">
+              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="breadcrumb-item">Users</div>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-12 col-sm-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" id="custom-tabs-income_tab" data-toggle="tab" href="#custom-tabs-income" role="tab" aria-controls="custom-tabs-income" aria-selected="true">
+                            <i class="fas fa-dollar-sign"></i> Income</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="custom-tabs-outcome_tab" data-toggle="tab" href="#custom-tabs-outcome" role="tab" aria-controls="custom-tabs-outcome" aria-selected="false">
+                            <i class="fas fa-dollar-sign"></i></i> Outcome</a>
+                        </li>
+                        
+                      </ul>
+                    </div>
+                    <div>
+                      <div class="tab-content" id="custom-tabs-four-tabContent">
+                        <div class="tab-pane fade show active" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income_tab">
+                          
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="card">
+                                    
+                                    <div class="card-body">
+                                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#incometotal_modal">
+                                        <i class="fas fa-plus fa-sm"> Add New</i>
+                                      </button><br/><br/>
+                                      <div class="row">
+                                        
+                                        <div class="col-3 form-group">
+                                         
+                                          <div class="input-group" data-target-input="nearest">
+                                            <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
+                                              <option value="" disabled selected>Search</option>
+                                              <option value="Monthly">Monthly</option>
+                                              <option value="Custom">Custom</option>
+                                            </select>
+                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-3 form-group">
+                                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                            <input type="date" class="form-control" onchange='getIncomeByDate(this.value);'/>
+                                            
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                      <div class='row' id="income">
+                                        <div class='col-12'>
+                                          <table id='tbl_income' class="table table-bordered table-hover mt-3">
+                                            <thead>
+                                                <tr>
+                                                    <th>Income Date</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_income_container"></tbody>
+                                          </table>
+                                          
+                                        </div>
+                                      </div>
+                                      <div class="row " id="yearincome">
+                                        <div class="col-12">
+                                          
+                                          <table id='tbl_yearincome' class="table table-bordered mt-3">
+                                            <thead>
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <th>Month</th>
+                                                    <th>Income Status</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_yearincome_container"></tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <u>Income Detail</u>
+                                          <table id='tbl_income_detail' class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Reason</th>
+                                                    <th>Amount</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_income_detail_container"></tbody>
+                                        </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </div>
+                                  
+                              </div>
+                            </div>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab_tab">
+                          
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="card">
+                                    
+                                    <div class="card-body">
+                                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
+                                        <i class="fas fa-plus fa-sm"> Add New</i>
+                                      </button><br/><br/>
+                                      <div class="row">
+                                        
+                                        <div class="col-3 form-group">
+                                         
+                                          <div class="input-group" data-target-input="nearest">
+                                            <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
+                                              <option value="" disabled selected>Search</option>
+                                              <option value="Monthly">Monthly</option>
+                                              <option value="Custom">Custom</option>
+                                            </select>
+                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-3 form-group">
+                                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getOutcomeByDate(this.value);'/>
+                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        
+                                      </div>
+                                      <div class="row" id="outcome">
+                                        <div class="col-12">
+                                          <table id='tbl_outcome' class="table table-bordered table-hover mt-3">
+                                            <thead>
+                                                <tr>
+                                                    <th>Outcome Date</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_outcome_container"></tbody>
+                                        </table>
+                                        </div>
+                                      </div>
+                                      <div class="row" id="yearoutcome">
+                                        <div class="col-12">
+                                          <table id='tbl_yearoutcome' class="table table-bordered mt-3">
+                                            <thead>
+                                                <tr>
+                                                    <th>Year</th>
+                                                    <th>Month</th>
+                                                    <th>Outcome Status</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_yearoutcome_container"></tbody>
+                                        </table>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <u>Outcome Detail</u>
+                                          <table id='tbl_outcome_detail' class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Reason</th>
+                                                    <th>Amount</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbl_outcome_detail_container"></tbody>
+                                        </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </div>
+                                  
+                              </div>
+                            </div>
+                            
+                        </div>
+                        
+                      </div>
+                    </div>
+                    <!-- /.card -->
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+            <!-- /.row (main row) -->
+          </div><!-- /.container-fluid -->
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a>
+        </div>
+        <div class="footer-right">
+          2.3.0
+        </div>
+      </footer>
+    </div>
+    
+
+    
+    <!-- /.control-sidebar -->
+    <div class="modal fade" id="income_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Income</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="incomeForm" enctype="multipart/form-data" method="post">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                          
+                            <label class="col-form-label">Date</label>
+                            <div class="input-group">
+                              <input type="text" id="income_detail_date" autocomplete="off" class="form-control" readonly>
+                              <div class="input-group-append">
+                                <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="col-form-label">Reason</label>
+                            <div class="input-group">
+                              <input type="text" id="income_detail_reason" autocomplete="off" class="form-control" >
+                              
+                            </div>
+                        </div>
+                      </div>
+                    <div class="form-group row">
+                      
+                      <div class="col-md-12">
+                        <label class="col-form-label">Amount Paid</label>
+                        <div class="input-group">
+                          <input type="text" id="income_detail_amount" autocomplete="off" class="form-control" >
+                          
+                        </div>
+                      </div>
+                      
+                  </div>
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="incomeForm"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="outcome_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Outcome</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="outcomeForm" enctype="multipart/form-data" method="post" >
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                          
+                            <label class="col-form-label">Date</label>
+                            <div class="input-group">
+                              <input type="text" id="outcome_detail_date" autocomplete="off" class="form-control" readonly>
+                              <div class="input-group-append">
+                                <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <label class="col-form-label">Reason</label>
+                            <div class="input-group">
+                              <input type="text" id="outcome_detail_reason" autocomplete="off" class="form-control" >
+                              
+                            </div>
+                        </div>
+                      </div>
+                    <div class="form-group row">
+                      
+                      <div class="col-md-12">
+                        <label class="col-form-label">Amount Paid</label>
+                        <div class="input-group">
+                          <input type="text" id="outcome_detail_amount" autocomplete="off" class="form-control" >
+                          
+                        </div>
+                      </div>
+                      
+                  </div>
+                  
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="outcomeForm"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+    </div>
+      <div class="modal fade" id="incometotal_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Income</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="income_form" autocomplete="off" name="income_form" enctype="multipart/form-data" method="post" action="javascript:createIncome();">
+                <input type="hidden" id="income_id" />
+                <input type="hidden" id="income_total" />
+                <!-- Form Field Start From Here Below -->
+                
+                <div class="form-group row">
+                    
+                    <div class="col-md-12 col-sm-12">
+                      <label class="col-form-label">Date</label>
+                      <div class="input-group">
+                          <input type="text" id="income_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Reason</label>
+                        <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason">
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Amount</label>
+                        <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount">
+                    </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="income_form"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="outcometotal_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Outcome</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="outcome_form" autocomplete="off" name="outcome_form" enctype="multipart/form-data" method="post" action="javascript:createOutcome();">
+                <input type="hidden" id="outcome_id" />
+                <input type="hidden" id="outcome_total" />
+                <!-- Form Field Start From Here Below -->
+                
+                <div class="form-group row">
+                     <div class="col-md-12 col-sm-12">
+                      <label class="col-form-label">Date</label>
+                      <div class="input-group">
+                          <input type="text" id="outcome_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Reason</label>
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason">
+                    </div>
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Amount</label>
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount">
+                    </div>
+                    
+                </div>
+                
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-info btn-sm" form="outcome_form"><i class="fas fa-save"></i> Save</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- ./wrapper -->
+ <!-- General JS Scripts -->
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+ <script src="../../assets/js/stisla.js"></script>
+ <script src="../Main/js/default_template.js.js"></script>
+ 
+  <!-- Template JS File -->
+  <script src="../../assets/js/scripts.js"></script>
+  <script src="../../assets/js/custom.js"></script>
+
+ <!-- DataTables -->
+ <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
+ <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+ <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+ <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+ <!-- InputMask -->
+ <script src="../../Utilities/plugins/moment/moment.min.js"></script>
+ <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+ <script src="../../Utilities/js/common.js"></script>
+ <!--Toastr-->
+ <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
+ <script src="../../Utilities/js/auth.js"></script>
+ <script src="../../Utilities/js/income.js"></script>
+ <script src="../../Utilities/js/income_detail.js"></script>
+ <script src="../../Utilities/js/outcome.js"></script>
+ <script src="../../Utilities/js/outcome_detail.js"></script>
+ <script src="../../Utilities/js/total_price.js"></script>
+  <script>
+    $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+    $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
+    
+    getIncome();
+    getOutcome();
+    $('#custom-tabs-income_tab').click(function() {
+      showLoad(); 
+      timeLoad();
+    });
+    $('#custom-tabs-outcome_tab').click(function() {
+      showLoad(); 
+      timeLoad();
+    });
+  </script>
+</body>
+</html>

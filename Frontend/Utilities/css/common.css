@@ -4,3 +4,12 @@
 .text-orange {
     color: #fb6340 !important;
 }
+.company_info h4{
+    text-align: center;
+}
+.company_info img{
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}

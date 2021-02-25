@@ -1,5 +1,5 @@
-BACKEND_URL="http://localhost/bs/Backend/public/";
-//BACKEND_URL="http://localhost:8000/";
+//BACKEND_URL="http://localhost/bs/Backend/public/";
+BACKEND_URL="http://localhost:8000/";
 
 var toastOptions = {
     "closeButton": true,
@@ -147,13 +147,17 @@ function logout() {
     location.href = "../../Components/Auth/login.html";
 }
 function showLoad() {
+    $('body').css({
+        overflow: 'hidden'
+    });
     document.getElementById("overlay").style.display = "block";
-    
     
 }
 function hideLoad() {
+    $('body').css({
+        overflow: 'auto'
+    });
     document.getElementById("overlay").style.display = "none";
-    
 }
 function formatDate(date){
     var income_date=date.split('-');
