@@ -26,9 +26,14 @@
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
    <!--Authentication JS-->
    <script src="../../Utilities/js/auth.js"></script>
+   <link rel="stylesheet" href="../../Utilities/css/common.css">
 </head>
 
 <body onload="getCustomer();">
+  <div id="overlay">
+    <div id="loader" class="spinner-border">
+    </div>
+  </div>
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -71,7 +76,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-md text-nowrap" id="tbl_customer">
+                      <table class="table table-md table-hover text-nowrap" id="tbl_customer">
                         <thead>
                           <tr>
                             <th>#</th>

@@ -18,7 +18,7 @@ function login(e)
                       localStorage.setItem('userinfo', xhttp.responseText);
                       showLoad();
                       location.href='../../Components/Home/index.html';
-                      showLoad();
+                      
                   }
                 }
         }

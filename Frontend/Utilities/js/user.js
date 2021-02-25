@@ -35,8 +35,8 @@ function createUser(){
 
 }
 function getUser(){
-    
     destroyDatatable("#tbl_user", "#tbl_user_container");
+    destroyDatatable("#tbl_user_btn", "#tbl_user_btn_container");
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -45,27 +45,49 @@ function getUser(){
         url: BACKEND_URL + "getUser",
         data: "",
         success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td >" + element.name + "</td>";
-                tr += "<td >" + element.email + "</td>";
-                if(element.role=="2")
-                    tr += "<td >" + "Admin" + "</td>";
-                
-                else  tr += "<td >" + "User" + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-info btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-edit'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_user_container").append(tr);
-
-            });
-            startDataTable("#tbl_user");
+            if(role==2){
+                document.getElementById('tbl_user_btn').style.display='none';
+                data.forEach(function (element) {
+                    var tr = "<tr>";
+                    tr += "<td >" + element.name + "</td>";
+                    tr += "<td >" + element.email + "</td>";
+                    if(element.role=="2")
+                        tr += "<td >" + "Admin" + "</td>";
+                    
+                    else  tr += "<td >" + "User" + "</td>";
+                    tr += "<td class='alignright'><div class='btn-group'>" +
+                        "<button type='button' class='btn btn-info btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
+                        "<li class='fas fa-edit'></li></button> ";
+                    tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash' ></li ></button ></div ></td > ";
+                    tr += "</tr>";
+                    $("#tbl_user_container").append(tr);
+    
+                });
+                startDataTable("#tbl_user");
+            }else{
+                document.getElementById('tbl_user').style.display='none';
+                data.forEach(function (element) {
+                    var tr = "<tr>";
+                    tr += "<td >" + element.name + "</td>";
+                    tr += "<td >" + element.email + "</td>";
+                    if(element.role=="2")
+                        tr += "<td >" + "Admin" + "</td>";
+                    
+                    else  tr += "<td >" + "User" + "</td>";
+                    
+                        
+                    tr += "</tr>";
+                    $("#tbl_user_btn_container").append(tr);
+    
+                });
+                startDataTable("#tbl_user_btn");
+            }
+            
             timeLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_user", "#tbl_user_container");
+            dataMessage(message, "#tbl_user_btn", "#tbl_user_container_btn");
         }
     });
 
@@ -131,3 +153,4 @@ function deleteUser(userName, userId) {
         });
     }
 }
+
