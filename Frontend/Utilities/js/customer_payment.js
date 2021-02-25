@@ -13,10 +13,9 @@ function getCustomer(){
                 tr += "<td >" + element.address + "</td>";
                 tr += "<td >" + element.phone + "</td>";
                 tr += "<td >" + element.plan + "</td>";
-                tr += "<td >" + element.reg_date + "</td>";
                 tr += "<td >" + element.total_price + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-info btn-xs' onClick='addPayment(" + element.id + ")'>" +
+                "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
                 "<li class='fas fa-edit fa-sm'></li> payment </button></div></td> ";
                 tr += "</tr>";
                 $("#tbl_customer_body").append(tr);

@@ -20,10 +20,8 @@ function createCustomer(){
             url: BACKEND_URL + "createCustomer",
             data: JSON.stringify(customer),
             success: function (data) {
-                $('#insertModal').modal('hide')
                 document.getElementById("customerForm").reset();
                 successMessage(data);
-                getCustomer();
             },
             error: function (message) {
                 errorMessage(message);
@@ -34,7 +32,6 @@ function createCustomer(){
 
 }
 function getCustomer(){
-    
     destroyDatatable("#tbl_customer", "#tbl_customer_body");
     $.ajax({
         type: "POST",
@@ -54,9 +51,11 @@ function getCustomer(){
                 tr += "<td >" + element.sn + "</td>";
                 tr += "<td >" + element.dn + "</td>";
                 tr += "<td >" + element.price + "</td>";
-                tr += "<td >" + element.desc + "</td>";
+                var twoWords = (element.desc).split(' ').slice(0,2).join(' ');
+                tr += "<td ><p data-toggle='tooltip' title="+element.desc+">" + twoWords + "</p></td>";
+                
                 tr += "<td class='alignright'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-info btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
+                "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
                 "<li class='fas fa-edit fa-sm'></li></button> ";
                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
             
@@ -64,6 +63,9 @@ function getCustomer(){
                 $("#tbl_customer_body").append(tr);
 
             });
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+              })
             getIndexNumber('#tbl_customer tr')
             createDataTableForCustomer("#tbl_customer");
            

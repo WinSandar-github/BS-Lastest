@@ -12,7 +12,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\tbl_customer;
 use App\tbl_payment_detail;
-
+use App\tbl_income_outcome;
+use App\tbl_income_detail;
 class PaymentController extends Controller
 {
     public function createPayment(Request $request)
@@ -44,6 +45,32 @@ class PaymentController extends Controller
             $payMonth=count($paymentDetail);
             $customer->total_price=($totalMonth-$payMonth)*$customer->price;
             $customer->save();
+            $income_outcome=tbl_income_outcome::whereDate('date',date('Y-m-d', strtotime($date)))->get();
+            if(count($income_outcome)){
+                for($i=0;$i<count($income_outcome);$i++){
+                    $income=tbl_income_outcome::find($income_outcome[$i]->id);
+                    $income->income_total= $income->income_total+$customer->price+$request->addCharges;
+                    $income->save();
+                    $income_detail=new tbl_income_detail();
+                    $income_detail->income_outcome_id=$income->id;
+                    $income_detail->date=date('Y-m-d', strtotime($date));
+                    $income_detail->reason='Adding Payment';
+                    $income_detail->unit_amount=$customer->price+$request->addCharges;
+                    $income_detail->save();
+                }
+            }else{
+                $income=new tbl_income_outcome();
+                $income->date=date('Y-m-d', strtotime($date));
+                $income->income_total=$customer->price+$request->addCharges;
+                $income->save();
+                $income_detail=new tbl_income_detail();
+                $income_detail->income_outcome_id=$income->id;
+                $income_detail->date=date('Y-m-d', strtotime($date));
+                $income_detail->reason='Adding Payment';
+                $income_detail->unit_amount=$customer->price+$request->addCharges;
+                $income_detail->save();
+            }
+
            return response()->json(config('common.message.success'), 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
