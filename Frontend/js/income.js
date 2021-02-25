@@ -140,7 +140,7 @@ function getIncomeByDate(date){
         },
         type: "POST",
         url: BACKEND_URL + "getIncome",
-        data: "create_date="+formatDate(date),
+        data: "create_date="+formatDatepicer(date),
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";

@@ -1,6 +1,6 @@
-BACKEND_URL="http://localhost/bs/Backend/public/";
-//BACKEND_URL="http://localhost:8000/";
-
+//BACKEND_URL="http://localhost/bs/Backend/public/";
+BACKEND_URL="http://localhost:8000/";
+alert('s');
 var toastOptions = {
     "closeButton": true,
     "debug": false,
@@ -168,4 +168,9 @@ function timeLoad(){
     setTimeout(() => {
         hideLoad();
       }, 1000);
+}
+function formatDatepicer(date){
+    var income_date=date.split('/');
+    var date=income_date[2]+'-'+income_date[0]+'-'+income_date[1];
+    return date;
 }
