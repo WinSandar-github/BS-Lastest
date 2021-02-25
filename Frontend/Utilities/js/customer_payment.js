@@ -16,10 +16,9 @@ function getCustomer(){
                 tr += "<td >" + element.address + "</td>";
                 tr += "<td >" + element.phone + "</td>";
                 tr += "<td >" + element.plan + "</td>";
-                tr += "<td >" + element.reg_date + "</td>";
                 tr += "<td >" + element.total_price + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
-                        "<button type='button' class='btn btn-info btn-xs' onClick='addPayment(" + element.id + ")'>" +
+                        "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
                         "<li class='fas fa-edit fa-sm'></li> payment </button>"+
                         "<button type='button' class='btn btn-success btn-xs' onClick='printPayment(" + element.id + ")'>" +
                         "<li class='fas fa-print fa-sm'></li> print </button></div></td> ";
@@ -70,6 +69,9 @@ function getPaymentDetail(e){
 function getEachPayment(customerId){
     destroyDatatable("#tbl_payment", "#tbl_payment_body");
     $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
         type: "POST",
         url: BACKEND_URL + "getPaymentDetail",
         data: "customerId="+customerId,
@@ -84,7 +86,7 @@ function getEachPayment(customerId){
             });
             getIndexNumber('#tbl_payment tr')
             createDataTable("#tbl_payment");
-
+            timeLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_payment", "#tbl_payment_body");

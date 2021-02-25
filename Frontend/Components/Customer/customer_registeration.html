@@ -18,11 +18,18 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
+ <!--Toastr-->
+ <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
    <!--Authentication JS-->
    <script src="../../Utilities/js/auth.js"></script>
+   <link rel="stylesheet" href="../../Utilities/css/common.css">
 </head>
 
 <body>
+  <div id="overlay">
+    <div id="loader" class="spinner-border">
+    </div>
+</div>
   <div id="app">
     <div class="main-wrapper">
       <div class="navbar-bg"></div>
@@ -52,10 +59,10 @@
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Users Registeration</h1>
+            <h1>Customer Registeration</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item">Users Registeration</div>
+              <div class="breadcrumb-item">Customer Registeration</div>
             </div>
           </div>
 
@@ -63,16 +70,90 @@
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
-                  <div class="card-header">
-                    <h4>Default</h4>
-                  </div>
                   <div class="card-body">
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-                        <div class="col-sm-9">
-                          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <form id="customerForm">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Registeration Date</label>
+                            <div class="col-sm-5">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" id="registeration_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                    <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
-                      </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Name</label>
+                            <div class="col-sm-5">
+                              <input type="email" class="form-control" id="name" placeholder="Enter Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">ID</label>
+                            <div class="col-sm-5">
+                              <input type="email" class="form-control" id="code" placeholder="Enter ID">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Phone</label>
+                            <div class="col-sm-5">
+                              <input type="email" class="form-control" id="phone" placeholder="Enter Phone No">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Address</label>
+                            <div class="col-sm-5">
+                              <textarea type="email" class="form-control" id="address" placeholder="Enter Address"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">IP Address</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="ip" placeholder="Enter IP Address">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Plan</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="plan" placeholder="Enter Plan">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Pon</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="pon" placeholder="Enter Pon">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Serial No</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="sn" placeholder="Enter Serial No">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Dn</label>
+                            <div class="col-sm-5">
+                              <input type="text" class="form-control" id="dn" placeholder="Enter Dn">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Price</label>
+                            <div class="col-sm-5">
+                              <input type="number" class="form-control" id="price" placeholder="Enter Price">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label text-right">Description</label>
+                            <div class="col-sm-5">
+                              <textarea type="email" class="form-control" id="desc" placeholder="Enter Description"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                  </div>
+                  <div class="card-footer text-right">
+                    <button class="btn btn-primary mr-1" type="button" onclick="createCustomer();">Save</button>
                   </div>
                 </div>
               </div>
@@ -106,13 +187,20 @@
   <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
   <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
   <script src="../Main/js/default_template.js.js"></script>
+  <!-- InputMask -->
+  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
+  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <script src="../../assets/js/custom.js"></script>
-
+  <!--Toastr-->
+  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
   <!-- Page Specific JS File -->
   <script src="../../assets/js/page/index.js"></script>
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
+  <script>
+    $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+  </script>
 </body>
 </html>

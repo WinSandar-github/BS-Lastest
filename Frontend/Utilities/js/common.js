@@ -1,5 +1,5 @@
-//BACKEND_URL="http://localhost/bs/Backend/public/";
-BACKEND_URL="http://localhost:8000/";
+BACKEND_URL="http://localhost/bs/Backend/public/";
+//BACKEND_URL="http://localhost:8000/";
 
 var toastOptions = {
     "closeButton": true,
@@ -104,6 +104,7 @@ function dataMessage(message, table, tableBody) {
     if(noOfColumn>=11){
       $(table).addClass('table-responsive');
     }
+    timeLoad();
     
 }
 function numberRows() {
@@ -169,7 +170,8 @@ function formatMonth(month){
     return months[new Date(month).getMonth()];
 }
 function timeLoad(){
-    setTimeout(() => {
-        hideLoad();
-      }, 1000);
+    hideLoad();
+    // setTimeout(() => {
+    //     hideLoad();
+    //   }, 1000);
 }
