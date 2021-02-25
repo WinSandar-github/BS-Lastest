@@ -8,9 +8,6 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -42,7 +39,7 @@
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="d-sm-none d-lg-inline-block" id="user_name"></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="../../Components/Auth/auth-login.html" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -61,7 +58,7 @@
             <h1>Income/Outcome</h1>
             <div class="section-header-breadcrumb">
               <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item">Users</div>
+              <div class="breadcrumb-item">Income/Outcome</div>
             </div>
           </div>
           <div class="section-body">
@@ -91,7 +88,7 @@
                                   <div class="card">
                                     
                                     <div class="card-body">
-                                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#incometotal_modal">
+                                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#incometotal_modal">
                                         <i class="fas fa-plus fa-sm"> Add New</i>
                                       </button><br/><br/>
                                       <div class="row">
@@ -119,7 +116,7 @@
                                       </div>
                                       <div class='row' id="income">
                                         <div class='col-12'>
-                                          <table id='tbl_income' class="table table-bordered table-hover mt-3">
+                                          <table id='tbl_income' class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Income Date</th>
@@ -149,29 +146,40 @@
                                           </table>
                                         </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col-12">
-                                          <u>Income Detail</u>
-                                          <table id='tbl_income_detail' class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Reason</th>
-                                                    <th>Amount</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_income_detail_container"></tbody>
-                                        </table>
-                                        </div>
-                                      </div>
+                                      
                                     </div>
                                     <!-- /.card-body -->
                                   </div>
                                   
                               </div>
+                             
                             </div>
-                            
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="card">
+                                  <div class="card-header">
+                                    <h4>Income Detail</h4>
+                                  </div>
+                                  <div class="card-body">
+                                    
+                                      
+                                      <table id='tbl_income_detail' class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Reason</th>
+                                                <th>Amount</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbl_income_detail_container"></tbody>
+                                    </table>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                              
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab_tab">
                           
@@ -180,7 +188,7 @@
                                   <div class="card">
                                     
                                     <div class="card-body">
-                                      <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
+                                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
                                         <i class="fas fa-plus fa-sm"> Add New</i>
                                       </button><br/><br/>
                                       <div class="row">
@@ -210,7 +218,7 @@
                                       </div>
                                       <div class="row" id="outcome">
                                         <div class="col-12">
-                                          <table id='tbl_outcome' class="table table-bordered table-hover mt-3">
+                                          <table id='tbl_outcome' class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Outcome Date</th>
@@ -238,29 +246,36 @@
                                         </table>
                                         </div>
                                       </div>
-                                      <div class="row">
-                                        <div class="col-12">
-                                          <u>Outcome Detail</u>
-                                          <table id='tbl_outcome_detail' class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Reason</th>
-                                                    <th>Amount</th>
-                                                    
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_outcome_detail_container"></tbody>
-                                        </table>
-                                        </div>
-                                      </div>
+                                      
                                     </div>
                                     <!-- /.card-body -->
                                   </div>
                                   
                               </div>
                             </div>
-                            
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="card">
+                                  <div class="card-header">
+                                    <h4>Outcome Detail</h4>
+                                  </div>
+                                  <div class="card-body">
+                                    
+                                    <table id='tbl_outcome_detail' class="table table-bordered table-striped">
+                                      <thead>
+                                          <tr>
+                                              <th>Date</th>
+                                              <th>Reason</th>
+                                              <th>Amount</th>
+                                              
+                                          </tr>
+                                      </thead>
+                                      <tbody id="tbl_outcome_detail_container"></tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         </div>
                         
                       </div>
@@ -519,6 +534,7 @@
     
     getIncome();
     getOutcome();
+    loadUser();
     $('#custom-tabs-income_tab').click(function() {
       showLoad(); 
       timeLoad();

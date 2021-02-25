@@ -54,7 +54,7 @@ function getUser(){
                 
                 else  tr += "<td >" + "User" + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-info btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
                     "<li class='fas fa-edit'></li></button> ";
                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash' ></li ></button ></div ></td > ";
                 tr += "</tr>";

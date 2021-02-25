@@ -13,8 +13,8 @@ function loadTotal(){
             data.forEach(function (element) {
                 var tr = "<tr>";
                 tr += "<td >" + element.date + "</td>";
-                tr += "<td class='text-right'><span class='text-info cursor-css' onClick=getIncomeDetailByIncomeId(" + element.id + ");>" + thousands_separators(element.income_total) + "</span></td>";
-                tr+="<td class='text-right'><span class='text-info cursor-css' onClick=getOutcomeDetailByOutcomeId(" + element.id + ");>"+ thousands_separators(element.outcome_total) + "</span></td>";
+                tr += "<td class='text-right'><span class='text-primary cursor-css' onClick=getIncomeDetailByIncomeId(" + element.id + ");>" + thousands_separators(element.income_total) + "</span></td>";
+                tr+="<td class='text-right'><span class='text-primary cursor-css' onClick=getOutcomeDetailByOutcomeId(" + element.id + ");>"+ thousands_separators(element.outcome_total) + "</span></td>";
                 tr+="<td class='text-right'>"+ thousands_separators(parseInt(element.income_total)-parseInt(element.outcome_total)) + "</td>";
                 tr += "</tr>";
                 $("#tbl_total_container").append(tr);
