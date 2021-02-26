@@ -23,17 +23,17 @@ class IncomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else if($request->monthly=='allmonth'){
-                
+
             $income=DB::table('tbl_income_outcome')
                             ->where('income_total','<>',0)
                             ->select(DB::raw('YEAR(tbl_income_outcome.date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income_outcome.income_total) as income_total'))
                             ->join('tbl_month', function ($join) {
                                 $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_income_outcome.date)'));
-                                    
+
                             })
                             ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
                             ->get();
-                          
+
             if(sizeof($income)){
                 return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
@@ -54,7 +54,8 @@ class IncomeController extends Controller
     public function createIncome(Request $request)
     {
         try{
-            $income_outcome=tbl_income_outcome::whereDate('date',$request->date)->get();
+            $date = str_replace('/', '-', $request->date);
+            $income_outcome=tbl_income_outcome::whereDate('date',date('Y-m-d', strtotime($date)))->get();
             if(sizeof($income_outcome)){
                 for($i=0;$i<count($income_outcome);$i++){
                     $income=tbl_income_outcome::find($income_outcome[$i]->id);
@@ -63,11 +64,11 @@ class IncomeController extends Controller
                 }
             }else{
                 $income=new tbl_income_outcome();
-                $income->date=$request->date;
+                $income->date=date('Y-m-d', strtotime($date));
                 $income->income_total=$request->income_total;
                 $income->save();
             }
-                    
+
             return response()->json($income, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
             return $e->getMessage();

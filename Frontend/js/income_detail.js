@@ -1,7 +1,7 @@
 function createIncomeDetail() {
     var income_detail = {};
     income_detail['income_id']=$("#income_id").val();
-    income_detail['income_date']=formatDate($("#income_date").val());
+    income_detail['income_date']=$("#income_date").val();
     income_detail['income_reason']=$("#income_reason").val();
     income_detail['income_unit_amount']=removeComma($("#income_amount").val());
     $.ajax({
@@ -26,7 +26,7 @@ function createIncomeDetail() {
 function addIncomeDetail() {
     var income_detail = {};
     income_detail['income_id']=$("#income_id").val();
-    income_detail['income_date']=formatDate($("#income_detail_date").val());
+    income_detail['income_date']=$("#income_detail_date").val();
     income_detail['income_reason']=$("#income_detail_reason").val();
     income_detail['income_unit_amount']=removeComma($("#income_detail_amount").val());
     $.ajax({
@@ -49,7 +49,6 @@ function addIncomeDetail() {
 }
 function getIncomeDetailByIncomeId(income_outcome_id) {
     destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
-    destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -66,16 +65,14 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
                 tr += "<td class='text-right'>" + thousands_separators( element.unit_amount)+ "</td>";
                 tr += "</tr>";
                 $('#tbl_income_detail_container').append(tr);
-                $('#tbl_total_detail_container').append(tr);
+                
             });
             startDataTable("#tbl_income_detail");
-            startDataTable("#tbl_total_detail");
             timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income_detail", "#tbl_income_detail_container");
-            dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
-            hideLoad();
+            
         }
     });
 }

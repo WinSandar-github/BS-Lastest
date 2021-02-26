@@ -87,5 +87,16 @@ class PaymentController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+    public function getPaymentDetailBypaymentId(Request $request)
+    {
+        $payment = tbl_payment_detail::where('id','=',$request->paymentId)->get();
+        
+        if(count($payment)){
+            return response()->json($payment, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
 
 }

@@ -33,7 +33,7 @@
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-    
+
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -70,31 +70,31 @@
                       <ul class="nav nav-tabs" id="myTab5" role="tablist">
                         <li class="nav-item">
                           <a class="nav-link active" id="custom-tabs-income_tab" data-toggle="tab" href="#custom-tabs-income" role="tab" aria-controls="custom-tabs-income" aria-selected="true">
-                            <i class="fas fa-dollar-sign"></i> Income</a>
+                            <i class="fas fa-plus"></i> Income</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" id="custom-tabs-outcome_tab" data-toggle="tab" href="#custom-tabs-outcome" role="tab" aria-controls="custom-tabs-outcome" aria-selected="false">
-                            <i class="fas fa-dollar-sign"></i></i> Outcome</a>
+                            <i class="fas fa-minus"></i></i> Outcome</a>
                         </li>
-                        
+
                       </ul>
                     </div>
                     <div>
                       <div class="tab-content" id="custom-tabs-four-tabContent">
                         <div class="tab-pane fade show active" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income_tab">
-                          
+
                             <div class="row">
                               <div class="col-md-12">
                                   <div class="card">
-                                    
+
                                     <div class="card-body">
                                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#incometotal_modal">
                                         <i class="fas fa-plus fa-sm"> Add New</i>
                                       </button><br/><br/>
                                       <div class="row">
-                                        
-                                        <div class="col-3 form-group">
-                                         
+
+                                        <div class="col-sm-4 form-group">
+
                                           <div class="input-group" data-target-input="nearest">
                                             <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
                                               <option value="" disabled selected>Search</option>
@@ -106,39 +106,39 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="col-3 form-group">
+                                        <div class="col-sm-4 form-group">
                                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="date" class="form-control" onchange='getIncomeByDate(this.value);'/>
-                                            
+                                            <input type="date" id="income_datepicer" class="form-control" disabled onchange='getIncomeByDate(this.value);'/>
+
                                           </div>
                                         </div>
-                                        
+
                                       </div>
                                       <div class='row' id="income">
                                         <div class='col-12'>
-                                          <table id='tbl_income' class="table table-bordered table-hover">
+                                          <table id='tbl_income' class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Income Date</th>
-                                                    <th>Amount</th>
+                                                    <th class='text-center'>Income Date</th>
+                                                    <th class='text-center'>Amount</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody id="tbl_income_container"></tbody>
                                           </table>
-                                          
+
                                         </div>
                                       </div>
                                       <div class="row " id="yearincome">
                                         <div class="col-12">
-                                          
-                                          <table id='tbl_yearincome' class="table table-bordered mt-3">
+
+                                          <table id='tbl_yearincome' class="table mt-3">
                                             <thead>
                                                 <tr>
-                                                    <th>Year</th>
-                                                    <th>Month</th>
-                                                    <th>Income Status</th>
-                                                    <th>Amount</th>
+                                                    <th class='text-center'>Year</th>
+                                                    <th class='text-center'>Month</th>
+                                                    <th class='text-center'>Income Status</th>
+                                                    <th class='text-center'>Amount</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -146,55 +146,55 @@
                                           </table>
                                         </div>
                                       </div>
-                                      
+
                                     </div>
                                     <!-- /.card-body -->
                                   </div>
-                                  
+
                               </div>
-                             
+
                             </div>
                             <div class="row">
-                              <div class="col-md-12">
+                              <div class="col-sm-12">
                                 <div class="card">
                                   <div class="card-header">
                                     <h4>Income Detail</h4>
                                   </div>
                                   <div class="card-body">
-                                    
-                                      
-                                      <table id='tbl_income_detail' class="table table-bordered table-striped">
+
+
+                                      <table id='tbl_income_detail' class="table">
                                         <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Reason</th>
-                                                <th>Amount</th>
-                                                
+                                                <th class='text-center'>Date</th>
+                                                <th class='text-center'>Reason</th>
+                                                <th class='text-center'>Amount</th>
+
                                             </tr>
                                         </thead>
                                         <tbody id="tbl_income_detail_container"></tbody>
                                     </table>
-                                    
+
                                   </div>
                                 </div>
                               </div>
-                              
+
                             </div>
                         </div>
                         <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab_tab">
-                          
+
                             <div class="row">
                               <div class="col-md-12">
                                   <div class="card">
-                                    
+
                                     <div class="card-body">
                                       <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
                                         <i class="fas fa-plus fa-sm"> Add New</i>
                                       </button><br/><br/>
                                       <div class="row">
-                                        
-                                        <div class="col-3 form-group">
-                                         
+
+                                        <div class="col-sm-4 form-group">
+
                                           <div class="input-group" data-target-input="nearest">
                                             <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
                                               <option value="" disabled selected>Search</option>
@@ -206,23 +206,21 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="col-3 form-group">
+                                        <div class="col-sm-4 form-group">
                                           <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" placeholder="dd-mm-yyyy" disabled onchange='getOutcomeByDate(this.value);'/>
-                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                            </div>
+                                            <input type="date" id="outcome_datepicer" class="form-control" disabled onchange='getOutcomeByDate(this.value);'/>
+
                                           </div>
                                         </div>
-                                        
+
                                       </div>
                                       <div class="row" id="outcome">
                                         <div class="col-12">
-                                          <table id='tbl_outcome' class="table table-bordered table-hover">
+                                          <table id='tbl_outcome' class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th>Outcome Date</th>
-                                                    <th>Amount</th>
+                                                    <th class='text-center'>Outcome Date</th>
+                                                    <th class='text-center'>Amount</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -232,13 +230,13 @@
                                       </div>
                                       <div class="row" id="yearoutcome">
                                         <div class="col-12">
-                                          <table id='tbl_yearoutcome' class="table table-bordered mt-3">
+                                          <table id='tbl_yearoutcome' class="table  mt-3">
                                             <thead>
                                                 <tr>
-                                                    <th>Year</th>
-                                                    <th>Month</th>
-                                                    <th>Outcome Status</th>
-                                                    <th>Amount</th>
+                                                    <th class='text-center'>Year</th>
+                                                    <th class='text-center'>Month</th>
+                                                    <th class='text-center'>Outcome Status</th>
+                                                    <th class='text-center'>Amount</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -246,11 +244,11 @@
                                         </table>
                                         </div>
                                       </div>
-                                      
+
                                     </div>
                                     <!-- /.card-body -->
                                   </div>
-                                  
+
                               </div>
                             </div>
                             <div class="row">
@@ -260,14 +258,14 @@
                                     <h4>Outcome Detail</h4>
                                   </div>
                                   <div class="card-body">
-                                    
-                                    <table id='tbl_outcome_detail' class="table table-bordered table-striped">
+
+                                    <table id='tbl_outcome_detail' class="table">
                                       <thead>
                                           <tr>
-                                              <th>Date</th>
-                                              <th>Reason</th>
-                                              <th>Amount</th>
-                                              
+                                              <th class='text-center'>Date</th>
+                                              <th class='text-center'>Reason</th>
+                                              <th class='text-center'>Amount</th>
+
                                           </tr>
                                       </thead>
                                       <tbody id="tbl_outcome_detail_container"></tbody>
@@ -277,14 +275,14 @@
                               </div>
                             </div>
                         </div>
-                        
+
                       </div>
                     </div>
                     <!-- /.card -->
                   </div>
                 </div>
               </div>
-  
+
             </div>
             <!-- /.row (main row) -->
           </div><!-- /.container-fluid -->
@@ -299,9 +297,9 @@
         </div>
       </footer>
     </div>
-    
 
-    
+
+
     <!-- /.control-sidebar -->
     <div class="modal fade" id="income_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -316,7 +314,7 @@
                 <form id="incomeForm" enctype="multipart/form-data" method="post">
                     <div class="form-group row">
                         <div class="col-md-12">
-                          
+
                             <label class="col-form-label">Date</label>
                             <div class="input-group">
                               <input type="text" id="income_detail_date" autocomplete="off" class="form-control" readonly>
@@ -325,33 +323,33 @@
                               </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label class="col-form-label">Reason</label>
                             <div class="input-group">
-                              <input type="text" id="income_detail_reason" autocomplete="off" class="form-control" >
-                              
+                              <input type="text" id="income_detail_reason" autocomplete="off" class="form-control" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
+
                             </div>
                         </div>
                       </div>
                     <div class="form-group row">
-                      
+
                       <div class="col-md-12">
-                        <label class="col-form-label">Amount Paid</label>
+                        <label class="col-form-label">Amount</label>
                         <div class="input-group">
-                          <input type="text" id="income_detail_amount" autocomplete="off" class="form-control" >
-                          
+                          <input type="text" id="income_detail_amount" autocomplete="off" class="form-control" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
+
                         </div>
                       </div>
-                      
+
                   </div>
-                  
+
                 </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info btn-sm" form="incomeForm"><i class="fas fa-save"></i> Save</button>
+              <button type="submit" class="btn btn-primary" form="incomeForm"> Save</button>
             </div>
           </div>
         </div>
@@ -369,7 +367,7 @@
                 <form id="outcomeForm" enctype="multipart/form-data" method="post" >
                     <div class="form-group row">
                         <div class="col-md-12">
-                          
+
                             <label class="col-form-label">Date</label>
                             <div class="input-group">
                               <input type="text" id="outcome_detail_date" autocomplete="off" class="form-control" readonly>
@@ -378,33 +376,33 @@
                               </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label class="col-form-label">Reason</label>
                             <div class="input-group">
-                              <input type="text" id="outcome_detail_reason" autocomplete="off" class="form-control" >
-                              
+                              <input type="text" id="outcome_detail_reason" autocomplete="off" class="form-control" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
+
                             </div>
                         </div>
                       </div>
                     <div class="form-group row">
-                      
+
                       <div class="col-md-12">
-                        <label class="col-form-label">Amount Paid</label>
+                        <label class="col-form-label">Amount</label>
                         <div class="input-group">
-                          <input type="text" id="outcome_detail_amount" autocomplete="off" class="form-control" >
-                          
+                          <input type="text" id="outcome_detail_amount" autocomplete="off" class="form-control" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
+
                         </div>
                       </div>
-                      
+
                   </div>
-                  
+
                 </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info btn-sm" form="outcomeForm"><i class="fas fa-save"></i> Save</button>
+              <button type="submit" class="btn btn-primary " form="outcomeForm"> Save</button>
             </div>
           </div>
         </div>
@@ -423,13 +421,13 @@
                 <input type="hidden" id="income_id" />
                 <input type="hidden" id="income_total" />
                 <!-- Form Field Start From Here Below -->
-                
+
                 <div class="form-group row">
-                    
+
                     <div class="col-md-12 col-sm-12">
                       <label class="col-form-label">Date</label>
                       <div class="input-group">
-                          <input type="text" id="income_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
                           <div class="input-group-append">
                             <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                           </div>
@@ -437,17 +435,17 @@
                     </div>
                     <div class="col-sm-12">
                         <label class="col-form-label">Reason</label>
-                        <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason">
+                        <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
                     </div>
                     <div class="col-sm-12">
                         <label class="col-form-label">Amount</label>
-                        <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount">
+                        <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
                     </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info btn-sm" form="income_form"><i class="fas fa-save"></i> Save</button>
+              <button type="submit" class="btn btn-primary " form="income_form">Save</button>
             </div>
           </div>
         </div>
@@ -466,12 +464,12 @@
                 <input type="hidden" id="outcome_id" />
                 <input type="hidden" id="outcome_total" />
                 <!-- Form Field Start From Here Below -->
-                
+
                 <div class="form-group row">
                      <div class="col-md-12 col-sm-12">
                       <label class="col-form-label">Date</label>
                       <div class="input-group">
-                          <input type="text" id="outcome_date" class="form-control" placeholder="dd-mm-yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask aria-describedby="basic-addon2">
+                          <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
                           <div class="input-group-append">
                             <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                           </div>
@@ -479,19 +477,19 @@
                     </div>
                     <div class="col-sm-12">
                         <label class="col-form-label">Reason</label>
-                        <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason">
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
                     </div>
                     <div class="col-sm-12">
                         <label class="col-form-label">Amount</label>
-                        <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount">
+                        <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
                     </div>
-                    
+
                 </div>
-                
+
               </form>
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-info btn-sm" form="outcome_form"><i class="fas fa-save"></i> Save</button>
+              <button type="submit" class="btn btn-primary" form="outcome_form"> Save</button>
             </div>
           </div>
         </div>
@@ -506,7 +504,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
  <script src="../../assets/js/stisla.js"></script>
  <script src="../Main/js/default_template.js.js"></script>
- 
+
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <script src="../../assets/js/custom.js"></script>
@@ -527,20 +525,20 @@
  <script src="../../Utilities/js/income_detail.js"></script>
  <script src="../../Utilities/js/outcome.js"></script>
  <script src="../../Utilities/js/outcome_detail.js"></script>
- <script src="../../Utilities/js/total_price.js"></script>
+ 
   <script>
     $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
     $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
-    
+
     getIncome();
     getOutcome();
     loadUser();
     $('#custom-tabs-income_tab').click(function() {
-      showLoad(); 
+      showLoad();
       timeLoad();
     });
     $('#custom-tabs-outcome_tab').click(function() {
-      showLoad(); 
+      showLoad();
       timeLoad();
     });
   </script>

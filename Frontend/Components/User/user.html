@@ -34,7 +34,7 @@
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-    
+
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -73,54 +73,43 @@
                     <div class="card-body">
                       <div class="tab-content" id="custom-tabs-four-tabContent">
                         <div class="tab-pane fade active show" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income-tab">
-                          
-                            <div class="row">
-                              <div class="col-md-12">
-                                  <div class="card">
-                                    
-                                    <div class="card-body">
-                                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user_modal">
-                                        <i class="fas fa-plus fa-sm"> Add New</i>
-                                      </button>
-                                      <table id='tbl_user' class="table table-bordered">
-                                          <thead>
-                                              <tr>
-                                                  <th>Name</th>
-                                                  <th>Email</th>
-                                                  <th>Role</th>
-                                                  <th></th>
-                                              </tr>
-                                          </thead>
-                                          <tbody id="tbl_user_container"></tbody>
-                                      </table>
-                                      <table id='tbl_user_btn' class="table table-bordered mt-3">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                               
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbl_user_btn_container"></tbody>
-                                    </table>
-                                    </div>
-                                    <!-- /.card-body -->
-                                  </div>
-                                  
-                              </div>
-                            </div>
-                            
+
+                          <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user_modal">
+                            <i class="fas fa-plus fa-sm"> Add New</i>
+                          </button><br/><br/>
+                          <table id='tbl_user' class="table table-hover">
+                              <thead>
+                                  <tr>
+                                      <th class='text-center'>Name</th>
+                                      <th class='text-center'>Email</th>
+                                      <th class='text-center'>Role</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody id="tbl_user_container"></tbody>
+                          </table>
+                          <table id='tbl_user_btn' class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class='text-center'>Name</th>
+                                    <th class='text-center'>Email</th>
+                                    <th class='text-center'>Role</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbl_user_btn_container"></tbody>
+                          </table>
+
                         </div>
-                        
-                        
+
+
                       </div>
                     </div>
                     <!-- /.card -->
                   </div>
                 </div>
               </div>
-  
+
             </div>
             <!-- /.row (main row) -->
           </div><!-- /.container-fluid -->
@@ -148,25 +137,26 @@
           <div class="modal-body">
             <form class="form-horizontal" id="user_form" autocomplete="off" name="user_form" enctype="multipart/form-data" method="post" action="javascript:createUser();">
               <input type="hidden" id="user_id" />
-              
+
               <!-- Form Field Start From Here Below -->
-              
+
               <div class="form-group row">
-                  
+
                   <div class="col-md-12 col-sm-12">
                       <label class="col-form-label">Name</label>
-                      <input type="type" class="form-control" autocomplete="off" id="name" placeholder="Enter Name">
+                      <input type="type" class="form-control" autocomplete="off" id="name" placeholder="Enter Name" required oninvalid="this.setCustomValidity('Enter Name')" oninput="setCustomValidity('')">
                   </div>
                   <div class="col-sm-12">
                       <label class="col-form-label">Email</label>
-                      <input type="email" class="form-control" autocomplete="off" id="email" placeholder="Enter Email">
+                      <input type="email" class="form-control" autocomplete="off" id="email" placeholder="Enter Email" required oninvalid="this.setCustomValidity('Enter Email')" oninput="setCustomValidity('')"  onkeyup="validateEmail(this.value)">
+                      <div id="messageEmail"></div>
                   </div>
                   <div class="col-sm-12">
                     <label class="col-form-label">Password</label>
                     <div class="input-group" id="show_hide_password">
-                      <input type="password" class="form-control add_pwd " id="password" placeholder="Enter Password" autocomplete="off"/>
+                      <input type="password" class="form-control add_pwd " id="password" placeholder="Enter Password" autocomplete="off" />
                       <div class="input-group-append">
-                        <a href="" class="btn btn-default first_pass"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        <a href="" class="btn btn-default first_pass input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                       </div>
                     </div>
                   </div>
@@ -179,16 +169,16 @@
                     </select>
                   </div>
               </div>
-              
+
           </form>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-info btn-sm" form="user_form"><i class="fas fa-save"></i> Save</button>
+            <button type="submit" class="btn btn-primary" form="user_form">Save</button>
           </div>
         </div>
       </div>
   </div>
-    
+
   </div>
   <!-- ./wrapper -->
  <!-- General JS Scripts -->

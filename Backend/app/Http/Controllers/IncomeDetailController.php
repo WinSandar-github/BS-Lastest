@@ -7,14 +7,15 @@ use App\tbl_income_detail;
 
 class IncomeDetailController extends Controller
 {
-    
+
     public function createIncomeDetail(Request $request)
     {
         try{
             $data=json_decode($request->getContent(), true);
             $income_detail=new tbl_income_detail();
             $income_detail->income_outcome_id=$data['income_id'];
-            $income_detail->date=$data['income_date'];
+            $date = str_replace('/', '-', $data['income_date']);
+            $income_detail->date=date('Y-m-d', strtotime($date));
             $income_detail->reason=$data['income_reason'];
             $income_detail->unit_amount=$data['income_unit_amount'];
             $income_detail->save();
@@ -27,11 +28,11 @@ class IncomeDetailController extends Controller
     public function getIncomeDetailByIncomeId(Request $request)
     {
         $income_detail = tbl_income_detail::where('income_outcome_id','=',$request->input('income_outcome_id'))->get();
-        if(empty($income_detail)){
-            return response()->json(config('common.message.data'), 404,config('common.header'), JSON_UNESCAPED_UNICODE);
+        if(sizeof($income_detail)){
+            return response()->json($income_detail, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
          }
          else{
-             return response()->json($income_detail, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+             return response()->json(config('common.message.data'), 404,config('common.header'), JSON_UNESCAPED_UNICODE);
          }
     }
 }

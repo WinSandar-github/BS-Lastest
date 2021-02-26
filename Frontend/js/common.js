@@ -1,5 +1,5 @@
-BACKEND_URL="http://localhost/bs/Backend/public/";
-//BACKEND_URL="http://localhost:8000/";
+//BACKEND_URL="http://localhost/bs/Backend/public/";
+BACKEND_URL="http://localhost:8000/";
 var toastOptions = {
     "closeButton": true,
     "debug": false,
@@ -33,9 +33,9 @@ function getIndexNumber(table){
 function createDataTableForCustomer(table){
     $(table).DataTable({
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
-            { 
-               'searchable'    : false, 
-               'targets'       : [0,2,4,5,6,7,8,9,10] 
+            {
+               'searchable'    : false,
+               'targets'       : [0,2,4,5,6,7,8,9,10]
             },
         ],
 
@@ -55,7 +55,7 @@ function createDataTableForCustomer(table){
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
-    
+
 }
 function createDataTable(table) {
 
@@ -72,7 +72,7 @@ function createDataTable(table) {
         'select': true,
         "order": [[0, "desc"]]
     });
-    
+
 }
 function destroyDatatable(table, tableBody) {
     if ($.fn.DataTable.isDataTable(table)) {
@@ -103,7 +103,7 @@ function dataMessage(message, table, tableBody) {
     if(noOfColumn>=11){
       $(table).addClass('table-responsive');
     }
-    
+
 }
 function numberRows() {
     $('table tbody tr').each(function (idx) {
@@ -133,13 +133,13 @@ function startDataTable(table) {
         "scrollX": true,
         'select': true,
         "order": [[0, "desc"]],
-        
+
     });
-    $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
-     
+
 }
 function logout() {
     (localStorage.getItem("userinfo")) && localStorage.removeItem("userinfo");
@@ -147,12 +147,12 @@ function logout() {
 }
 function showLoad() {
     document.getElementById("overlay").style.display = "block";
-    
-    
+
+
 }
 function hideLoad() {
     document.getElementById("overlay").style.display = "none";
-    
+
 }
 function formatDate(date){
     var income_date=date.split('-');
@@ -167,11 +167,6 @@ function timeLoad(){
     setTimeout(() => {
         hideLoad();
       }, 1000);
-}
-function formatDatepicer(date){
-    var income_date=date.split('/');
-    var date=income_date[2]+'-'+income_date[0]+'-'+income_date[1];
-    return date;
 }
 function loadUser(){
     $("#user_name").html("");
