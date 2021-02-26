@@ -36,7 +36,7 @@ function createDataTableForCustomer(table){
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
             { 
                'searchable'    : false, 
-               'targets'       : [0,2,4,5,6,7,8,9,10] 
+               'targets'       : [0,4,5,6,7,8,9,10] 
             },
         ],
 
@@ -162,11 +162,11 @@ function hideLoad() {
 }
 function formatDate(date){
     var income_date=date.split('-');
-    var date=income_date[2]+'-'+income_date[1]+'-'+income_date[0];
+    var date=income_date[2]+'/'+income_date[1]+'/'+income_date[0];
     return date;
 }
 function formatMonth(month){
-    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return months[new Date(month).getMonth()];
 }
 function timeLoad(){
