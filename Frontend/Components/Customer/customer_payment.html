@@ -80,14 +80,14 @@
                         <table class="table table-hover text-nowrap" id="tbl_customer">
                           <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>ID</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Plan</th>
-                                <th>Total Price</th>
-                                <th>Paid For</th>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Address</th>
+                                <th class="text-center">Phone</th>
+                                <th class="text-center">Plan</th>
+                                <th class="text-center">Total Price</th>  
+                                <th class="text-center">Paid For</th>
                               </tr>
                           </thead>
 
@@ -108,11 +108,10 @@
                         <table class="table table-hover text-nowrap" id="tbl_payment">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Date</th>
-                                    <th>Additional Charges</th>
-                                    <th></th>
-                                </tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Additional Charges</th>
+                                </tr> 
                             </thead>
 
                             <tbody id="tbl_payment_body" class="hoverTable"></tbody>
@@ -137,18 +136,41 @@
                     <form id="paymentForm">
                         <input type="hidden" id="customerId">
                         <div class="form-group row">
-                            <label for="inputEmail3" class="col-form-label">Registeration Date</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="pay_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text"><i class="fas fa-calendar"></i></div>
-                                    </div>
-                                </div>
+                            <label for="inputEmail3" class="col-form-label">Month</label>
+                            <input type="month" id="month" class="form-control">
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-form-label">Additional Charges</label>
                             <input type="number" class="form-control" id="charges" placeholder="Enter Additional Charges">
                         </div>
+                    </form>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                  <button type="button"class="btn btn-primary" onclick="createPayment();">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal fade" tabindex="-1" role="dialog" id="creditModal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Remaining Credit List</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="creditForm">
+                      <input type="hidden" name="" id="regDate">
+                      <div class="table-responsive">
+                        <table id="tbl_credit" class="table table-striped table-md">
+                          <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                          </tr>
+                        </table>
+                      </div>
                     </form>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">

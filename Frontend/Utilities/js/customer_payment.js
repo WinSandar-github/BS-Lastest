@@ -9,19 +9,23 @@ function getCustomer(){
         data: "",
         success: function (data) {
             data.forEach(function (element) {
-                var tr = "<tr onclick='getPaymentDetail(this)' id="+element.id+">";
-                tr += "<td >" +  + "</td>";
-                tr += "<td ><input type='hidden' value="+element.id+">" + element.name + "</td>";
-                tr += "<td >" + element.code + "</td>";
-                tr += "<td >" + element.address + "</td>";
-                tr += "<td >" + element.phone + "</td>";
-                tr += "<td >" + element.plan + "</td>";
-                tr += "<td >" + element.total_price + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
+                var tr = "<tr onclick='getPaymentDetail(this)'>";
+                tr += "<td class='text-center'>" +  + "</td>";
+                tr += "<td class='text-center'><input type='hidden' value="+element.id+">" + element.name + "</td>";
+                tr += "<td class='text-center'>" + element.code + "</td>";
+                tr += "<td class='text-center'>" + element.address + "</td>";
+                tr += "<td class='text-center'>" + element.phone + "</td>";
+                tr += "<td class='text-center'>" + element.plan + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.total_price) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
                         "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
                         "<li class='fas fa-edit fa-sm'></li> payment </button>"+
                         "<button type='button' class='btn btn-success btn-xs' onClick='printPayment(" + element.id + ")'>" +
-                        "<li class='fas fa-print fa-sm'></li> print </button></div></td> ";
+                        "<li class='fas fa-print fa-sm'></li> print </button>"+
+                        // "<button type='button' class='btn btn-warning btn-xs' onClick=getCreditList(\"" + encodeURIComponent(element.reg_date) + "\"," + element.id + ")>" +
+                        // "<li class='fas fa-print fa-sm'></li> credit </button>"
+                        // 
+                        "</div></td> ";
                 tr += "</tr>";
                 $("#tbl_customer_body").append(tr);
 
@@ -38,14 +42,44 @@ function getCustomer(){
     });
 
 }
+function getCreditList(regDate,customerId){
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "getCreditList",
+        data: "regDate="+regDate+"&customerId="+customerId,
+        success: function (data) {
+            data.forEach(function(element){
+                if(element.jan=="1"){
+                    var tr = "<tr>";
+                    tr += "<td >" +  + "</td>";
+                    tr += "<td >" + element.code + "</td>";
+                    tr += "</tr>";
+                    $("#tbl_credit").append(tr);
+                }
+               
+            })
+            // successMessage(data);
+             $("#creditModal").modal('toggle');
+            // document.getElementById("paymentForm").reset();
+            // getCustomer();
+            // getEachPayment($("#customerId").val());
+        },
+        error: function (message){
+            errorMessage(message);
+        }
+    });
+    $("#creditModal").modal('toggle');
+}
 function addPayment(customerId){
     $("#paymentModal").modal('toggle');
     $("#customerId").val(customerId);
 }
 function createPayment(){
-    let payDate=$("#pay_date").val();
     let addCharges=$("#charges").val();
-    var payment = "payDate=" + payDate+"&addCharges=" + addCharges+"&customerId="+$("#customerId").val();
+    let yrMonth=$("#month").val();
+    var month=yrMonth[5]+yrMonth[6];
+    let newMonth=(formatMonth(month)+" "+yrMonth.substring(0, 4));
+    var payment = "mth="+formatMonth(month)+"&year="+yrMonth.substring(0, 4)+"&month=" + newMonth+"&addCharges=" + addCharges+"&customerId="+$("#customerId").val();
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createPayment",
@@ -78,12 +112,9 @@ function getEachPayment(customerId){
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr>";
-                tr += "<td >" + "</td>";
-                tr += "<td >" + element.date + "</td>";
-                tr += "<td >" + element.add_charges + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                        "<button type='button' class='btn btn-success btn-xs' onClick='printPaymentDetail(" + customerId + ","+element.id+")'>" +
-                        "<li class='fas fa-print fa-sm'></li> print </button></div></td> ";
+                tr += "<td class='text-center'>" + "</td>";
+                tr += "<td class='text-center'>" + element.month + "</td>";
+                tr += "<td class='text-right' style='padding-right:250px;'>" + thousands_separators(element.add_charges) + "</td>";
                 tr += "</tr>";
                 $("#tbl_payment_body").append(tr);
             });

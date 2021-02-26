@@ -34,9 +34,9 @@ function getIndexNumber(table){
 function createDataTableForCustomer(table){
     $(table).DataTable({
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
-            {
-               'searchable'    : false,
-               'targets'       : [0,2,4,5,6,7,8,9,10]
+            { 
+               'searchable'    : false, 
+               'targets'       : [0,4,5,6,7,8,9,10] 
             },
         ],
 
@@ -166,7 +166,7 @@ function formatDate(date){
     return date;
 }
 function formatMonth(month){
-    var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return months[new Date(month).getMonth()];
 }
 function timeLoad(){

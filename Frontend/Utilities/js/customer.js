@@ -49,6 +49,7 @@ function getCustomer(){
             data.forEach(function (element) {
                 var tr = "<tr>";
                 tr += "<td >" +  + "</td>";
+                tr += "<td >" + formatDate(element.reg_date)  + "</td>"
                 tr += "<td >" + element.name + "</td>";
                 tr += "<td >" + element.code + "</td>";
                 tr += "<td >" + element.phone + "</td>";
@@ -58,9 +59,12 @@ function getCustomer(){
                 tr += "<td >" + element.pon + "</td>";
                 tr += "<td >" + element.sn + "</td>";
                 tr += "<td >" + element.dn + "</td>";
-                tr += "<td >" + element.price + "</td>";
+                tr += "<td >" + thousands_separators(element.price) + "</td>";
                 var twoWords = (element.desc).split(' ').slice(0,2).join(' ');
-                tr += "<td ><p data-toggle='tooltip' title="+element.desc+">" + twoWords + "</p></td>";
+                tr += "<td ><p id='toolip' data-toggle='tooltip' title='"+element.desc+"'>" + twoWords + "</p></td>";
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+                  })
                 tr += "<td class='alignright'><div class='btn-group'>" +
                 "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo(" + element.id + ")'>" +
                 "<li class='fas fa-edit fa-sm'></li></button> ";
