@@ -20,12 +20,11 @@ class PaymentController extends Controller
     {
         try{
             $payment=new tbl_payment_detail();
-            $var = $request->payDate;
-            $date = str_replace('/', '-', $var);
-            $payment->date=date('Y-m-d', strtotime($date));
+            $date=date('Y-m-d');
+            $payment->date=date('Y-m-d');
             $payment->add_charges=$request->addCharges;
             $payment->customer_id=$request->customerId;
-            
+            $payment->month=$request->month;
             $payment->save();
             $customer=tbl_customer::find($request->customerId);
             $date1=$customer->reg_date;
@@ -73,7 +72,8 @@ class PaymentController extends Controller
 
            return response()->json(config('common.message.success'), 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
-            return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+            return $e->getMessage();
+           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
     public function getPaymentDetail(Request $request)

@@ -103,11 +103,11 @@ div.dataTables_wrapper span.select-item {
     display: block;
   }
 }
-/* table.dataTable tbody tr.selected,
+table.dataTable tbody tr.selected,
 table.dataTable tbody th.selected,
 table.dataTable tbody td.selected {
-  color: blac;
-} */
+  color: #6777ef ;
+}
 table.dataTable tbody tr.selected a,
 table.dataTable tbody th.selected a,
 table.dataTable tbody td.selected a {
