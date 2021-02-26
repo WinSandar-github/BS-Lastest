@@ -1,5 +1,5 @@
 function createOutcome() {
-    var outcome = "date=" + formatDate($("#outcome_date").val())+"&outcome_total=" + removeComma($("#outcome_amount_paid").val());
+    var outcome = "date=" + $("#outcome_date").val()+"&outcome_total=" + removeComma($("#outcome_amount_paid").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createOutcome",
@@ -7,7 +7,7 @@ function createOutcome() {
         success: function (data) {
             $("#outcome_id").val(data.id);
             createOutcomeDetail();
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -28,10 +28,10 @@ function getOutcome() {
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td >" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showOutcomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -94,7 +94,7 @@ function updateOutcome() {
         data: outcome,
         success: function (data) {
             addOutcomeDetail();
-            
+
         },
         error: function (message) {
             errorMessage(message);
@@ -123,11 +123,11 @@ function deleteOutcome(outcome_date, outcomeId) {
 }
 function getOutcomeBySelectMonth(select){
     if(select!='Monthly'){
-        $('.datetimepicker-input').attr('disabled',false);
+        $('#outcome_datepicer').attr('disabled',false);
         getOutcome();
     }else{
-        $('.datetimepicker-input').val("");
-        $('.datetimepicker-input').attr('disabled',true);
+        $('#outcome_datepicer').val("");
+        $('#outcome_datepicer').attr('disabled',true);
         getOutcomeByMonth();
     }
 }
@@ -140,14 +140,14 @@ function getOutcomeByDate(date){
         },
         type: "POST",
         url: BACKEND_URL + "getOutcome",
-        data: "create_date="+formatDate(date),
+        data: "create_date="+date,
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td >" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -179,12 +179,12 @@ function getOutcomeByMonth(){
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr>";
-                tr += "<td >" + element.year + "</td>";
-                tr += "<td >" + element.month + "</td>";
-                tr += "<td >" + element.status + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + element.year + "</td>";
+                tr += "<td class='text-center'>" + element.month + "</td>";
+                tr += "<td class='text-center'>" + element.status + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";

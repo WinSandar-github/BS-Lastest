@@ -1,5 +1,5 @@
 function createIncome() {
-    var income = "date=" + formatDate($("#income_date").val())+"&income_total=" + removeComma($("#income_amount").val());
+    var income = "date=" + $("#income_date").val()+"&income_total=" + removeComma($("#income_amount").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createIncome",
@@ -7,7 +7,7 @@ function createIncome() {
         success: function (data) {
             $("#income_id").val(data.id);
             createIncomeDetail();
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -32,7 +32,7 @@ function getIncome() {
                 tr += "<td >" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -140,7 +140,7 @@ function getIncomeByDate(date){
         },
         type: "POST",
         url: BACKEND_URL + "getIncome",
-        data: "create_date="+formatDatepicer(date),
+        data: "create_date="+date,
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
@@ -194,11 +194,10 @@ function getIncomeByMonth(){
 
             });
             startDataTable('#tbl_yearincome');
-            hideLoad();
+            timeLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_yearincome", "#tbl_yearincome_container");
         }
     });
 }
-

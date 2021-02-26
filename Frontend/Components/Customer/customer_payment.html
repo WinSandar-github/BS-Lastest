@@ -17,7 +17,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />   
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   <!--Toastr-->
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
   <!-- Template CSS -->
@@ -40,13 +40,13 @@
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-    
+
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
           <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
             <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="d-sm-none d-lg-inline-block" id="user_name"></div></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a href="../../Components/Auth/auth-login.html" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -68,7 +68,7 @@
                 <div class="breadcrumb-item">Payment</div>
               </div>
             </div>
-  
+
             <div class="section-body">
               <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
@@ -90,10 +90,10 @@
                                 <th class="text-center">Paid For</th>
                               </tr>
                           </thead>
-                          
+
                           <tbody id="tbl_customer_body" class="hoverTable"></tbody>
                         </table>
-                      
+
                     </div>
                   </div>
                 </div>
@@ -113,10 +113,10 @@
                                     <th class="text-center">Additional Charges</th>
                                 </tr> 
                             </thead>
-                            
+
                             <tbody id="tbl_payment_body" class="hoverTable"></tbody>
                           </table>
-                  
+
                     </div>
                   </div>
                 </div>
@@ -200,11 +200,11 @@
   <script src="../../assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
-  <script src="../node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
+  <!-- <script src="../node_modules/jquery-sparkline/jquery.sparkline.min.js"></script>
   <script src="../node_modules/chart.js/dist/Chart.min.js"></script>
   <script src="../node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
   <script src="../node_modules/summernote/dist/summernote-bs4.js"></script>
-  <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+  <script src="../node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script> -->
   <script src="../Main/js/default_template.js.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
@@ -220,12 +220,12 @@
   <!--Toastr-->
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
   <!-- Page Specific JS File -->
-  <script src="../../assets/js/page/index.js"></script>
+  <!-- <script src="../../assets/js/page/index.js"></script> -->
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer_payment.js"></script>
   <script>
-    $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })    
-   
+    $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+   loadUser();
   </script>
 </body>
 </html>

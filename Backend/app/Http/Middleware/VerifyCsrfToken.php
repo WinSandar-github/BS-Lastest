@@ -40,6 +40,7 @@ class VerifyCsrfToken extends Middleware
         'deleteCustomer',
         'createPayment',
         'getPaymentDetail',
-        'getCreditList'
+        'getCreditList',
+        'getPaymentDetailBypaymentId'
     ];
 }

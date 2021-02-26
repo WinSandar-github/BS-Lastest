@@ -23,17 +23,17 @@ class OutcomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else if($request->monthly=='allmonth'){
-                
+
             $outcome=DB::table('tbl_income_outcome')
                         ->where('outcome_total','<>',0)
                         ->select(DB::raw('YEAR(tbl_income_outcome.date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income_outcome.outcome_total) as outcome_total'))
                         ->join('tbl_month', function ($join) {
                             $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_income_outcome.date)'));
-                                
+
                         })
                         ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
                         ->get();
-                      
+
             if(sizeof($outcome)){
                 return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
@@ -49,23 +49,24 @@ class OutcomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }
-                
+
     }
 
     public function createOutcome(Request $request)
     {
         try{
-            $income_outcome=tbl_income_outcome::whereDate('date',$request->date)->get();
+            $date = str_replace('/', '-', $request->date);
+            $income_outcome=tbl_income_outcome::whereDate('date',date('Y-m-d', strtotime($date)))->get();
             if(sizeof($income_outcome)){
                 for($i=0;$i<count($income_outcome);$i++){
                     $outcome=tbl_income_outcome::find($income_outcome[$i]->id);
                     $outcome->outcome_total=$request->outcome_total;
                     $outcome->save();
                 }
-                
+
             }else{
                 $outcome=new tbl_income_outcome();
-                $outcome->date=$request->date;
+                $outcome->date=date('Y-m-d', strtotime($date));
                 $outcome->outcome_total=$request->outcome_total;
                 $outcome->save();
             }

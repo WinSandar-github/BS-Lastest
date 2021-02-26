@@ -1,5 +1,5 @@
 function createIncome() {
-    var income = "date=" + formatDate($("#income_date").val())+"&income_total=" + removeComma($("#income_amount").val());
+    var income = "date=" + $("#income_date").val()+"&income_total=" + removeComma($("#income_amount").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createIncome",
@@ -7,7 +7,7 @@ function createIncome() {
         success: function (data) {
             $("#income_id").val(data.id);
             createIncomeDetail();
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -29,10 +29,10 @@ function getIncome() {
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td >" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -124,11 +124,11 @@ function deleteIncome(income_date, incomeId) {
 }
 function getIncomeBySelectMonth(select){
     if(select!='Monthly'){
-        $('.datetimepicker-input').attr('disabled',false);
+        $('#income_datepicer').attr('disabled',false);
         getIncome();
     }else{
-        $('.datetimepicker-input').val("");
-        $('.datetimepicker-input').attr('disabled',true);
+        $('#income_datepicer').val("");
+        $('#income_datepicer').attr('disabled',true);
         getIncomeByMonth();
     }
 }
@@ -141,14 +141,14 @@ function getIncomeByDate(date){
         },
         type: "POST",
         url: BACKEND_URL + "getIncome",
-        data: "create_date="+formatDate(date),
+        data: "create_date="+date,
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td >" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -180,12 +180,12 @@ function getIncomeByMonth(){
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr>";
-                tr += "<td >" + element.year + "</td>";
-                tr += "<td >" + element.month + "</td>";
-                tr += "<td >" + element.status + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm btn-space' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" + element.year + "</td>";
+                tr += "<td class='text-center'>" + element.month + "</td>";
+                tr += "<td class='text-center'>" + element.status + "</td>";
+                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
                     "<li class='fas fa-hand-holding-usd'></li></button> ";
                 // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
                 //     "<li class='fas fa-pencil-alt'></li></button> ";
@@ -202,4 +202,3 @@ function getIncomeByMonth(){
         }
     });
 }
-

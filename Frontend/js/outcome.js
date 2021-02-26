@@ -1,5 +1,5 @@
 function createOutcome() {
-    var outcome = "date=" + formatDate($("#outcome_date").val())+"&outcome_total=" + removeComma($("#outcome_amount_paid").val());
+    var outcome = "date=" + $("#outcome_date").val()+"&outcome_total=" + removeComma($("#outcome_amount_paid").val());
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createOutcome",
@@ -7,7 +7,7 @@ function createOutcome() {
         success: function (data) {
             $("#outcome_id").val(data.id);
             createOutcomeDetail();
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -93,7 +93,7 @@ function updateOutcome() {
         data: outcome,
         success: function (data) {
             addOutcomeDetail();
-            
+
         },
         error: function (message) {
             errorMessage(message);
@@ -139,7 +139,7 @@ function getOutcomeByDate(date){
         },
         type: "POST",
         url: BACKEND_URL + "getOutcome",
-        data: "create_date="+formatDate(date),
+        data: "create_date="+formatDatepicer(date),
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";

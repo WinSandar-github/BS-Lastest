@@ -1,7 +1,7 @@
 function createOutcomeDetail() {
     var outcome_detail = {};
     outcome_detail['outcome_id']=$("#outcome_id").val();
-    outcome_detail['outcome_date']=formatDate($("#outcome_date").val());
+    outcome_detail['outcome_date']=$("#outcome_date").val();
     outcome_detail['outcome_reason']=$("#outcome_reason").val();
     outcome_detail['outcome_unit_amount']=removeComma($("#outcome_amount_paid").val());
     $.ajax({
@@ -16,7 +16,7 @@ function createOutcomeDetail() {
             successMessage(data);
             getOutcome();
             getOutcomeDetailByOutcomeId($("#outcome_id").val());
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -40,7 +40,7 @@ function addOutcomeDetail() {
             successMessage(data);
             getOutcome();
             getOutcomeDetailByOutcomeId($("#outcome_id").val());
-            
+
         },
         error: function (message){
             errorMessage(message);
@@ -49,7 +49,6 @@ function addOutcomeDetail() {
 }
 function getOutcomeDetailByOutcomeId(income_outcome_id) {
     destroyDatatable("#tbl_outcome_detail", "#tbl_outcome_detail_container");
-    destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -65,16 +64,15 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
                 tr += "<td class='text-right'>" + thousands_separators( element.unit_amount)+ "</td>";
                 tr += "</tr>";
                 $('#tbl_outcome_detail_container').append(tr);
-                $('#tbl_total_detail_container').append(tr);
+
             });
             startDataTable("#tbl_outcome_detail");
-            startDataTable("#tbl_total_detail");
             timeLoad();
         },
         error: function (message) {
+
             dataMessage(message,"#tbl_outcome_detail", "#tbl_outcome_detail_container");
-            dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
-            timeLoad();
+
         }
     });
 }

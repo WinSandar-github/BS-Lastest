@@ -55,6 +55,7 @@ Route::post('deleteCustomer', array('middleware' => 'cors', 'uses' => 'CustomerC
 //for user payment
 Route::post('createPayment', array('middleware' => 'cors', 'uses' => 'PaymentController@createPayment'));
 Route::post('getPaymentDetail', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetail'));
+Route::post('getPaymentDetailBypaymentId', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetailBypaymentId'));
 Auth::routes();
 //for remaining credit list
 Route::post('getCreditList', array('middleware' => 'cors', 'uses' => 'PaymentController@getCreditList'));

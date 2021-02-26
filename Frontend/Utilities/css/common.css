@@ -4,7 +4,7 @@
 .text-orange {
     color: #fb6340 !important;
 }
-.company_info h4{
+.company_info h4,.company_info h5{
     text-align: center;
 }
 .company_info img{
@@ -51,4 +51,17 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  .ui-bkcolor{
+    background-color: #2196f3;
+    
+  }
+  .ui-bkcolor th{
+    color: white!important;
+  }
+  .custom-body{
+    background-color: white!important;
+  }
+  .custom-header{
+    margin-bottom: 30px;
   }
