@@ -18,9 +18,9 @@ class CreateTblMonthsTable extends Migration
             $table->string('month_name',225);
             $table->timestamps();
         });
-        Artisan::call('db:seed',[
-            '--class' => MonthSeeder::class
-     ]);
+    //     Artisan::call('db:seed',[
+    //         '--class' => MonthSeeder::class
+    //  ]);
     }
 
     /**
