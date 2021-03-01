@@ -1,7 +1,7 @@
 if (typeof (localStorage) != "undefined")
 {
     if (localStorage.getItem("userinfo") == null) {
-         location.href = "../../Components/Auth/auth-login.html";
+        // location.href = "../../Components/Auth/auth-login.html";
     }
     else {
         var user = JSON.parse(localStorage.getItem("userinfo"));
@@ -15,5 +15,5 @@ if (typeof (localStorage) != "undefined")
 }
 else {
     alert('Your browser does not support local storage');
-    location.href = "../../Components/Auth/auth-login.html";
+    //location.href = "../../Components/Auth/auth-login.html";
   }
