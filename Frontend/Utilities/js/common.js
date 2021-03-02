@@ -1,5 +1,5 @@
 BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
-//BACKEND_URL="http://localhost:8000/";
+//BACKEND_URL="http://localhost/bs/Backend/public/";
 
 var toastOptions = {
     "closeButton": true,
