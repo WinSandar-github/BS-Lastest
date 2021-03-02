@@ -61,3 +61,4 @@ Auth::routes();
 Route::post('getCreditList', array('middleware' => 'cors', 'uses' => 'PaymentController@getCreditList'));
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/welcome', 'HomeController@index')->name('home');
