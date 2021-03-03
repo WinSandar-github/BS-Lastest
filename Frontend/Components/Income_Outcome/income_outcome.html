@@ -6,13 +6,14 @@
   <title>IQNet &mdash; Income/Outcome</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" /> -->
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
@@ -28,12 +29,13 @@
   </div>
   <div id="app">
     <div class="main-wrapper">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
+      <div class="custom-class ">
+        <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar" >
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
-
+            
           </ul>
         </form>
         <ul class="navbar-nav navbar-right">
@@ -46,12 +48,10 @@
               </a>
             </div>
           </li>
+          
         </ul>
+        
       </nav>
-      <div class="main-sidebar">
-      </div>
-
-      <!-- Main Content -->
       <div class="main-content">
         <section class="section">
           <div class="section-header">
@@ -60,206 +60,119 @@
               <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
               <div class="breadcrumb-item">Income/Outcome</div>
             </div>
-          </div>
-          <div class="section-body">
+            </div>
+        </section>
+      </div>
+      </div>
+      
+      <div class="main-sidebar">
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          
+          <div class="section-body custom-section-body">
             <div class="row">
-              <div class="col-md-12">
-                <div class="col-12 col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <ul class="nav nav-tabs" id="myTab5" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" id="custom-tabs-income_tab" data-toggle="tab" href="#custom-tabs-income" role="tab" aria-controls="custom-tabs-income" aria-selected="true">
-                            <i class="fas fa-plus"></i> Income</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="custom-tabs-outcome_tab" data-toggle="tab" href="#custom-tabs-outcome" role="tab" aria-controls="custom-tabs-outcome" aria-selected="false">
-                            <i class="fas fa-minus"></i></i> Outcome</a>
-                        </li>
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-income_tab" data-toggle="tab" href="#custom-tabs-income" role="tab" aria-controls="custom-tabs-income" aria-selected="true">
+                          <i class="fas fa-plus"></i> Income</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-outcome_tab" data-toggle="tab" href="#custom-tabs-outcome" role="tab" aria-controls="custom-tabs-outcome" aria-selected="false">
+                          <i class="fas fa-minus"></i></i> Outcome</a>
+                      </li>
 
-                      </ul>
-                    </div>
-                    <div>
-                      <div class="tab-content" id="custom-tabs-four-tabContent">
-                        <div class="tab-pane fade show active" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income_tab">
+                    </ul>
+                  </div>
+                  <div>
+                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                      <div class="tab-pane fade show active" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income_tab">
 
-                            <div class="row">
-                              <div class="col-md-12">
-                                  <div class="card">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
 
-                                    <div class="card-body">
-                                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#incometotal_modal">
-                                        <i class="fas fa-plus fa-sm"> Add New</i>
-                                      </button><br/><br/>
-                                      <div class="row">
+                                  <div class="card-body">
+                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#incometotal_modal">
+                                      <i class="fas fa-plus fa-sm"> Add New</i>
+                                    </button><br/><br/>
+                                    <div class="row">
 
-                                        <div class="col-sm-4 form-group">
+                                      <div class="col-sm-4 form-group">
 
-                                          <div class="input-group" data-target-input="nearest">
-                                            <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
-                                              <option value="" disabled selected>Search</option>
-                                              <option value="Monthly">Monthly</option>
-                                              <option value="Custom">Custom</option>
-                                            </select>
-                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
-                                            </div>
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_date" onchange='getIncomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
                                           </div>
                                         </div>
-                                        <div class="col-sm-4 form-group">
-                                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="date" id="income_datepicer" class="form-control" disabled onchange='getIncomeByDate(this.value);'/>
-
-                                          </div>
-                                        </div>
-
                                       </div>
-                                      <div class='row' id="income">
-                                        <div class='col-12'>
-                                          <table id='tbl_income' class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class='text-center'>Income Date</th>
-                                                    <th class='text-center'>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_income_container"></tbody>
-                                          </table>
+                                      <div class="col-sm-4 form-group">
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input type="date" id="income_datepicer" class="form-control" disabled onchange='getIncomeByDate(this.value);' />
 
-                                        </div>
-                                      </div>
-                                      <div class="row " id="yearincome">
-                                        <div class="col-12">
-
-                                          <table id='tbl_yearincome' class="table mt-3">
-                                            <thead>
-                                                <tr>
-                                                    <th class='text-center'>Year</th>
-                                                    <th class='text-center'>Month</th>
-                                                    <th class='text-center'>Income Status</th>
-                                                    <th class='text-center'>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_yearincome_container"></tbody>
-                                          </table>
                                         </div>
                                       </div>
 
                                     </div>
-                                    <!-- /.card-body -->
+                                    <div class='row' id="income">
+                                      <div class='col-12'>
+                                        <table id='tbl_income' class="table table-hover">
+                                          <thead>
+                                              <tr>
+                                                  <th class='text-center'>Income Date</th>
+                                                  <th class='text-center'>Amount</th>
+                                                  <th></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_income_container"></tbody>
+                                        </table>
+
+                                      </div>
+                                    </div>
+                                    <div class="row " id="yearincome">
+                                      <div class="col-12">
+
+                                        <table id='tbl_yearincome' class="table mt-3">
+                                          <thead>
+                                              <tr>
+                                                  <th class='text-center'>Year</th>
+                                                  <th class='text-center'>Month</th>
+                                                  <th class='text-center'>Amount</th>
+                                                  <th></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_yearincome_container"></tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+
                                   </div>
-
-                              </div>
-
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-12">
-                                <div class="card">
-                                  <div class="card-header">
-                                    <h4>Income Detail</h4>
-                                  </div>
-                                  <div class="card-body">
-
-
-                                      <table id='tbl_income_detail' class="table">
-                                        <thead>
-                                            <tr>
-                                                <th class='text-center'>Date</th>
-                                                <th class='text-center'>Reason</th>
-                                                <th class='text-center'>Amount</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbl_income_detail_container"></tbody>
-                                    </table>
-
-                                  </div>
+                                  <!-- /.card-body -->
                                 </div>
-                              </div>
 
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab_tab">
 
-                            <div class="row">
-                              <div class="col-md-12">
-                                  <div class="card">
+                          </div>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="card">
+                                <div class="card-header">
+                                  <h4>Income Detail</h4>
+                                </div>
+                                <div class="card-body">
 
-                                    <div class="card-body">
-                                      <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
-                                        <i class="fas fa-plus fa-sm"> Add New</i>
-                                      </button><br/><br/>
-                                      <div class="row">
 
-                                        <div class="col-sm-4 form-group">
-
-                                          <div class="input-group" data-target-input="nearest">
-                                            <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
-                                              <option value="" disabled selected>Search</option>
-                                              <option value="Monthly">Monthly</option>
-                                              <option value="Custom">Custom</option>
-                                            </select>
-                                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                                <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="col-sm-4 form-group">
-                                          <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                            <input type="date" id="outcome_datepicer" class="form-control" disabled onchange='getOutcomeByDate(this.value);'/>
-
-                                          </div>
-                                        </div>
-
-                                      </div>
-                                      <div class="row" id="outcome">
-                                        <div class="col-12">
-                                          <table id='tbl_outcome' class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class='text-center'>Outcome Date</th>
-                                                    <th class='text-center'>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_outcome_container"></tbody>
-                                        </table>
-                                        </div>
-                                      </div>
-                                      <div class="row" id="yearoutcome">
-                                        <div class="col-12">
-                                          <table id='tbl_yearoutcome' class="table  mt-3">
-                                            <thead>
-                                                <tr>
-                                                    <th class='text-center'>Year</th>
-                                                    <th class='text-center'>Month</th>
-                                                    <th class='text-center'>Outcome Status</th>
-                                                    <th class='text-center'>Amount</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbl_yearoutcome_container"></tbody>
-                                        </table>
-                                        </div>
-                                      </div>
-
-                                    </div>
-                                    <!-- /.card-body -->
-                                  </div>
-
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-12">
-                                <div class="card">
-                                  <div class="card-header">
-                                    <h4>Outcome Detail</h4>
-                                  </div>
-                                  <div class="card-body">
-
-                                    <table id='tbl_outcome_detail' class="table">
+                                    <table id='tbl_income_detail' class="table">
                                       <thead>
                                           <tr>
                                               <th class='text-center'>Date</th>
@@ -268,18 +181,112 @@
 
                                           </tr>
                                       </thead>
-                                      <tbody id="tbl_outcome_detail_container"></tbody>
-                                    </table>
-                                  </div>
+                                      <tbody id="tbl_income_detail_container"></tbody>
+                                  </table>
+
                                 </div>
                               </div>
                             </div>
-                        </div>
 
+                          </div>
                       </div>
+                      <div class="tab-pane fade" id="custom-tabs-outcome" role="tabpanel" aria-labelledby="custom-tabs-outcome-tab_tab">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+
+                                  <div class="card-body">
+                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#outcometotal_modal">
+                                      <i class="fas fa-plus fa-sm"> Add New</i>
+                                    </button><br/><br/>
+                                    <div class="row">
+
+                                      <div class="col-sm-4 form-group">
+
+                                        <div class="input-group" data-target-input="nearest">
+                                          <select class="form-control" id="selected_outcome_date" onchange='getOutcomeBySelectMonth(this.value);'>
+                                            <option value="" disabled selected>Search</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Custom">Custom</option>
+                                          </select>
+                                          <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                              <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="col-sm-4 form-group">
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                          <input type="date" id="outcome_datepicer" class="form-control" disabled onchange='getOutcomeByDate(this.value);'/>
+
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="row" id="outcome">
+                                      <div class="col-12">
+                                        <table id='tbl_outcome' class="table table-hover">
+                                          <thead>
+                                              <tr>
+                                                  <th class='text-center'>Outcome Date</th>
+                                                  <th class='text-center'>Amount</th>
+                                                  <th></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_outcome_container"></tbody>
+                                      </table>
+                                      </div>
+                                    </div>
+                                    <div class="row" id="yearoutcome">
+                                      <div class="col-12">
+                                        <table id='tbl_yearoutcome' class="table  mt-3">
+                                          <thead>
+                                              <tr>
+                                                  <th class='text-center'>Year</th>
+                                                  <th class='text-center'>Month</th>
+                                                  <th class='text-center'>Amount</th>
+                                                  <th></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody id="tbl_yearoutcome_container"></tbody>
+                                      </table>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <!-- /.card-body -->
+                                </div>
+
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card">
+                                <div class="card-header">
+                                  <h4>Outcome Detail</h4>
+                                </div>
+                                <div class="card-body">
+
+                                  <table id='tbl_outcome_detail' class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class='text-center'>Date</th>
+                                            <th class='text-center'>Reason</th>
+                                            <th class='text-center'>Amount</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl_outcome_detail_container"></tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+
                     </div>
-                    <!-- /.card -->
                   </div>
+                  <!-- /.card -->
                 </div>
               </div>
 
@@ -417,26 +424,31 @@
               </button>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" id="income_form" autocomplete="off" name="income_form" enctype="multipart/form-data" method="post" action="javascript:createIncome();">
+              <form id="income_form" autocomplete="off" name="income_form" enctype="multipart/form-data" method="post" action="javascript:createIncome();">
                 <input type="hidden" id="income_id" />
                 <input type="hidden" id="income_total" />
                 <!-- Form Field Start From Here Below -->
-
+                <div class="form-group row">
+                  <div class="col-md-12 col-sm-12">
+                    <label class="col-form-label">Date</label>
+                    <div class="input-group">
+                        <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
+                        <div class="input-group-append">
+                          <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <label class="col-form-label">Reason</label>
+                    <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
+                </div>
+                </div>
                 <div class="form-group row">
 
-                    <div class="col-md-12 col-sm-12">
-                      <label class="col-form-label">Date</label>
-                      <div class="input-group">
-                          <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
-                          <div class="input-group-append">
-                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <label class="col-form-label">Reason</label>
-                        <input type="type" class="form-control" autocomplete="off" id="income_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
-                    </div>
+                    
+                    
                     <div class="col-sm-12">
                         <label class="col-form-label">Amount</label>
                         <input type="type" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
@@ -464,21 +476,26 @@
                 <input type="hidden" id="outcome_id" />
                 <input type="hidden" id="outcome_total" />
                 <!-- Form Field Start From Here Below -->
-
                 <div class="form-group row">
-                     <div class="col-md-12 col-sm-12">
-                      <label class="col-form-label">Date</label>
-                      <div class="input-group">
-                          <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
-                          <div class="input-group-append">
-                            <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
-                          </div>
-                      </div>
+                  <div class="col-md-12 col-sm-12">
+                    <label class="col-form-label">Date</label>
+                    <div class="input-group">
+                        <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
+                        <div class="input-group-append">
+                          <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
+                        </div>
                     </div>
-                    <div class="col-sm-12">
-                        <label class="col-form-label">Reason</label>
-                        <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
-                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <label class="col-form-label">Reason</label>
+                    <input type="type" class="form-control" autocomplete="off" id="outcome_reason" placeholder="Enter Reason" required oninvalid="this.setCustomValidity('Enter Reason')" oninput="setCustomValidity('')">
+                </div>
+                </div>
+                <div class="form-group row">
+                     
+                    
                     <div class="col-sm-12">
                         <label class="col-form-label">Amount</label>
                         <input type="type" class="form-control" autocomplete="off" id="outcome_amount_paid" placeholder="Enter Amount" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
@@ -499,7 +516,8 @@
  <!-- General JS Scripts -->
  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
+ <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
  <script src="../../assets/js/stisla.js"></script>

@@ -181,7 +181,7 @@ function getOutcomeByMonth(){
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + element.year + "</td>";
                 tr += "<td class='text-center'>" + element.month + "</td>";
-                tr += "<td class='text-center'>" + element.status + "</td>";
+                //tr += "<td class='text-center'>" + element.status + "</td>";
                 tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
                     "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
