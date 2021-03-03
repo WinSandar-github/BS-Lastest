@@ -13,7 +13,7 @@ function login(e)
                 errorMessage("Authentication Failed!");
             }
             else {
-                var obj = JSON.parse((xhttp.responseText));
+                // var obj = JSON.parse((xhttp.responseText));
                 if (typeof (localStorage) !== "undefined") {
                       localStorage.setItem('userinfo', xhttp.responseText);
                       showLoad();
