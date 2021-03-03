@@ -65,3 +65,33 @@
   .custom-header{
     margin-bottom: 30px;
   }
+  .custom-class{
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    left: 0;
+    top: 0;
+  }
+  .custom-section-header{
+    margin-top: 75px;
+    margin-left: 287px;
+      
+  }
+  .custom-section-body{
+    margin-top: 93px!important;
+  }
+  @media (max-width: 575.98px){
+    .custom-section-header{
+      margin-top: 75px;
+      margin-left: 37px;
+    }
+    .custom-section-body{
+      margin-top: 100px!important;
+    }
+  }
+  @media (max-width: 1024px){
+    .custom-section-header{
+      margin-top: 75px;
+      margin-left: 37px;
+    }
+  }
