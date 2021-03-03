@@ -115,6 +115,10 @@ function getEachPayment(customerId){
                 tr += "<td class='text-center'>" + "</td>";
                 tr += "<td class='text-center'>" + element.month + "</td>";
                 tr += "<td class='text-right' style='padding-right:250px;'>" + thousands_separators(element.add_charges) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                        "<button type='button' class='btn btn-success btn-xs' onClick='printPaymentDetail(" + customerId +","+element.id +")'>" +
+                        "<li class='fas fa-print fa-sm'></li> print </button>"+
+                        "</div></td> ";
                 tr += "</tr>";
                 $("#tbl_payment_body").append(tr);
             });
