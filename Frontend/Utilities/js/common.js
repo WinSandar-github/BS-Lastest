@@ -1,5 +1,6 @@
 BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
+//BACKEND_URL="http://localhost:8000/";
 
 var toastOptions = {
     "closeButton": true,
@@ -144,8 +145,8 @@ function startDataTable(table) {
 
 }
 function logout() {
-    (localStorage.getItem("userinfo")) && localStorage.removeItem("userinfo");
-    location.href = "../../Components/Auth/login.html";
+     (localStorage.getItem("userinfo")) && localStorage.removeItem("userinfo");
+    location.href = "../../Components/Auth/auth-login.html";
 }
 function showLoad() {
     $('body').css({
