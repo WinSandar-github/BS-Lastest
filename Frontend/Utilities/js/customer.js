@@ -56,16 +56,16 @@ function getCustomer(){
                 tr += "<td >" + element.address + "</td>";
                 tr += "<td >" + element.ip + "</td>";
                 tr += "<td >" + element.plan.name + "</td>";
+                tr += "<td >" + thousands_separators(element.price) + "</td>";
                 tr += "<td >" + element.pon + "</td>";
                 tr += "<td >" + element.sn + "</td>";
                 tr += "<td >" + element.dn + "</td>";
-                tr += "<td >" + thousands_separators(element.price) + "</td>";
                 var twoWords = (element.desc).split(' ').slice(0,2).join(' ');
-                tr += "<td ><p id='toolip' data-toggle='tooltip' title='"+element.desc+"'>" + twoWords + "</p></td>";
+                tr += "<td class='text-center'><p id='toolip' data-toggle='tooltip' title='"+element.desc+"'>" + twoWords + "</p></td>";
                 $(function () {
                     $('[data-toggle="tooltip"]').tooltip();
                   })
-                tr += "<td class='alignright'><div class='btn-group'>" +
+                tr += "<td class='text-center'><div class='btn-group'>" +
                 "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo(" + element.id + ")'>" +
                 "<li class='fas fa-edit fa-sm'></li></button> ";
                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteCustomer(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
