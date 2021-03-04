@@ -16,6 +16,7 @@ function getCustomer(){
                 tr += "<td class='text-center'>" + element.address + "</td>";
                 tr += "<td class='text-center'>" + element.phone + "</td>";
                 tr += "<td class='text-center'>" + element.plan + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.total_price) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
                         "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
@@ -154,6 +155,7 @@ function loadPayment(){
     $('#name').html("");
     $('#addcharges').html("");
     $('#grandtotal').html("");
+    $('#month').html("");
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "showCustomerInfo",
@@ -170,8 +172,8 @@ function loadPayment(){
                     success: function (data) {
 
                         data.forEach(function(element){
-                                var get_month=element.date.split('-');
-                                array.push(formatMonth(get_month));
+                                var get_month=element.month;
+                                array.push((get_month));
                                 chargers.push(element.add_charges);
                         });
 
@@ -181,10 +183,10 @@ function loadPayment(){
                     tr += "<td class='text-center'>" + payment.phone + "</td>";
                     tr += "<td class='text-center'>" + payment.pon+'.'+payment.sn+'.'+payment.dn + "</td>";
                     tr += "<td class='text-center'>" + payment.plan + "</td>";
-                    tr += "<td class='text-center'>" + array.join() + "</td>";
                     tr += "<td class='text-right'>" +  thousands_separators(payment.price) + "</td>";
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
+                    $('#month').append(array.join() );
                     $('#subtotal').append(thousands_separators(payment.price*array.length));
                     var allcharges=chargers.reduce((a, b) => a + b);
                     $('#addcharges').append(allcharges);
@@ -200,7 +202,7 @@ function loadPayment(){
                 url: BACKEND_URL + "getPaymentDetailBypaymentId",
                 data: "paymentId=" +paymentId,
                 success: function (data) {
-                    var get_month=data[0].date.split('-');
+                    var get_month=data[0].month;
                     
                     var tr = "<tr>";
                     tr += "<td class='text-center'>" + payment.code + "</td>";
@@ -208,10 +210,10 @@ function loadPayment(){
                     tr += "<td class='text-center'>" + payment.phone + "</td>";
                     tr += "<td class='text-center'>" + payment.pon+'.'+payment.sn+'.'+payment.dn + "</td>";
                     tr += "<td class='text-center'>" + payment.plan + "</td>";
-                    tr += "<td class='text-center'>" + formatMonth(get_month) + "</td>";
                     tr += "<td class='text-right'>" + thousands_separators(payment.price) + "</td>";
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
+                    $('#month').append(get_month);
                     $('#subtotal').append(thousands_separators(payment.price));
                     $('#addcharges').append(data[0].add_charges);
                     $('#grandtotal').append(thousands_separators(payment.price+data[0].add_charges));

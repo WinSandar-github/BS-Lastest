@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>IQNet &mdash; System Users</title>
+  <title>IQNet &mdash; Setting</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
@@ -53,10 +53,10 @@
         <div class="fixed-content">
           <section class="">
             <div class="fixed-header">
-              <h1>System Users</h1>
+              <h1>Setting</h1>
               <div class="fixed-header-breadcrumb">
                 <div class="fixed-breadcrumb-item breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="fixed-breadcrumb-item breadcrumb-item">System Users</div>
+                <div class="fixed-breadcrumb-item breadcrumb-item">Setting</div>
               </div>
             </div>
           </section>
@@ -71,39 +71,46 @@
           
           <div class="section-body custom-section-body">
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-6">
                 <div class="card">
                   <div class="card-header">
-                    <h4>System Users</h4>
+                    <h4>Plan</h4>
                   </div>
                   <div class="card-body">
                     <div class="tab-content" id="custom-tabs-four-tabContent">
                       <div class="tab-pane fade active show" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income-tab">
-
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user_modal">
-                          <i class="fas fa-plus fa-sm"> Add New</i>
-                        </button><br/><br/>
-                        <table id='tbl_user' class="table table-hover">
+                        <form enctype="multipart/form-data" action="javascript:createPlan();" id="plan-form">
+                           <div class="form-group">
+                                <div class="input-group" data-target-input="nearest">
+                                <input type="text" class="form-control" id="name">
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                </div>
+                              </div>
+                           </div>
+                            
+                           <div class="form-group">
+                                <div class="input-group" data-target-input="nearest">
+                                <input type="number" class="form-control" id="price">
+                                <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-list-ul"></i></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-right">
+                                <button class="btn btn-primary mr-1" type="submit">Save</button>
+                            </div>
+                        </form>
+                        <table id='tbl_plan' class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class='text-center'>Name</th>
-                                    <th class='text-center'>Email</th>
-                                    <th class='text-center'>Role</th>
+                                    <th class='text-center'>#</th>
+                                    <th class='text-center'>Plan</th>
+                                    <th class='text-center'>Price</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody id="tbl_user_container"></tbody>
-                        </table>
-                        <table id='tbl_user_btn' class="table table-hover">
-                          <thead>
-                              <tr>
-                                  <th class='text-center'>Name</th>
-                                  <th class='text-center'>Email</th>
-                                  <th class='text-center'>Role</th>
-
-                              </tr>
-                          </thead>
-                          <tbody id="tbl_user_btn_container"></tbody>
+                            <tbody id="tbl_plan_body"></tbody>
                         </table>
 
                       </div>
@@ -215,11 +222,10 @@
  <script src="../../Utilities/js/common.js"></script>
  <!--Toastr-->
  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
- <script src="../../Utilities/js/user.js"></script>
+ <script src="../../Utilities/js/plan.js"></script>
  <script src="../../Utilities/js/auth.js"></script>
   <script>
-    getUser();
-    loadUser();
+    getPlan();
   </script>
 </body>
 </html>

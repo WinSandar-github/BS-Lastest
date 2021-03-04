@@ -6,7 +6,6 @@
   <title>IQNet &mdash; Payment Invoice</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- DataTables -->
@@ -58,52 +57,52 @@
                   
                           
                             
-                              <br/><br/>
-                              <div class="row">
-                                <div class="col-sm-12">
-                                  <div class="invoice-title">
-                                    <h6>Name:<span id="name"></span></h6>
-                                    <div class="invoice-number" style="font-size: 15px;margin-top: -30px;">Date:<span id="get_date"></span></div>
-                                  </div>
-                                  <hr>
+                          <br/><br/>
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="invoice-title">
+                                <h6>Name: <span id="name"></span></h6>
+                                <h6>Month: <span id="month"></span></h6>
+                                <div class="invoice-number" style="font-size: 15px;margin-top: -30px;">Date: <span id="get_date"></span></div>
+                              </div>
+                              <hr>
                               
                               
                                 </div>
                               </div>
           
-                              <div class="row">
-                                <div class="col-md-12 col-sm-12">
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xl-12">
                               
-                                  <div class="">
-                                    <table class="table" id='tbl_invoice'>
-                                      <thead>
-                                        <tr>
-                                          <th class='text-center'>User ID</th>
-                                          <th class='text-center'>Address</th>
-                                          <th class='text-center'>Phone</th>
-                                          <th class='text-center'>PON</th>
-                                          <th class='text-center'>Plan</th>
-                                          <th class='text-center'>Month</th>
-                                          <th class='text-center'>Amount</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody id="tbl_invoice_container"></tbody>
-                                      <tfoot>
-                                        <tr>
-                                            <th colspan="6" class="text-right">SubTotal(Baht):</th>
-                                            <td colspan="7" class="text-right"><span id="subtotal"></span></td>
+                              <div class="table-responsive">
+                                <table class="table" id='tbl_invoice'>
+                                  <thead>
+                                    <tr>
+                                      <th class='text-center'>User ID</th>
+                                      <th class='text-center'>Address</th>
+                                      <th class='text-center'>Phone</th>
+                                      <th class='text-center'>PON</th>
+                                      <th class='text-center'>Plan</th>
+                                      <th class='text-center'>Price/Month</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="tbl_invoice_container"></tbody>
+                                  <tfoot>
+                                    <tr>
+                                        <th colspan="5" class="text-right">SubTotal(Baht):</th>
+                                        <td colspan="6" class="text-right"><span id="subtotal"></span></td>
                                         
-                                        </tr>
-                                        <tr>
-                                            <th colspan="6" class="text-right">Additional Charges:</th>
-                                            <td colspan="7" class="text-right"><span id="addcharges"></span></td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="6" class="text-right">GrandTotal(Baht):</th>
-                                            <td colspan="7" class="text-right"><span id="grandtotal"></span></td>
-                                        </tr>
-                                    </tfoot>
-                                    </table>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5" class="text-right">Additional Charges:</th>
+                                        <td colspan="6" class="text-right"><span id="addcharges"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5" class="text-right">GrandTotal(Baht):</th>
+                                        <td colspan="6" class="text-right"><span id="grandtotal"></span></td>
+                                    </tr>
+                                </tfoot>
+                                </table>
                                
                                   </div>
                               
