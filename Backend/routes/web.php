@@ -65,6 +65,8 @@ Route::post('getPlan', array('middleware' => 'cors', 'uses' => 'PlanController@g
 Route::post('showPlanInfo', array('middleware' => 'cors', 'uses' => 'PlanController@showPlanInfo'));
 Route::post('updatePlan', array('middleware' => 'cors', 'uses' => 'PlanController@updatePlan'));
 Route::post('deletePlan', array('middleware' => 'cors', 'uses' => 'PlanController@deletePlan'));
+//for get price by plan
+Route::post('getPlanByPlanId', array('middleware' => 'cors', 'uses' => 'PlanController@getPlanByPlanId'));
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');

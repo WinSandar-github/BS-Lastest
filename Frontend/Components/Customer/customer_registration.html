@@ -144,7 +144,9 @@
                             <label for="inputEmail3" class="col-form-label">Plan</label>
                           </div>
                             <div class="col-sm-5">
-                              <input type="text" autocomplete="off" class="form-control" id="plan" placeholder="Enter Plan">
+                              <select class="form-control" id="selected_plan_id" style="width: 100%;" onchange="loadPriceByPlan(this.value);">
+                                <option value="" disabled selected>Select Plan</option>
+                              </select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -176,7 +178,7 @@
                             <label for="inputEmail3" class="col-form-label">Price</label>
                           </div>
                             <div class="col-sm-5">
-                              <input type="number" class="form-control" id="price" placeholder="Enter Price">
+                              <input type="number" class="form-control" id="price" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -234,6 +236,7 @@
   <script>
     $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
     loadUser();
+    loadPlan();
   </script>
 </body>
 </html>

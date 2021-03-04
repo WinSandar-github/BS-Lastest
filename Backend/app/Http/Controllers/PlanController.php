@@ -46,7 +46,7 @@ class PlanController extends Controller
                 return response()->json($plan, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
              }
         }
-      public function updatePlan(Request $request)
+    public function updatePlan(Request $request)
         {
             try{
                 $plan = tbl_plan::find($request->planId);
@@ -62,9 +62,20 @@ class PlanController extends Controller
     {
         $plan = tbl_plan::find($request->planId);
         if($plan->delete()){
-           return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);}
+            return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
         else{
-             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+            return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+    public function getPlanByPlanId(Request $request)
+    {
+        $plan = tbl_plan::where('id','=',$request->plan_id)->get();
+        if(sizeof($plan)){
+            return response()->json($plan, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
     

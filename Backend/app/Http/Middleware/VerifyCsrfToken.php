@@ -46,6 +46,7 @@ class VerifyCsrfToken extends Middleware
         'getPlan',
         'showPlanInfo',
         'updatePlan',
-        'deletePlan'
+        'deletePlan',
+        'getPlanByPlanId'
     ];
 }
