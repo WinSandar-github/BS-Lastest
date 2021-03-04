@@ -9,7 +9,7 @@ function createCustomer(){
         customer["address"]=$("#address").val();
         customer["code"]=$("#code").val();
         customer["ip"]=$("#ip").val();
-        customer["plan"]=$("#plan").val();
+        customer["plan"]=$("#selected_plan_id").val();
         customer["pon"]=$("#pon").val();
         customer["sn"]=$("#sn").val();
         customer["dn"]=$("#dn").val();
@@ -164,4 +164,19 @@ function deleteCustomer(customerName, customerId) {
             }
         });
     }
+}
+function loadPriceByPlan(planId){
+    $("#price").html("");
+    var data = "&plan_id=" +planId;
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "getPriceByPlan",
+        data: data,
+        success: function (data) {
+            $("#price").val((data.price));
+        },
+        error:function (message){
+          errorMessage(message);
+        }
+    });
 }

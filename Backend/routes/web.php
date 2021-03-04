@@ -59,6 +59,8 @@ Route::post('getPaymentDetailBypaymentId', array('middleware' => 'cors', 'uses' 
 Auth::routes();
 //for remaining credit list
 Route::post('getCreditList', array('middleware' => 'cors', 'uses' => 'PaymentController@getCreditList'));
+//for get price by plan
+Route::post('getPriceByPlan', array('middleware' => 'cors', 'uses' => 'CustomerController@getPriceByPlan'));
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
