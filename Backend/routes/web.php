@@ -62,6 +62,9 @@ Route::post('getCreditList', array('middleware' => 'cors', 'uses' => 'PaymentCon
 //for plan
 Route::post('createPlan', array('middleware' => 'cors', 'uses' => 'PlanController@createPlan'));
 Route::post('getPlan', array('middleware' => 'cors', 'uses' => 'PlanController@getPlan'));
+Route::post('showPlanInfo', array('middleware' => 'cors', 'uses' => 'PlanController@showPlanInfo'));
+Route::post('updatePlan', array('middleware' => 'cors', 'uses' => 'PlanController@updatePlan'));
+Route::post('deletePlan', array('middleware' => 'cors', 'uses' => 'PlanController@deletePlan'));
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
