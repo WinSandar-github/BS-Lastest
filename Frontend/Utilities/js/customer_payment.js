@@ -16,7 +16,7 @@ function getCustomer(){
                 tr += "<td class='text-center'>" + element.address + "</td>";
                 tr += "<td class='text-center'>" + element.phone + "</td>";
                 tr += "<td class='text-center'>" + element.plan.name + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.plan.price) + "</td>";
                 tr += "<td class='text-right'>" + thousands_separators(element.total_price) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
                         "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +

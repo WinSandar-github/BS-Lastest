@@ -85,13 +85,10 @@
                           </div>
                            
                             <div class="col-sm-5">
-                                <div class="input-group mb-2">
-                                    <input type="text" autocomplete="off" class="form-control" id="registeration_date" placeholder="dd/mm/yyyy" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                    <div class="input-group-text"><i class="fas fa-calendar"></i></div>
-                                    </div>
+                              <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                <input type="date" id="registeration_date" class="form-control" >
 
-                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -151,6 +148,14 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-3 text-right">
+                            <label for="inputEmail3" class="col-form-label">Price</label>
+                          </div>
+                            <div class="col-sm-5">
+                              <input type="number" class="form-control" id="price" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-sm-3 text-right">
                             <label for="inputEmail3" class="col-form-label">Pon</label>
                           </div>
                             <div class="col-sm-5">
@@ -171,14 +176,6 @@
                           </div>
                             <div class="col-sm-5">
                               <input type="text" autocomplete="off" class="form-control" id="dn" placeholder="Enter Dn">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col-sm-3 text-right">
-                            <label for="inputEmail3" class="col-form-label">Price</label>
-                          </div>
-                            <div class="col-sm-5">
-                              <input type="number" class="form-control" id="price" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
