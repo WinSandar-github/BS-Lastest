@@ -9,7 +9,7 @@ function createCustomer(){
         customer["address"]=$("#address").val();
         customer["code"]=$("#code").val();
         customer["ip"]=$("#ip").val();
-        customer["plan"]=$("#plan").val();
+        customer["plan"]=$("#selected_plan_id").val();
         customer["pon"]=$("#pon").val();
         customer["sn"]=$("#sn").val();
         customer["dn"]=$("#dn").val();
@@ -55,7 +55,7 @@ function getCustomer(){
                 tr += "<td >" + element.phone + "</td>";
                 tr += "<td >" + element.address + "</td>";
                 tr += "<td >" + element.ip + "</td>";
-                tr += "<td >" + element.plan + "</td>";
+                tr += "<td >" + element.plan.name + "</td>";
                 tr += "<td >" + element.pon + "</td>";
                 tr += "<td >" + element.sn + "</td>";
                 tr += "<td >" + element.dn + "</td>";
@@ -103,7 +103,7 @@ function showCustomerInfo(customerId) {
             $('#update_code').val(data.code);
             $('#update_address').val(data.address);
             $('#update_ip').val(data.ip);
-            $('#update_plan').val(data.plan);
+            $('#selected_plan_id').val(data.plan);
             $('#update_pon').val(data.pon);
             $('#update_sn').val(data.sn);
             $('#update_dn').val(data.dn);
@@ -124,7 +124,7 @@ function updateCustomer(){
     customer["address"]=$("#update_address").val();
     customer["code"]=$("#update_code").val();
     customer["ip"]=$("#update_ip").val();
-    customer["plan"]=$("#update_plan").val();
+    customer["plan"]=$("#selected_plan_id").val();
     customer["pon"]=$("#update_pon").val();
     customer["sn"]=$("#update_sn").val();
     customer["dn"]=$("#update_dn").val();
@@ -164,4 +164,46 @@ function deleteCustomer(customerName, customerId) {
             }
         });
     }
+}
+function loadPlan(){
+    var select = document.getElementById("selected_plan_id");
+    $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
+        type: "POST",
+        url: BACKEND_URL + "getPlan",
+        data: "",
+        success: function (data) {
+            data.forEach(function (element) {
+                var option = document.createElement('option');
+                option.text = element.name;
+                option.value = element.id;
+                select.add(option, 0);
+
+            });
+            timeLoad();
+
+        },
+        error:function (message){
+            timeLoad();
+        }
+    });
+}
+function loadPriceByPlan(planId){
+    $("#price").html("");
+    $("#update_price").html("");
+    var data = "&plan_id=" +planId;
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "getPlanByPlanId",
+        data: data,
+        success: function (data) {
+            $("#price").val(data[0].price);
+            $("#update_price").val(data[0].price);
+        },
+        error:function (message){
+          errorMessage(message);
+        }
+    });
 }
