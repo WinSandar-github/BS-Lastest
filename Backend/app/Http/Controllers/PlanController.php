@@ -36,6 +36,15 @@ class PlanController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
-    
+    public function getPlanByPlanId(Request $request)
+    {
+        $plan = tbl_plan::where('id','=',$request->plan_id)->get();
+        if(sizeof($plan)){
+            return response()->json($plan, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
     
 }

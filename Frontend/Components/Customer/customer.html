@@ -261,7 +261,9 @@
                   <!-- Email -->
                   <div class="col-md-6">
                       <label class="col-form-label">PLan</label>
-                      <input type="text" class="form-control" id="update_plan" placeholder="Enter Plan">
+                      <select class="form-control" id="selected_plan_id" style="width: 100%;" onchange="loadPriceByPlan(this.value);">
+                        <option value="" disabled selected>Select Plan</option>
+                      </select>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -287,7 +289,7 @@
                   <!-- Email -->
                   <div class="col-md-6">
                       <label class="col-form-label">Price</label>
-                      <input type="number" class="form-control" id="update_price" placeholder="Enter Price">
+                      <input type="number" class="form-control" id="update_price" readonly>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -333,6 +335,6 @@
   <script src="../../assets/js/page/index.js"></script>
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
-  <script>loadUser();</script>
+  <script>loadUser();loadPlan();</script>
 </body>
 </html>
