@@ -1,37 +1,42 @@
 function createCustomer(){
     var result = confirm("WARNING: This will Add New User For " + ($("#name").val()) + "! Press OK to proceed.");
     if(result){
-        var customer={};
-        customer["name"]=$("#name").val();
-        customer["regDate"]=$("#registeration_date").val();
-        customer["phone"]=$("#phone").val();
-        customer["code"]=$("#code").val();
-        customer["address"]=$("#address").val();
-        customer["code"]=$("#code").val();
-        customer["ip"]=$("#ip").val();
-        customer["plan"]=$("#selected_plan_id").val();
-        customer["pon"]=$("#pon").val();
-        customer["sn"]=$("#sn").val();
-        customer["dn"]=$("#dn").val();
-        customer["price"]=$("#price").val();
-        customer["desc"]=$("#desc").val();
-        $.ajax({
-            beforeSend: function () {
-                showLoad();
-            },
-            type: "POST",
-            url: BACKEND_URL + "createCustomer",
-            data: JSON.stringify(customer),
-            success: function (data) {
-                document.getElementById("customerForm").reset();
-                successMessage(data);
-                timeLoad();
-            },
-            error: function (message) {
-                errorMessage(message);
-                timeLoad();
-            }
-        });
+        if($("#codeStatus")==""){
+            var customer={};
+            customer["name"]=$("#name").val();
+            customer["regDate"]=$("#registeration_date").val();
+            customer["phone"]=$("#phone").val();
+            customer["code"]=$("#code").val();
+            customer["address"]=$("#address").val();
+            customer["code"]=$("#code").val();
+            customer["ip"]=$("#ip").val();
+            customer["plan"]=$("#selected_plan_id").val();
+            customer["pon"]=$("#pon").val();
+            customer["sn"]=$("#sn").val();
+            customer["dn"]=$("#dn").val();
+            customer["price"]=$("#price").val();
+            customer["desc"]=$("#desc").val();
+            $.ajax({
+                beforeSend: function () {
+                    showLoad();
+                },
+                type: "POST",
+                url: BACKEND_URL + "createCustomer",
+                data: JSON.stringify(customer),
+                success: function (data) {
+                    document.getElementById("customerForm").reset();
+                    successMessage(data);
+                    timeLoad();
+                },
+                error: function (message) {
+                    errorMessage(message);
+                    timeLoad();
+                }
+            });
+        }
+        else{
+            alert($("#codeStatus").val());
+        }
     }
    
 
@@ -201,6 +206,22 @@ function loadPriceByPlan(planId){
         success: function (data) {
             $("#price").val(data[0].price);
             $("#update_price").val(data[0].price);
+        },
+        error:function (message){
+          errorMessage(message);
+        }
+    });
+}
+function matchId(){
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "matchId",
+        data: "code="+$("#code").val(),
+        success: function (data) {
+            if(data=="1"){
+                $("#codeStatus").val("Customer ID already exits.");
+            }
+            else $("#codeStatus").val("");
         },
         error:function (message){
           errorMessage(message);
