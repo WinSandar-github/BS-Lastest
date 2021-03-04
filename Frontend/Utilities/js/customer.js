@@ -1,7 +1,7 @@
 function createCustomer(){
     var result = confirm("WARNING: This will Add New User For " + ($("#name").val()) + "! Press OK to proceed.");
     if(result){
-        if($("#codeStatus")==""){
+        if($("#codeStatus").val()==""){
             var customer={};
             customer["name"]=$("#name").val();
             customer["regDate"]=$("#registeration_date").val();
