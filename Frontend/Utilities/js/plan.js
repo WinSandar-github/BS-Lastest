@@ -27,13 +27,13 @@ function getPlan(){
         success: function (data) {
             data.forEach(function (element) {
                 var tr = "<tr>";
-                tr += "<td >" +  + "</td>";
-                tr += "<td >" + element.name + "</td>";
-                tr += "<td >" + element.price + "</td>";
-                tr += "<td class='alignright'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo(" + element.id + ")'>" +
+                tr += "<td class='text-center'>" +  + "</td>";
+                tr += "<td class='text-center'>" + element.name + "</td>";
+                tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                "<button type='button' class='btn btn-primary btn-xs' onClick='showPlanInfo(" + element.id + ")'>" +
                 "<li class='fas fa-edit fa-sm'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteCustomer(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deletePlan(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
             
                 tr += "</tr>";
                 $("#tbl_plan_body").append(tr);
@@ -49,4 +49,63 @@ function getPlan(){
             timeLoad();
         }
     });
+}
+function showPlanInfo(planId) {
+    $("#plan-form").attr('action', 'javascript:updatePlan()');
+    $("#plan-id").val(planId);
+
+    var data = "&planId=" + planId;
+    $.ajax({
+        beforeSend: function () {
+            showLoad();
+        },
+        type: "POST",
+        url: BACKEND_URL + "showPlanInfo",
+        data: data,
+        success: function (data) {
+            $("#name").val(data.name);
+            $("#price").val(data.price);
+            timeLoad();
+        },
+        error:function (message){
+          errorMessage(message);
+          timeLoad();
+        }
+    });
+}
+
+function updatePlan() {
+    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val();
+    $.ajax({
+        type: "POST",
+        url: BACKEND_URL + "updatePlan",
+        data: planData,
+        success: function (data) {
+            $("#plan-form").attr('action', 'javascript:createPlan()');
+            document.getElementById("plan-form").reset();
+            successMessage(data);
+            getPlan();
+        },
+        error:function (message){
+            errorMessage(message);
+        }
+    });
+}
+function deletePlan(planName, planId) {
+    var result = confirm("WARNING: This will delete the plan " + decodeURIComponent(planName) + " and all related stocks! Press OK to proceed.");
+    if (result) {
+        var data = "planId=" + planId;
+        $.ajax({
+            type: "POST",
+            url: BACKEND_URL + "deletePlan",
+            data: data,
+            success: function (data) {
+                successMessage(data);
+                getPlan();
+            },
+            error: function (message) {
+                errorMessage(message);
+            }
+        });
+    }
 }

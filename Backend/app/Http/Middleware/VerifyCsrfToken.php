@@ -44,6 +44,9 @@ class VerifyCsrfToken extends Middleware
         'getPaymentDetailBypaymentId',
         'createPlan',
         'getPlan',
+        'showPlanInfo',
+        'updatePlan',
+        'deletePlan',
         'getPlanByPlanId',
         'getCustomerById'
     ];
