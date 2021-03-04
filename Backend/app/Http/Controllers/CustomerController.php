@@ -112,4 +112,14 @@ class CustomerController extends Controller
              return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+    public function getCustomerById(Request $request)
+    {
+         $customer = tbl_customer::where('id','=',$request->customerId)->with(['plan'])->get();
+         if(empty($customer)){
+            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+         }
+         else{
+            return response()->json($customer, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+         }
+    }
 }
