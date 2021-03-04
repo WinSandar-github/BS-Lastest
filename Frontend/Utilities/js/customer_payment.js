@@ -158,7 +158,7 @@ function loadPayment(){
     $('#month').html("");
     $.ajax({
         type: "POST",
-        url: BACKEND_URL + "showCustomerInfo",
+        url: BACKEND_URL + "getCustomerById",
         data: "customerId=" +customerId,
         success: function (payment) {
             $('#name').append(payment.name);
@@ -178,19 +178,19 @@ function loadPayment(){
                         });
 
                     var tr = "<tr>";
-                    tr += "<td class='text-center'>" + payment.code + "</td>";
-                    tr += "<td class='text-center'>" + payment.address + "</td>";
-                    tr += "<td class='text-center'>" + payment.phone + "</td>";
-                    tr += "<td class='text-center'>" + payment.pon+'.'+payment.sn+'.'+payment.dn + "</td>";
-                    tr += "<td class='text-center'>" + payment.plan + "</td>";
-                    tr += "<td class='text-right'>" +  thousands_separators(payment.price) + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].code + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].address + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].phone + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].pon+'.'+payment[0].sn+'.'+payment[0].dn + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].plan.name + "</td>";
+                    tr += "<td class='text-right'>" +  thousands_separators(payment[0].price) + "</td>";
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
                     $('#month').append(array.join() );
-                    $('#subtotal').append(thousands_separators(payment.price*array.length));
+                    $('#subtotal').append(thousands_separators(payment[0].price*array.length));
                     var allcharges=chargers.reduce((a, b) => a + b);
                     $('#addcharges').append(allcharges);
-                    $('#grandtotal').append(thousands_separators((payment.price*array.length)+allcharges));
+                    $('#grandtotal').append(thousands_separators((payment[0].price*array.length)+allcharges));
                     },
                     error: function (message) {
 
@@ -205,18 +205,18 @@ function loadPayment(){
                     var get_month=data[0].month;
                     
                     var tr = "<tr>";
-                    tr += "<td class='text-center'>" + payment.code + "</td>";
-                    tr += "<td class='text-center'>" + payment.address + "</td>";
-                    tr += "<td class='text-center'>" + payment.phone + "</td>";
-                    tr += "<td class='text-center'>" + payment.pon+'.'+payment.sn+'.'+payment.dn + "</td>";
-                    tr += "<td class='text-center'>" + payment.plan + "</td>";
-                    tr += "<td class='text-right'>" + thousands_separators(payment.price) + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].code + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].address + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].phone + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].pon+'.'+payment[0].sn+'.'+payment[0].dn + "</td>";
+                    tr += "<td class='text-center'>" + payment[0].plan.name + "</td>";
+                    tr += "<td class='text-right'>" + thousands_separators(payment[0].price) + "</td>";
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
                     $('#month').append(get_month);
-                    $('#subtotal').append(thousands_separators(payment.price));
+                    $('#subtotal').append(thousands_separators(payment[0].price));
                     $('#addcharges').append(data[0].add_charges);
-                    $('#grandtotal').append(thousands_separators(payment.price+data[0].add_charges));
+                    $('#grandtotal').append(thousands_separators(payment[0].price+data[0].add_charges));
                   },
                   error: function (message) {
 
