@@ -122,4 +122,14 @@ class CustomerController extends Controller
             return response()->json($customer, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
          }
     }
+    public function matchId(Request $request)
+    {
+         $customer = tbl_customer::where('code','=',$request->code)->get();
+         if(count($customer)){
+            return "1";
+         }
+         else{
+            return "0";
+         }
+    }
 }

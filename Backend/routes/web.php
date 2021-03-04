@@ -69,6 +69,7 @@ Route::post('deletePlan', array('middleware' => 'cors', 'uses' => 'PlanControlle
 Route::post('getPlanByPlanId', array('middleware' => 'cors', 'uses' => 'PlanController@getPlanByPlanId'));
 //for invoice
 Route::post('getCustomerById', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerById'));
+Route::post('matchId', array('middleware' => 'cors', 'uses' => 'CustomerController@matchId'));
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
