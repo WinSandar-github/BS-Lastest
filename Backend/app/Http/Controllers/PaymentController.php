@@ -22,7 +22,12 @@ class PaymentController extends Controller
             $payment=new tbl_payment_detail();
             $date=date('Y-m-d');
             $payment->date=date('Y-m-d');
-            $payment->add_charges=$request->addCharges;
+            if($request->addCharges){
+                $payment->add_charges=$request->addCharges;
+            }
+            else{
+                $payment->add_charges=0;
+            }
             $payment->customer_id=$request->customerId;
             $payment->month=$request->month;
             $payment->save();
@@ -52,8 +57,9 @@ class PaymentController extends Controller
                     $income->save();
                     $income_detail=new tbl_income_detail();
                     $income_detail->income_outcome_id=$income->id;
+                    $income_detail->payment_detail_id=$payment->id;
                     $income_detail->date=date('Y-m-d', strtotime($date));
-                    $income_detail->reason='Adding Payment';
+                    $income_detail->reason='Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
                     $income_detail->unit_amount=$customer->price+$request->addCharges;
                     $income_detail->save();
                 }
@@ -64,13 +70,14 @@ class PaymentController extends Controller
                 $income->save();
                 $income_detail=new tbl_income_detail();
                 $income_detail->income_outcome_id=$income->id;
+                $income_detail->payment_detail_id=$payment->id;
                 $income_detail->date=date('Y-m-d', strtotime($date));
-                $income_detail->reason='Adding Payment';
+                $income_detail->reason='Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
                 $income_detail->unit_amount=$customer->price+$request->addCharges;
                 $income_detail->save();
             }
 
-           return response()->json(config('common.message.success'), 200,config('common.header'), JSON_UNESCAPED_UNICODE);
+           return response()->json(['payment_detail_id'=>$payment->id], 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
             return $e->getMessage();
            // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
@@ -98,5 +105,41 @@ class PaymentController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function delete_payment_detail(Request $request)
+    {
+        $payment = tbl_payment_detail::find($request->payment_detail_id);
+        $payment->delete();
+        $customer=tbl_customer::find($request->customerId);
+        $date1=$customer->reg_date;
+        $date2 = date('Y-m-d');
+        $ts1 = strtotime($date1);
+        $ts2 = strtotime($date2);
+    
+        $year1 = date('Y', $ts1);
+        $year2 = date('Y', $ts2);
+    
+        $month1 = date('m', $ts1);
+        $month2 = date('m', $ts2);
+            
+        $diff = (($year2 - $year1) * 12) + ($month2 - $month1);
+        $totalMonth=$diff+1;
+        $paymentDetail=tbl_payment_detail::where('customer_id','=',$request->customerId)->get();
+        $payMonth=count($paymentDetail);
+        $customer->total_price=($totalMonth-$payMonth)*$customer->price;
+        $income_detail=tbl_income_detail::where('payment_detail_id','=',$request->payment_detail_id)->first();
+        
+        $income=tbl_income_outcome::where('date',$payment->date)->first();
+        $income->income_total= $income->income_total-$customer->price+$payment->addCharges;
+        
+        if($customer->save() && $income_detail->delete() && $income->save()){
+            return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+        else{
+            return $e->getMessage();
+            // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+    
 
 }

@@ -59,11 +59,7 @@ function getCreditList(regDate,customerId){
                 }
                
             })
-            // successMessage(data);
              $("#creditModal").modal('toggle');
-            // document.getElementById("paymentForm").reset();
-            // getCustomer();
-            // getEachPayment($("#customerId").val());
         },
         error: function (message){
             errorMessage(message);
@@ -86,11 +82,12 @@ function createPayment(){
         url: BACKEND_URL + "createPayment",
         data: payment,
         success: function (data) {
-            successMessage(data);
+            printPaymentDetail($("#customerId").val(),data.payment_detail_id);
+            successMessage("Payment Is Successfull!");
             $("#paymentModal").modal('toggle');
-            document.getElementById("paymentForm").reset();
             getCustomer();
             getEachPayment($("#customerId").val());
+           
         },
         error: function (message){
             errorMessage(message);
@@ -111,15 +108,18 @@ function getEachPayment(customerId){
         url: BACKEND_URL + "getPaymentDetail",
         data: "customerId="+customerId,
         success: function (data) {
+            console.log(data);
             data.forEach(function (element) {
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + "</td>";
                 tr += "<td class='text-center'>" + element.month + "</td>";
-                tr += "<td class='text-right' style='padding-right:250px;'>" + thousands_separators(element.add_charges) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                        "<button type='button' class='btn btn-success btn-xs' onClick='printPaymentDetail(" + customerId +","+element.id +")'>" +
-                        "<li class='fas fa-print fa-sm'></li> print </button>"+
-                        "</div></td> ";
+                tr += "<td class='text-right'>" + thousands_separators(element.add_charges) + "</td>";
+                tr += `<td class='text-center'><div class='btn-group'>
+                        <button type='button' class='btn btn-danger btn-xs' onClick='deletePaymentDetail(${customerId},${element.id})'> 
+                        <i class='far fa-trash-alt'></i></button>
+                        <button type='button' class='btn btn-success btn-xs' onClick='printPaymentDetail(${customerId},${element.id})'> 
+                        <li class='fas fa-print fa-sm'></li> print </button>
+                        </div></td> `;
                 tr += "</tr>";
                 $("#tbl_payment_body").append(tr);
             });
@@ -149,7 +149,7 @@ function loadPayment(){
     var paymentId = url.searchParams.get("paymentId");
     var url=window.location.href.split('/');
     var last_array=url[url.length - 1].split('?');
-    
+    console.log(last_array);
     $("#tbl_invoice_container").html("");
     $('#subtotal').html("");
     $('#name').html("");
@@ -161,7 +161,10 @@ function loadPayment(){
         url: BACKEND_URL + "getCustomerById",
         data: "customerId=" +customerId,
         success: function (payment) {
-            $('#name').append(payment.name);
+            $('#name').append("-"+payment[0].name);
+            $('#userId').append(payment[0].code);
+            $('#address').append(payment[0].address);
+            $('#pon').append(payment[0].pon+'.'+payment[0].sn+'.'+payment[0].dn);
             if (last_array[last_array.length - 2] === 'payment_invoice.html'){
                 var array=[];
                 var chargers=[];
@@ -171,26 +174,22 @@ function loadPayment(){
                     data: "customerId=" +customerId,
                     success: function (data) {
 
-                        data.forEach(function(element){
-                                var get_month=element.month;
-                                array.push((get_month));
-                                chargers.push(element.add_charges);
-                        });
-
-                    var tr = "<tr>";
-                    tr += "<td class='text-center'>" + payment[0].code + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].address + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].phone + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].pon+'.'+payment[0].sn+'.'+payment[0].dn + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].plan.name + "</td>";
-                    tr += "<td class='text-right'>" +  thousands_separators(payment[0].price) + "</td>";
-                    tr += "</tr>";
-                    $("#tbl_invoice_container").append(tr);
-                    $('#month').append(array.join() );
-                    $('#subtotal').append(thousands_separators(payment[0].price*array.length));
-                    var allcharges=chargers.reduce((a, b) => a + b);
-                    $('#addcharges').append(allcharges);
-                    $('#grandtotal').append(thousands_separators((payment[0].price*array.length)+allcharges));
+                            data.forEach(function(element){
+                                var get_month=(element.month).substring(0,3);
+                                var tr = "<tr>";
+                                tr += "<th class='text-center'>" +  element.month + "</th>";
+                                tr += "<th class='text-center'>" + payment[0].plan.name + "</th>";
+                                tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                                tr += "</tr>";
+                                $("#tbl_invoice_container").append(tr);
+                            });
+                            $('#total').append(thousands_separators((payment[0].price*data.length))+" Baht");
+                    
+                    // $('#month').append(array.join() );
+                    // $('#subtotal').append(thousands_separators(payment[0].price*array.length));
+                    // var allcharges=chargers.reduce((a, b) => a + b);
+                    // $('#addcharges').append(allcharges);
+                    // $('#grandtotal').append(thousands_separators((payment[0].price*array.length)+allcharges));
                     },
                     error: function (message) {
 
@@ -202,21 +201,17 @@ function loadPayment(){
                 url: BACKEND_URL + "getPaymentDetailBypaymentId",
                 data: "paymentId=" +paymentId,
                 success: function (data) {
-                    var get_month=data[0].month;
-                    
+                    var get_month=(data[0].month).substring(0,3);
                     var tr = "<tr>";
-                    tr += "<td class='text-center'>" + payment[0].code + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].address + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].phone + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].pon+'.'+payment[0].sn+'.'+payment[0].dn + "</td>";
-                    tr += "<td class='text-center'>" + payment[0].plan.name + "</td>";
-                    tr += "<td class='text-right'>" + thousands_separators(payment[0].price) + "</td>";
+                    tr += "<td class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</td>";
+                    tr += "<td class='text-center font-weight-bold'>" + payment[0].plan.name + "</td>";
+                    tr += "<td class='text-center font-weight-bold'>" + thousands_separators(payment[0].price)+" Baht" + "</td>";
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
-                    $('#month').append(get_month);
-                    $('#subtotal').append(thousands_separators(payment[0].price));
-                    $('#addcharges').append(data[0].add_charges);
-                    $('#grandtotal').append(thousands_separators(payment[0].price+data[0].add_charges));
+                    // $('#month').append(get_month);
+                    // $('#subtotal').append(thousands_separators(payment[0].price));
+                    // $('#addcharges').append(data[0].add_charges);
+                    // $('#grandtotal').append(thousands_separators(payment[0].price+data[0].add_charges));
                   },
                   error: function (message) {
 
@@ -230,4 +225,22 @@ function loadPayment(){
 
           }
       });
+}
+function deletePaymentDetail(customerId,paymentId) {
+    var result = confirm("WARNING: Are you sure to delete payment? Press OK to proceed.");
+    if (result) {
+        $.ajax({
+            type: "post",
+            url: BACKEND_URL + "delete_payment_detail",
+            data: "customerId="+customerId+"&payment_detail_id="+paymentId,
+            success: function (data) {
+                successMessage(data);
+                getCustomer();
+                getEachPayment(customerId);
+            },
+            error: function (message) {
+                showErrorMessage('top','center',message.responseText);
+            }
+        });
+    }
 }

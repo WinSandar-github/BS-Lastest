@@ -124,6 +124,7 @@ function loadPayment(){
         url: BACKEND_URL + "showCustomerInfo",
         data: "customerId=" +customerId,
         success: function (payment) {
+            console.log("Payment...."+payment);
             $('#name').append(payment.name);
             if (last_array[last_array.length - 2] === 'payment_invoice.html'){
                 var array=[];

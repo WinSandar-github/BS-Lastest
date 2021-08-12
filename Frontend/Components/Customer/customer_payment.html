@@ -154,7 +154,7 @@
                         <div class="form-group row">
                           <div class="col-md-12">
                             <label for="inputEmail3" class="col-form-label">Additional Charges</label>
-                            <input type="number" class="form-control" id="charges" placeholder="Enter Additional Charges">
+                            <input type="number" class="form-control" id="charges" placeholder="Enter Additional Charges" value="0">
                           </div>
                            
                         </div>
@@ -240,7 +240,10 @@
   <script src="../../Utilities/js/customer_payment.js"></script>
   <script>
     $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-   loadUser();
+    $(document).ready(function() {
+      loadUser();
+  });
+  
   </script>
 </body>
 </html>

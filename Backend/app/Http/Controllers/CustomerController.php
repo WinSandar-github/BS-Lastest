@@ -64,7 +64,7 @@ class CustomerController extends Controller
                 $updateCustomer->save();
             }
         }
-        $allCustomer=tbl_customer::with(['plan'])->get();
+        $allCustomer=tbl_customer::with(['plan'])->orderBy('id', 'DESC')->get();
         if(sizeof($customer)){
             return response()->json($allCustomer, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }

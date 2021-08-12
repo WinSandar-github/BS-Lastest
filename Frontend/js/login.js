@@ -26,7 +26,7 @@ function login()
             document.write(xhttp.responseText);
         }
     };
-    xhttp.open('POST', BACKEND_URL + 'loginValidate');
+    xhttp.open('POST', "https://iqnet.tech/bs/Backend/public/" + 'loginValidate');
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send(JSON.stringify(data));
 }

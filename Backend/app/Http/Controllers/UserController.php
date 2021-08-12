@@ -37,12 +37,13 @@ class UserController extends Controller
     }
     public function showUserInfo(Request $request)
     {
-         $User = User::find($request->UserId);
-         if(empty($User)){
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+         $User = User::find($request->userId);
+         if($User){
+            return response()->json($User, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+           
          }
          else{
-            return response()->json($User, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
          }
     }
     
@@ -50,7 +51,7 @@ class UserController extends Controller
     {
         try{
             $data = json_decode($request->getContent(), true);
-            $User = User::find($data["UserId"]);
+            $User = User::find($data["userId"]);
             $User->name = $data["name"];
             $User->email = $data["email"];
             $User->role = $data["role"];

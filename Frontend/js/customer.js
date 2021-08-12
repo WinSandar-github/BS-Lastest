@@ -20,8 +20,9 @@ function createCustomer(){
             url: BACKEND_URL + "createCustomer",
             data: JSON.stringify(customer),
             success: function (data) {
-                $('#insertModal').modal('hide')
-                document.getElementById("customerForm").reset();
+                alert("me");
+                resetForm("#customerForm");
+                $('#insertModal').modal('hide');
                 successMessage(data);
                 getCustomer();
             },

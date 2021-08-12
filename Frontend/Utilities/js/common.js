@@ -1,6 +1,7 @@
-BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
+// BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
-//BACKEND_URL="http://localhost:8000/";
+// BACKEND_URL="http://localhost:8000/";
+BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
 
 var toastOptions = {
     "closeButton": true,
@@ -37,7 +38,7 @@ function createDataTableForCustomer(table){
         'columnDefs' : [     // see https://datatables.net/reference/option/columns.searchable
             { 
                'searchable'    : false, 
-               'targets'       : [0,4,5,6,7,8,9,10] 
+               'targets'       : [0,4,6,7,8,9,10] 
             },
         ],
 
@@ -50,13 +51,14 @@ function createDataTableForCustomer(table){
         'info': false,
         'autoWidth': false,
         "scrollX": true,
-        'select': true,
-        "order": [[0, "desc"]]
+        'select': true
+        // "order": [[0, "desc"]]
     });
     $('a[data-toggle="pill"]').on('shown.bs.tab', function(e){
         $($.fn.dataTable.tables(true)).DataTable()
            .columns.adjust();
      });
+     jQuery(table).wrap('<div class="dataTables_scroll" />');
 
 }
 function createDataTable(table) {
@@ -66,14 +68,15 @@ function createDataTable(table) {
         'paging': true,
         'lengthChange': false,
         "pageLength": 5,
-        'searching': false,
+        'searching': true,
         'ordering': true,
         'info': false,
         'autoWidth': false,
         "scrollX": true,
         'select': true,
-        "order": [[0, "desc"]]
+        // "order": [[0, "desc"]]
     });
+    jQuery(table).wrap('<div class="dataTables_scroll" />');
 
 }
 function destroyDatatable(table, tableBody) {
@@ -185,3 +188,53 @@ function loadUser(){
     $("#user_name").html("");
     $("#user_name").append(user_name);
 }
+function mmmToMmmm(month){
+    console.log(month);
+    let fullMonth = null;
+    switch(month) {
+      case "Jan":
+        fullMonth = "January";
+          break;
+      case "Feb":
+        fullMonth = "Febuary";
+          break;
+      case "Mar":
+        fullMonth = "March";
+          break;
+      case "Apr":
+        fullMonth = "April";
+          break;
+      case "May":
+        fullMonth = "May";
+          break;
+      case "Jun":
+        fullMonth = "June";
+          break;
+      case "Jul":
+        fullMonth = "July";
+          break;
+      case "Aug":
+        fullMonth = "August";
+          break;
+      case "Sep":
+        fullMonth = "September";
+          break;
+      case "Oct":
+        fullMonth = "October";
+          break;
+      case "Nov":
+        fullMonth = "November";
+          break;
+      case "Dec":
+        fullMonth = "December";
+          break;
+     default:
+         break;
+    }
+    return fullMonth;
+  }
+  function resetForm(form){
+    var form = $(form)[0];
+    $(form).removeClass('was-validated');
+    form.reset();
+  }

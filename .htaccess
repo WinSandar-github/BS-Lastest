@@ -1,8 +1,0 @@
-<IfModule mod_rewrite.c>
-Options +FollowSymLinks
-Options -Indexes
-RewriteEngine On
-
- 
-RewriteRule ^bs/$ https://demo.aggademo.me/bs/Frontend/Components/Home/index.html [NC,L]
-</IfModule>
