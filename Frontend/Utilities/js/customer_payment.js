@@ -33,12 +33,12 @@ function getCustomer(){
             });
             getIndexNumber('#tbl_customer tr')
             createDataTable("#tbl_customer");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            timeLoad();
+            hideLoad();
         }
     });
 
@@ -125,7 +125,7 @@ function getEachPayment(customerId){
             });
             getIndexNumber('#tbl_payment tr')
             createDataTable("#tbl_payment");
-            timeLoad();
+            hideLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_payment", "#tbl_payment_body");

@@ -36,7 +36,6 @@ function createUser(){
 }
 function getUser(){
     destroyDatatable("#tbl_user", "#tbl_user_container");
-    destroyDatatable("#tbl_user_btn", "#tbl_user_btn_container");
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -45,49 +44,24 @@ function getUser(){
         url: BACKEND_URL + "getUser",
         data: "",
         success: function (data) {
-            if(role==2){
-                document.getElementById('tbl_user_btn').style.display='none';
-                data.forEach(function (element) {
-                    var tr = "<tr>";
-                    tr += "<td class='text-center'>" + element.name + "</td>";
-                    tr += "<td class='text-center'>" + element.email + "</td>";
-                    if(element.role=="2")
-                        tr += "<td class='text-center'>" + "Admin" + "</td>";
-                    
-                    else  tr += "<td class='text-center'>" + "User" + "</td>";
-                    tr += "<td class='text-center'><div class='btn-group'>" +
-                        "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
-                        "<li class='fas fa-edit'></li></button> ";
-                    tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash-alt' ></li ></button ></div ></td > ";
-                    tr += "</tr>";
-                    $("#tbl_user_container").append(tr);
+            data.forEach(function (element) {
+                var tr = "<tr>";
+                tr += "<td class='text-center'>" + element.name + "</td>";
+                tr += "<td class='text-center'>" + element.email + "</td>";
+                tr += `<td class=text-center>${element.role == "2" ? "Admin" : "User"}</td>`;
+                tr += "<td class='text-center'><div class='btn-group'>" +
+                    "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
+                    "<li class='fas fa-edit'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash-alt' ></li ></button ></div ></td > ";
+                tr += "</tr>";
+                $("#tbl_user_container").append(tr);
     
-                });
-                startDataTable("#tbl_user");
-            }else{
-                document.getElementById('tbl_user').style.display='none';
-                data.forEach(function (element) {
-                    var tr = "<tr>";
-                    tr += "<td class='text-center'>" + element.name + "</td>";
-                    tr += "<td class='text-center'>" + element.email + "</td>";
-                    if(element.role=="2")
-                        tr += "<td class='text-center'>" + "Admin" + "</td>";
-                    
-                    else  tr += "<td class='text-center'>" + "User" + "</td>";
-                    
-                        
-                    tr += "</tr>";
-                    $("#tbl_user_btn_container").append(tr);
-    
-                });
-                startDataTable("#tbl_user_btn");
-            }
-            
-            timeLoad();
+            });
+            startDataTable("#tbl_user");
+            hideLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_user", "#tbl_user_container");
-            dataMessage(message, "#tbl_user_btn", "#tbl_user_container_btn");
         }
     });
 
@@ -161,5 +135,5 @@ function validateEmail(email){
     }else{
         $('#messageEmail').text("Email address is invalid!").addClass('alert alert-danger');
         return true;
-        }
+    }
   }

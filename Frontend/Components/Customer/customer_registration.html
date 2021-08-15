@@ -11,23 +11,22 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
- <!--Toastr-->
- <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
-   <!--Authentication JS-->
-<script src="../../Utilities/js/auth.js"></script>
-<link rel="stylesheet" href="../../Utilities/css/common.css">
-<style>
-  .form-control.is-invalid{
+  <!--Toastr-->
+  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
+  <!--Authentication JS-->
+  <script src="../../Utilities/js/auth.js"></script>
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <style>
+    .form-control.is-invalid{
       background-image: none !important;
-  }
-</style>
+    }
+  </style>
 </head>
-
 <body>
   <div id="overlay">
     <div id="loader" class="spinner-border">
     </div>
-</div>
+  </div>
   <div id="app">
     <div class="main-wrapper">
       <div class="custom-class navbar">
@@ -69,8 +68,6 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          
-
           <div class="section-body custom-section-body">
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
@@ -244,12 +241,11 @@
 
   <!-- General JS Scripts -->
   <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
-   <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
-   <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-   <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
-   <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+  <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+  <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+  <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+  <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
-
   <!-- JS Libraies -->
   <script src="../Main/js/default_template.js.js"></script>
   <!-- InputMask -->
@@ -284,7 +280,6 @@
             mm='0'+mm;
         } 
         today =yyyy+"-"+mm+"-"+dd;
-        console.log(today);
         $("#registeration_date").val(today);
         $( "#customerForm" ).submit(function( event ) {
              if($("#selected_plan_id").val()==""){

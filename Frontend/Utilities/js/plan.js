@@ -41,12 +41,12 @@ function getPlan(){
             });
             getIndexNumber('#tbl_plan tr')
             createDataTable("#tbl_plan");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_plan", "#tbl_plan_body");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -65,11 +65,11 @@ function showPlanInfo(planId) {
         success: function (data) {
             $("#name").val(data.name);
             $("#price").val(data.price);
-            timeLoad();
+            hideLoad();
         },
         error:function (message){
           errorMessage(message);
-          timeLoad();
+          hideLoad();
         }
     });
 }

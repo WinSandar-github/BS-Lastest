@@ -83,7 +83,7 @@ function getUser(){
                 startDataTable("#tbl_user_btn");
             }
             
-            timeLoad();
+            hideLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_user", "#tbl_user_container");

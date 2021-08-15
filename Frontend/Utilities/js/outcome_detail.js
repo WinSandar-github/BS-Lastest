@@ -67,7 +67,7 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_outcome_detail");
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_outcome_detail", "#tbl_outcome_detail_container");

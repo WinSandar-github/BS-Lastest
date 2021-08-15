@@ -1743,7 +1743,7 @@ h6 .badge {
         background-color: #6777ef;
         color: #fff; }
   .navbar {
-    left: 5px;
+    left: 0;
     right: 0; }
     .navbar .dropdown-menu {
       position: absolute; }

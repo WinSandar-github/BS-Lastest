@@ -26,7 +26,7 @@ function createCustomer(){
                 success: function (data) {
                     resetForm("#customerForm");
                     successMessage(data);
-                    timeLoad();
+                    hideLoad();
                     var today = new Date();
                     var dd = today.getDate();
             
@@ -46,7 +46,7 @@ function createCustomer(){
                 },
                 error: function (message) {
                     errorMessage(message);
-                    timeLoad();
+                    hideLoad();
                 }
             });
         }
@@ -100,12 +100,12 @@ function getCustomer(){
               })
             getIndexNumber('#tbl_customer tr')
             createDataTableForCustomer("#tbl_customer");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            timeLoad();
+            hideLoad();
         }
     });
 
@@ -203,11 +203,11 @@ function loadPlan(){
                 select.add(option, 0);
 
             });
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
-            timeLoad();
+            hideLoad();
         }
     });
 }

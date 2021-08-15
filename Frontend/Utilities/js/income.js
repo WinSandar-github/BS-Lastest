@@ -42,11 +42,11 @@ function getIncome() {
 
             });
             startDataTable('#tbl_income');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -158,11 +158,11 @@ function getIncomeByDate(date){
 
             });
             startDataTable('#tbl_income');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income", "#tbl_income_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -195,7 +195,7 @@ function getIncomeByMonth(){
 
             });
             startDataTable('#tbl_yearincome');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_yearincome", "#tbl_yearincome_container");

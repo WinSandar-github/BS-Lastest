@@ -41,11 +41,11 @@ function getOutcome() {
 
             });
             startDataTable('#tbl_outcome');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -157,11 +157,11 @@ function getOutcomeByDate(date){
 
             });
             startDataTable('#tbl_outcome');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -192,7 +192,7 @@ function getOutcomeByMonth(){
 
             });
             startDataTable('#tbl_yearoutcome');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_yearoutcome", "#tbl_yearoutcome_container");

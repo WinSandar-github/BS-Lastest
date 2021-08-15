@@ -70,12 +70,12 @@ function getCustomer(){
             });
             getIndexNumber('#tbl_customer tr')
             createDataTableForCustomer("#tbl_customer");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            timeLoad();
+            hideLoad();
         }
     });
 
