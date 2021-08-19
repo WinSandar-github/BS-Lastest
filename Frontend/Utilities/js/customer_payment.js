@@ -134,12 +134,12 @@ function getEachPayment(customerId){
 }
 function printPayment(customerId)
 {
-    window.open("../../Components/Customer/payment_invoice.html?customerId="+customerId);
+    window.open(INVOICE_URL+"payment_invoice.html?customerId="+customerId);
 
 }
 function printPaymentDetail(customerId,paymentId)
 {
-    window.open("../../Components/Customer/payment_invoice_detail.html?customerId="+customerId+"&paymentId="+paymentId);
+    window.open(INVOICE_URL+"payment_invoice_detail.html?customerId="+customerId+"&paymentId="+paymentId);
 
 }
 function loadPayment(){

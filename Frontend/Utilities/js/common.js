@@ -1,8 +1,9 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
-// BACKEND_URL="http://localhost:8000/";
-BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
-
+let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
+let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+// let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
+// let BACKEND_URL="http://localhost:8000/";
 var toastOptions = {
     "closeButton": true,
     "debug": false,
@@ -108,7 +109,7 @@ function dataMessage(message, table, tableBody) {
     if(noOfColumn>=11){
       $(table).addClass('table-responsive');
     }
-    timeLoad();
+    hideLoad();
 
 }
 function numberRows() {
@@ -173,11 +174,11 @@ function formatMonth(month){
     var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return months[new Date(month).getMonth()];
 }
-function timeLoad(){
-    hideLoad();
-    // setTimeout(() => {
-    //     hideLoad();
-    //   }, 1000);
+function hideLoad(){
+    $('body').css({
+        overflow: 'auto'
+    });
+    document.getElementById("overlay").style.display = "none";
 }
 function formatDatepicer(date){
     var income_date=date.split('/');
