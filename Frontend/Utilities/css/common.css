@@ -133,7 +133,7 @@
     }
     .fixed-header{
       flex-wrap: wrap;
-    margin-bottom: 20px !important;
+      margin-bottom: 20px !important;
     }
     .fixed-header h1{
       font-size: 18px;
@@ -143,3 +143,10 @@
       margin-top: 10px;
     }
   }
+
+  @media (min-width: 576px){
+    .d-sm-none {
+      display: inline-block !important;
+    }
+  }
+  

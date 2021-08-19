@@ -46,31 +46,64 @@
                         <div class="invoice-print">
                           
                            
-                              <div class="company_info">
-          
-                                <img src="../../Utilities/dist/img/Iqnet.png" width="200" ><br/>
-                                <h5>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့</h5>
-                                <h5 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h5>
-                                <h5 class="text-orange">Thai & Chinese Call : 09 688788188</h5>
-                              </div>
-                  
-                          
-                            
-                          <br/><br/>
+                          <div class="text-center company_info">
+      
+                            <img src="../../Utilities/img/logo.png" width="300">
+                            <h5 class="text-primary">FTTH Internet Service</h5>
+                            <h6>Under License By : Internet Maekhong Network Co.,Ltd</h6>
+                            <hr class="mb-3 mt-3" style="width:40%;border-top:1px solid grey;">
+                            <h6>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့။</h6>
+                            <h6 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h6>
+                            <h6 class="text-orange">Thai & Chinese Call : 09 688788188</h6>
+                          </div>
+                          <hr class="mb-3 mt-3" style="border-top:1px solid grey;">
+                          <div class="text-right">
+                            <h6>Date - <span id="get_date"></span></h6>
+                          </div>
                           <div class="row">
-                            <div class="col-sm-12">
-                              <div class="invoice-title">
-                                <h6>Name: <span id="name"></span></h6>
-                                <h6>Month: <span id="month"></span></h6>
-                                <div class="invoice-number" style="font-size: 15px;margin-top: -30px;">Date: <span id="get_date"></span></div>
-                              </div>
-                              <hr>
-                              
-                              
+                            <div class="col-12">
+                              <table>
+                                <tr>
+                                  <td><h6>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                  <td><h6 id="name"></h6></td>
+                                </tr>
+                                <tr>
+                                  <td><h6>User ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                  <td><h6 id="userId">-</h6></td>
+                                </tr>
+                                <tr>
+                                  <td><h6>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                  <td><h6 id="address">-</h6></td>
+                                </tr>
+                                <tr>
+                                  <td><h6>PON NO.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                  <td><h6 id="pon">-</h6></td>
+                                </tr>
+                              </table>
                             </div>
                           </div>
-                          
                           <div class="row">
+                            <div class="col-12">
+                              <table class="table table-bordered" id='tbl_invoice'>
+                                <thead>
+                                  <tr>
+                                    <th class='text-center'>Month</th>
+                                    <th class='text-center'>Plan</th>
+                                    <th class='text-center'>Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tbl_invoice_container"></tbody>
+                                <tfoot>
+                                  <tr>
+                                    <th colspan="2" class="text-right">TOTAL</th>
+                                    <th id="total" class='text-center'></th>
+                                  </tr>
+                                </tfoot>
+                              </table>
+                             
+                            </div>
+                          </div>
+                          <!-- <div class="row">
                             <div class="col-md-12">
                               
                               <div class="table-responsive">
@@ -106,13 +139,14 @@
                               </div>
                               
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                         <hr>
                         <div class="text-md-right">
                           <div class="float-lg-left mb-lg-0 mb-3">
                             
                           </div>
+                          <h6 class="text-center">----- Thank You -----</h6>
                           <button class="btn btn-primary icon-left no-print" onclick="javascript: window.print();">Print</button>
                         </div>
                       </div>

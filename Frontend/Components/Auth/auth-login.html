@@ -68,7 +68,7 @@
                     </div>
                   </div>
 
-                  <button type="button" onclick="login(event);" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  <button type="button" onclick="login(event);" class="btn btn-primary btn-lg btn-block login" tabindex="4">
                     Login
                   </button>
 
@@ -97,5 +97,15 @@
   <!-- Page Specific JS File -->
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/login.js"></script>
+  <script>
+    $('document').ready(function(){
+        $('#password').keypress(function(e){
+            if(e.which == 13){//Enter key pressed
+                $('.login').click();//Trigger search button click event
+            }
+        });
+
+    });
+  </script>
 </body>
 </html>

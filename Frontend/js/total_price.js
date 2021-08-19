@@ -26,7 +26,7 @@ function loadTotal(){
             });
             getTotal();
             startDataTable('#tbl_total');
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_total", "#tbl_total_container");
@@ -62,12 +62,12 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_total_detail");
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
 
             dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }
@@ -91,11 +91,11 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_total_detail");
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
-            timeLoad();
+            hideLoad();
         }
     });
 }

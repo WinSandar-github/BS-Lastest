@@ -28,12 +28,12 @@ function getCustomer(){
             });
             getIndexNumber('#tbl_customer tr')
             createDataTable("#tbl_customer");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            timeLoad();
+            hideLoad();
         }
     });
 
@@ -89,7 +89,7 @@ function getEachPayment(customerId){
             });
             getIndexNumber('#tbl_payment tr')
             createDataTable("#tbl_payment");
-            timeLoad();
+            hideLoad();
         },
         error:function (message){
             dataMessage(message, "#tbl_payment", "#tbl_payment_body");
@@ -124,6 +124,7 @@ function loadPayment(){
         url: BACKEND_URL + "showCustomerInfo",
         data: "customerId=" +customerId,
         success: function (payment) {
+            console.log("Payment...."+payment);
             $('#name').append(payment.name);
             if (last_array[last_array.length - 2] === 'payment_invoice.html'){
                 var array=[];

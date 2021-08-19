@@ -56,6 +56,8 @@ Route::post('deleteCustomer', array('middleware' => 'cors', 'uses' => 'CustomerC
 Route::post('createPayment', array('middleware' => 'cors', 'uses' => 'PaymentController@createPayment'));
 Route::post('getPaymentDetail', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetail'));
 Route::post('getPaymentDetailBypaymentId', array('middleware' => 'cors', 'uses' => 'PaymentController@getPaymentDetailBypaymentId'));
+Route::post('delete_payment_detail', array('middleware' => 'cors', 'uses' => 'PaymentController@delete_payment_detail'));
+
 Auth::routes();
 //for remaining credit list
 Route::post('getCreditList', array('middleware' => 'cors', 'uses' => 'PaymentController@getCreditList'));
@@ -73,3 +75,4 @@ Route::post('matchId', array('middleware' => 'cors', 'uses' => 'CustomerControll
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
+

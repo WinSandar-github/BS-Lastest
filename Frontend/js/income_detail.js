@@ -68,7 +68,7 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
                 
             });
             startDataTable("#tbl_income_detail");
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income_detail", "#tbl_income_detail_container");

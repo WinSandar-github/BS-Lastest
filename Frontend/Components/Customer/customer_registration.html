@@ -6,30 +6,27 @@
   <title>IQNet &mdash; Users Registeration</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!-- CSS Libraries -->
-  <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
-  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
-
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/css/style.css">
   <link rel="stylesheet" href="../../assets/css/components.css">
- <!--Toastr-->
- <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
-   <!--Authentication JS-->
-<script src="../../Utilities/js/auth.js"></script>
-<link rel="stylesheet" href="../../Utilities/css/common.css">
+  <!--Toastr-->
+  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
+  <!--Authentication JS-->
+  <script src="../../Utilities/js/auth.js"></script>
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <style>
+    .form-control.is-invalid{
+      background-image: none !important;
+    }
+  </style>
 </head>
-
 <body>
   <div id="overlay">
     <div id="loader" class="spinner-border">
     </div>
-</div>
+  </div>
   <div id="app">
     <div class="main-wrapper">
       <div class="custom-class navbar">
@@ -71,14 +68,12 @@
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          
-
           <div class="section-body custom-section-body">
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                   <div class="card-body">
-                    <form id="customerForm">
+                    <form id="customerForm" action="javascript:createCustomer()" class="needs-validation" novalidate>
                       <input type="hidden" id="codeStatus">
                         <div class="form-group row">
                           <div class="col-sm-3 text-right">
@@ -88,8 +83,11 @@
                             <div class="col-sm-5">
                               <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                 <input type="date" id="registeration_date" class="form-control" >
-
+                                <div class="invalid-feedback">
+                                  please add registered date.
                               </div>
+                              </div>
+                              
                             </div>
                         </div>
                         <div class="form-group row">
@@ -98,7 +96,10 @@
                           </div>
                             
                             <div class="col-sm-5">
-                              <input type="email" autocomplete="off" class="form-control" id="name" placeholder="Enter Name">
+                              <input type="text" autocomplete="off" class="form-control" id="name" placeholder="Enter Name" required>
+                              <div class="invalid-feedback">
+                                please add customer name.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -107,7 +108,10 @@
                           </div>
                             
                             <div class="col-sm-5">
-                              <input type="email" onkeyup="matchId();" autocomplete="off" class="form-control" id="code" placeholder="Enter ID">
+                              <input type="text" onkeyup="matchId();" autocomplete="off" class="form-control" id="code" placeholder="Enter ID" required>
+                              <div class="invalid-feedback">
+                                please add customer ID.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -116,7 +120,10 @@
                           </div>
                             
                             <div class="col-sm-5">
-                              <input type="email" autocomplete="off" class="form-control" id="phone" placeholder="Enter Phone No">
+                              <input type="text" autocomplete="off" class="form-control" id="phone" placeholder="Enter Phone No" required>
+                              <div class="invalid-feedback">
+                                please add phone no.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -125,7 +132,10 @@
                           </div>
                            
                             <div class="col-sm-5">
-                              <textarea type="email" autocomplete="off" class="form-control" id="address" placeholder="Enter Address"></textarea>
+                              <textarea type="email" autocomplete="off" class="form-control" id="address" placeholder="Enter Address" required></textarea>
+                              <div class="invalid-feedback">
+                                please add address.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -134,7 +144,10 @@
                           </div>
                             
                             <div class="col-sm-5">
-                              <input type="text" autocomplete="off" class="form-control" id="ip" placeholder="Enter IP Address">
+                              <input type="text" autocomplete="off" class="form-control" id="ip" placeholder="Enter IP Address" required>
+                              <div class="invalid-feedback">
+                                please add IP address.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -142,9 +155,12 @@
                             <label for="inputEmail3" class="col-form-label">Plan</label>
                           </div>
                             <div class="col-sm-5">
-                              <select class="form-control" id="selected_plan_id" style="width: 100%;" onchange="loadPriceByPlan(this.value);">
-                                <option value="" disabled selected>Select Plan</option>
+                              <select class="form-control" id="selected_plan_id" style="width: 100%;" onchange="loadPriceByPlan(this.value);" required>
+                                <option value=""  selected>Select Plan</option>
                               </select>
+                              <div class="invalid-feedback" id="plan">
+                                please select plan.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -152,7 +168,10 @@
                             <label for="inputEmail3" class="col-form-label">Price</label>
                           </div>
                             <div class="col-sm-5">
-                              <input type="number" class="form-control" id="price" readonly>
+                              <input type="number" class="form-control" id="price" readonly required>
+                              <div class="invalid-feedback">
+                                please add price.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -160,15 +179,10 @@
                             <label for="inputEmail3" class="col-form-label">Pon</label>
                           </div>
                             <div class="col-sm-5">
-                              <input type="text" autocomplete="off" class="form-control" id="pon" placeholder="Enter Pon">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <div class="col-sm-3 text-right">
-                            <label for="inputEmail3" class="col-form-label">Serial No</label>
-                          </div>
-                            <div class="col-sm-5">
-                              <input type="text" autocomplete="off" class="form-control" id="sn" placeholder="Enter Serial No">
+                              <input type="text" autocomplete="off" class="form-control" id="pon" placeholder="Enter Pon" required>
+                              <div class="invalid-feedback">
+                                please add pon.
+                              </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -176,9 +190,24 @@
                             <label for="inputEmail3" class="col-form-label">Dn</label>
                           </div>
                             <div class="col-sm-5">
-                              <input type="text" autocomplete="off" class="form-control" id="dn" placeholder="Enter Dn">
+                              <input type="text" autocomplete="off" class="form-control" id="dn" placeholder="Enter Dn" required>
+                              <div class="invalid-feedback">
+                                please add dn.
+                              </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                          <div class="col-sm-3 text-right">
+                            <label for="inputEmail3" class="col-form-label">Sn</label>
+                          </div>
+                            <div class="col-sm-5">
+                              <input type="text" autocomplete="off" class="form-control" id="sn" placeholder="Enter Sn" required>
+                              <div class="invalid-feedback">
+                                please add serial no.
+                              </div>
+                            </div>
+                        </div>
+                        
                         <div class="form-group row">
                           <div class="col-sm-3 text-right">
                             <label for="inputEmail3" class="col-form-label">Description</label>
@@ -187,11 +216,12 @@
                               <textarea type="email" autocomplete="off" class="form-control" id="desc" placeholder="Enter Description"></textarea>
                             </div>
                         </div>
+                        <div class="card-footer text-right">
+                          <button class="btn btn-primary mr-1" type="submit">Save</button>
+                        </div>
                     </form>
                   </div>
-                  <div class="card-footer text-right">
-                    <button class="btn btn-primary mr-1" type="button" onclick="createCustomer();">Save</button>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -211,12 +241,11 @@
 
   <!-- General JS Scripts -->
   <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
-   <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
-   <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-   <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
-   <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+  <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+  <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+  <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+  <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
-
   <!-- JS Libraies -->
   <script src="../Main/js/default_template.js.js"></script>
   <!-- InputMask -->
@@ -235,6 +264,41 @@
     $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
     loadUser();
     loadPlan();
+    $(document).ready(function() {
+      var today = new Date();
+        var dd = today.getDate();
+
+        var mm = today.getMonth()+1; 
+        var yyyy = today.getFullYear();
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        today =yyyy+"-"+mm+"-"+dd;
+        $("#registeration_date").val(today);
+        $( "#customerForm" ).submit(function( event ) {
+             if($("#selected_plan_id").val()==""){
+                $("#selected_plan_id").css('border-color','#dc3545')
+                $("#plan").css('display','block');
+                event.preventDefault();
+             }
+        });
+        $('#selected_plan_id').on('change', function (e) {
+            if($("#selected_plan_id").val()!=""){
+                $("#plan").css('display','none');
+                $("#selected_plan_id").css('border-color','#28a745')
+             }
+             else{
+              $("#selected_plan_id").css('border-color','#dc3545')
+              $("#plan").css('display','block');
+             }
+        });
+    });
   </script>
 </body>
 </html>

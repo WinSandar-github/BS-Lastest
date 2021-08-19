@@ -20,8 +20,9 @@ function createCustomer(){
             url: BACKEND_URL + "createCustomer",
             data: JSON.stringify(customer),
             success: function (data) {
-                $('#insertModal').modal('hide')
-                document.getElementById("customerForm").reset();
+                alert("me");
+                resetForm("#customerForm");
+                $('#insertModal').modal('hide');
                 successMessage(data);
                 getCustomer();
             },
@@ -69,12 +70,12 @@ function getCustomer(){
             });
             getIndexNumber('#tbl_customer tr')
             createDataTableForCustomer("#tbl_customer");
-            timeLoad();
+            hideLoad();
 
         },
         error:function (message){
             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            timeLoad();
+            hideLoad();
         }
     });
 

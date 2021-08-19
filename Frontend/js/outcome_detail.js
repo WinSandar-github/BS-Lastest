@@ -67,7 +67,7 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
 
             });
             startDataTable("#tbl_outcome_detail");
-            timeLoad();
+            hideLoad();
         },
         error: function (message) {
 

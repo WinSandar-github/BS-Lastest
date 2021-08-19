@@ -27,7 +27,7 @@ class CreateTblCustomersTable extends Migration
             $table->string('dn','225');
             $table->integer('price')->default(0);
             $table->integer('total_price')->default(0);
-            $table->string('desc','225');
+            $table->string('desc','225')->nullable();
             $table->timestamps();
         });
     }
