@@ -66,7 +66,7 @@ class UserController extends Controller
     }
     public function deleteUser(Request $request)
     {
-        $User = User::find($request->UserId);
+        $User = User::find($request->userId);
         if($User->delete()){
            return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);}
         else{
