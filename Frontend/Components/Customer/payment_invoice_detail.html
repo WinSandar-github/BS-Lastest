@@ -158,16 +158,18 @@
     <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer_payment.js"></script>
-
   <script>
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
+    $(document).ready(function() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
 
-    today = mm + '/' + dd + '/' + yyyy;
-    $('#get_date').append(today);
-    loadPayment();
+      today = mm + '/' + dd + '/' + yyyy;
+      $('#get_date').append(today);
+      loadPayment();
+    });
+    
   </script>
 </body>
 </html>

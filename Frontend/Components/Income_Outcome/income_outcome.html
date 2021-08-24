@@ -131,9 +131,9 @@
                                         <table id='tbl_income' class="table table-hover">
                                           <thead>
                                               <tr>
-                                                  <th class='text-center'>Income Date</th>
-                                                  <th class='text-center'>Amount</th>
-                                                  <th></th>
+                                                <th class='text-center'>Income Date</th>
+                                                <th class='text-center'>Amount</th>
+                                                <th></th>
                                               </tr>
                                           </thead>
                                           <tbody id="tbl_income_container"></tbody>
@@ -143,14 +143,13 @@
                                     </div>
                                     <div class="row " id="yearincome">
                                       <div class="col-12">
-
                                         <table id='tbl_yearincome' class="table mt-3">
                                           <thead>
                                               <tr>
-                                                  <th class='text-center'>Year</th>
-                                                  <th class='text-center'>Month</th>
-                                                  <th class='text-center'>Amount</th>
-                                                  <th></th>
+                                                <th class='text-center'>Year</th>
+                                                <th class='text-center'>Month</th>
+                                                <th class='text-center'>Amount</th>
+                                                <th></th>
                                               </tr>
                                           </thead>
                                           <tbody id="tbl_yearincome_container"></tbody>
@@ -515,40 +514,39 @@
     </div>
   </div>
   <!-- ./wrapper -->
- <!-- General JS Scripts -->
- <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
- <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
- <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
- <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
- <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
- <script src="../../assets/js/stisla.js"></script>
- <script src="../Main/js/default_template.js.js"></script>
+  <!-- General JS Scripts -->
+  <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
+  <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+  <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+  <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+  <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+  <script src="../../assets/js/stisla.js"></script>
+  <script src="../Main/js/default_template.js.js"></script>
 
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <script src="../../assets/js/custom.js"></script>
 
- <!-- DataTables -->
- <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
- <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
- <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
- <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
- <!-- InputMask -->
- <script src="../../Utilities/plugins/moment/moment.min.js"></script>
- <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
- <script src="../../Utilities/js/common.js"></script>
- <!--Toastr-->
- <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
- <script src="../../Utilities/js/auth.js"></script>
- <script src="../../Utilities/js/income.js"></script>
- <script src="../../Utilities/js/income_detail.js"></script>
- <script src="../../Utilities/js/outcome.js"></script>
- <script src="../../Utilities/js/outcome_detail.js"></script>
- 
+  <!-- DataTables -->
+  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <!-- InputMask -->
+  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
+  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
+  <!--Toastr-->
+  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
+  <script src="../../Utilities/js/auth.js"></script>
+  <script src="../../Utilities/js/income.js"></script>
+  <script src="../../Utilities/js/income_detail.js"></script>
+  <script src="../../Utilities/js/outcome.js"></script>
+  <script src="../../Utilities/js/outcome_detail.js"></script>
+  
   <script>
     $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
     $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
-
     getIncome();
     getOutcome();
     loadUser();

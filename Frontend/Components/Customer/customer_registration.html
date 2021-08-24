@@ -261,10 +261,10 @@
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
   <script>
-    $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-    loadUser();
-    loadPlan();
     $(document).ready(function() {
+      $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+      loadUser();
+      loadPlan();
       var today = new Date();
         var dd = today.getDate();
 
