@@ -14,12 +14,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@agga.io',
-            'password' => Hash::make('admin1234'),
-            'role'=>'2',
-            'api_key'=>Str::random(40),
-        ]);
+        $users = [
+            [
+                'name' => 'admin',
+                'email' => 'admin@iqnet.tech',
+                'password' => Hash::make('admin1234'),
+                'role'=>'2',
+                'api_key'=>Str::random(40)
+            ],
+            [
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin1234'),
+                'role'=>'2',
+                'api_key'=>Str::random(40)
+            ]
+            
+        ];
+        foreach($users as $user){
+            User::create($user);
+        }
     }
 }

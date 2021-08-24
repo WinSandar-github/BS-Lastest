@@ -149,7 +149,6 @@ function loadPayment(){
     var paymentId = url.searchParams.get("paymentId");
     var url=window.location.href.split('/');
     var last_array=url[url.length - 1].split('?');
-    console.log(last_array);
     $("#tbl_invoice_container").html("");
     $('#subtotal').html("");
     $('#name').html("");
