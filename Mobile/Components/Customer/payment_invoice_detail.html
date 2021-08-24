@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>IQNet &mdash; Payment Invoice</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <style>
+     @media print
+      {    
+          .no-print
+          {
+              display: none !important;
+          }
+      }
+  </style>
+</head>
+<body>
+  <!-- Main content -->
+      
+        <div id="app">
+          <div class="main-wrapper">
+            <div class="">
+              <section class="section">
+                <div class="custom-header">
+                  
+                </div>
+                <div class="section-body">
+                  <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-10">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="invoice">
+                            <div class="invoice-print">
+                          
+                              <div class="text-center company_info">
+      
+                                <img src="../../Utilities/img/logo.png" width="300">
+                                <h5 class="text-primary">FTTH Internet Service</h5>
+                                <h6>Under License By : Internet Maekhong Network Co.,Ltd</h6>
+                                <hr class="mb-3 mt-3" style="width:40%;border-top:1px solid grey;">
+                                <h6>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့။</h6>
+                                <h6 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h6>
+                                <h6 class="text-orange">Thai & Chinese Call : 09 688788188</h6>
+                              </div>
+                              <hr class="mb-3 mt-3" style="border-top:1px solid grey;">
+                              <div class="text-right">
+                                <h6>Date - <span id="get_date"></span></h6>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <table>
+                                    <tr>
+                                      <td><h6>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                      <td><h6 id="name"></h6></td>
+                                    </tr>
+                                    <tr>
+                                      <td><h6>User ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                      <td><h6 id="userId">-</h6></td>
+                                    </tr>
+                                    <tr>
+                                      <td><h6>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                      <td><h6 id="address">-</h6></td>
+                                    </tr>
+                                    <tr>
+                                      <td><h6>PON NO.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
+                                      <td><h6 id="pon">-</h6></td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+          
+                          <div class="row">
+                            <div class="col-12">
+                              <table class="table table-bordered" id='tbl_invoice'>
+                                <thead>
+                                  <tr>
+                                    <th class='text-center'>Month</th>
+                                    <th class='text-center'>Plan</th>
+                                    <th class='text-center'>Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="tbl_invoice_container"></tbody>
+                                <!-- <tfoot>
+                                  <tr>
+                                      <th colspan="5" class="text-right">SubTotal(Baht):</th>
+                                      <td colspan="6" class="text-right"><span id="subtotal"></span></td>
+                                        
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5" class="text-right">Additional Charges:</th>
+                                      <td colspan="6" class="text-right"><span id="addcharges"></span></td>
+                                  </tr>
+                                  <tr>
+                                      <th colspan="5" class="text-right">GrandTotal(Baht):</th>
+                                      <td colspan="6" class="text-right"><span id="grandtotal"></span></td>
+                                  </tr>
+                              </tfoot> -->
+                              </table>
+                             
+                            </div>
+                          </div>
+                          
+                            <hr>
+                            <div class="text-md-right">
+                              <div class="float-lg-left mb-lg-0 mb-3">
+                            
+                              </div>
+                              <h6 class="text-center">----- Thank You -----</h6>
+                              <button class="btn btn-primary icon-left no-print" onclick="javascript: window.print();">Print</button>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                     
+                    </div>
+                    <div class="col-sm-1"></div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+
+         
+    
+
+    <!-- General JS Scripts -->
+    <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
+     <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+     <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+     <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+     <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+    <script src="../../assets/js/stisla.js"></script>
+    <script src="../Main/js/default_template.js.js"></script>
+     <!-- Template JS File -->
+     <script src="../../assets/js/scripts.js"></script>
+     <script src="../../assets/js/custom.js"></script>
+
+    <!-- DataTables -->
+    <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
+  <script src="../../Utilities/js/customer_payment.js"></script>
+
+  <script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+    $('#get_date').append(today);
+    loadPayment();
+  </script>
+</body>
+</html>
