@@ -1,9 +1,13 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
-let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
-let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+// let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
+// let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
 // let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
 // let BACKEND_URL="http://localhost:8000/";
+
+let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
+let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
+
 var toastOptions = {
     "closeButton": true,
     "debug": false,
@@ -19,16 +23,24 @@ var toastOptions = {
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
+    "hideMethod": "fadeOut",
 };
+
 function successMessage(message) {
     toastr.options = toastOptions;
     toastr.success(message);
 }
+
 function errorMessage(message) {
     toastr.options = toastOptions;
     toastr.error(message);
 }
+
+function infoMessage(message) {
+    toastr.options = toastOptions
+    toastr.info(message)
+}
+
 function getIndexNumber(table){
     $(table).each(function(){
         $( this ).find( "td" ).first().html( $(this).index() + 1 );

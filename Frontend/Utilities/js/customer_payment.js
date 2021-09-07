@@ -89,8 +89,14 @@ function createPayment(){
             getEachPayment($("#customerId").val());
            
         },
-        error: function (message){
-            errorMessage(message);
+        error: function (xhr, message, text){
+            if ( xhr.status == 409 ) {
+                infoMessage(xhr.responseJSON)
+            } else if ( xhr.status == 403 ) {
+                infoMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }
