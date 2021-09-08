@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\tbl_customer;
 use App\tbl_payment_detail;
 use App\tbl_income_outcome;
 use App\tbl_income_detail;
+use Yajra\DataTables\Facades\DataTables; 
 
 class PaymentController extends Controller
 {
@@ -168,6 +163,21 @@ class PaymentController extends Controller
             return $e->getMessage();
             // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
+    }
+
+    public function getCustomerForPayment() {
+        $customers = tbl_customer::with('plan')->get();
+
+        return $this->customerPaymentTable($customers);
+    }
+
+    public function customerPaymentTable($data) {
+        return Datatables::of($data)
+        ->editColumn('action', function($data) {
+            return 'button';
+        })
+        ->addIndexColumn()
+        ->toJson();
     }
 
     public function nameToMonth($name) {

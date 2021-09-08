@@ -50,6 +50,7 @@ class VerifyCsrfToken extends Middleware
         'getPlanByPlanId',
         'getCustomerById',
         'matchId',
-        'delete_payment_detail'
+        'delete_payment_detail',
+        'get_customer_for_payment'
     ];
 }

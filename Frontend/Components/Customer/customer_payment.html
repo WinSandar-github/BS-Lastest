@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../../Utilities/css/common.css">
 </head>
 
-<body onload=" getCustomer();">
+<body onload="getCustomerForPayment();">
     <div id="overlay">
         <div id="loader" class="spinner-border">
         </div>
@@ -84,24 +84,27 @@
                         <h4>All Payment</h4>
                       </div>
                     <div class="card-body">
-                        <table class="table table-hover text-nowrap" id="tbl_customer">
-                          <thead>
-                            <tr>
-                                <th class="text-center">#</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">ID</th>
-                                <th class="text-center">Address</th>
-                                <th class="text-center">Phone</th>
-                                <th class="text-center">Plan</th>
-                                <th class="text-center">Price/Month</th>
-                                <th class="text-center">Total Price</th>  
-                                <th class="text-center">Paid For</th>
-                              </tr>
-                          </thead>
-
-                          <tbody id="tbl_customer_body" class="hoverTable"></tbody>
-                        </table>
-
+                        <div class="table-responsive">
+                          <table class="table table-md table-hover text-nowrap" id="tbl_customer">
+                            <thead>
+                              <tr>
+                                  <th class="text-center">#</th>
+                                  <th class="text-center">Name</th>
+                                  <th class="text-center">ID</th>
+                                  <!-- <th class="text-center">Address</th>
+                                  <th class="text-center">Phone</th>
+                                  <th class="text-center">Plan</th>
+                                  <th class="text-center">Price/Month</th>
+                                  <th class="text-center">Total Price</th>   -->
+                                  <th>IP</th>
+                                  <th class="text-center">Plan</th>
+                                  <th class="text-center">Paid For</th>
+                                </tr>
+                            </thead>
+  
+                            <tbody id="tbl_customer_body" class="hoverTable"></tbody>
+                          </table>
+                        </div>
                     </div>
                   </div>
                 </div>

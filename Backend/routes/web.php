@@ -74,6 +74,8 @@ Route::post('getPlanByPlanId', array('middleware' => 'cors', 'uses' => 'PlanCont
 Route::post('getCustomerById', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerById'));
 Route::post('matchId', array('middleware' => 'cors', 'uses' => 'CustomerController@matchId'));
 
+Route::post('get_customer_for_payment', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForPayment'));
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
 

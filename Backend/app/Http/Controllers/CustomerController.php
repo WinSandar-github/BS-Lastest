@@ -139,7 +139,15 @@ class CustomerController extends Controller
             return $date;
         })
         ->editColumn('desc', function($data) {
-            
+            if ( $data['desc'] !== "" ) {
+                $str_explode = explode(' ', $data['desc']);
+
+                $twoWords = $str_explode[0].' '.$str_explode[1];
+
+                $elem = "<p id='toolip' data-toggle='tooltip' title=\"{$data['desc']}\">$twoWords</p>";
+
+                return $elem;
+            }
         })
         ->editColumn('action', function($data) {
             $edit_btn = "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo({$data['id']})'>
@@ -150,6 +158,11 @@ class CustomerController extends Controller
 
             return $edit_btn.$del_btn;
         })
+        ->rawColumns([
+            'reg_date',
+            'desc',
+            'action'
+        ])
         ->addIndexColumn()
         ->toJson();
     }

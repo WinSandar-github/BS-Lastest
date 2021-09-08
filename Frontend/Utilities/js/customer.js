@@ -274,4 +274,8 @@ function getCustomer() {
                 { data: 'action'}
         ]
     })
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
 }
