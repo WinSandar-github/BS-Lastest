@@ -138,9 +138,18 @@ class CustomerController extends Controller
 
             return $date;
         })
-        // ->editColumn('action', function($data) {
+        ->editColumn('desc', function($data) {
+            
+        })
+        ->editColumn('action', function($data) {
+            $edit_btn = "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo({$data['id']})'>
+            <li class='fas fa-edit fa-sm'></li></button>";
 
-        // })
+            $del_btn = "<button type='button' class='btn btn-danger btn-xs' onClick='deleteCustomer(\"{$data['name']}\", {$data['id']})'>
+            <li class='fa fa-trash fa-sm' ></li ></button >";
+
+            return $edit_btn.$del_btn;
+        })
         ->addIndexColumn()
         ->toJson();
     }

@@ -252,6 +252,7 @@ function getCustomer() {
         'destroy': true,
         'processing': true,
         'serverSide': true,
+        'scrollX': true,
         'ajax': {
             type: 'POST',
             url: BACKEND_URL + 'getCustomer',
