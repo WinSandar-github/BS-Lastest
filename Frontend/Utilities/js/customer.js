@@ -57,59 +57,61 @@ function createCustomer(){
    
 
 }
-function getCustomer(){
-    destroyDatatable("#tbl_customer", "#tbl_customer_body");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getCustomer",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td >" +  + "</td>";
-                tr += "<td >" + formatDate(element.reg_date)  + "</td>"
-                tr += "<td >" + element.name + "</td>";
-                tr += "<td >" + element.code + "</td>";
-                tr += "<td >" + element.phone + "</td>";
-                tr += "<td >" + element.address + "</td>";
-                tr += "<td >" + element.ip + "</td>";
-                tr += "<td >" + element.plan.name + "</td>";
-                tr += "<td >" + thousands_separators(element.price) + "</td>";
-                tr += "<td >" + element.pon + "</td>";
-                tr += "<td >" + element.sn + "</td>";
-                tr += "<td >" + element.dn + "</td>";
-                var twoWords = (element.desc).split(' ').slice(0,2).join(' ');
-                tr += "<td class='text-center'><p id='toolip' data-toggle='tooltip' title='"+element.desc+"'>" + twoWords + "</p></td>";
-                $(function () {
-                    $('[data-toggle="tooltip"]').tooltip();
-                  })
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo(" + element.id + ")'>" +
-                "<li class='fas fa-edit fa-sm'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteCustomer(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
+
+// function getCustomer(){
+//     destroyDatatable("#tbl_customer", "#tbl_customer_body");
+//     $.ajax({
+//         beforeSend: function () {
+//             showLoad();
+//         },
+//         type: "POST",
+//         url: BACKEND_URL + "getCustomer",
+//         data: "",
+//         success: function (data) {
+//             data.forEach(function (element) {
+//                 var tr = "<tr>";
+//                 tr += "<td >" +  + "</td>";
+//                 tr += "<td >" + formatDate(element.reg_date)  + "</td>"
+//                 tr += "<td >" + element.name + "</td>";
+//                 tr += "<td >" + element.code + "</td>";
+//                 tr += "<td >" + element.phone + "</td>";
+//                 tr += "<td >" + element.address + "</td>";
+//                 tr += "<td >" + element.ip + "</td>";
+//                 tr += "<td >" + element.plan.name + "</td>";
+//                 tr += "<td >" + thousands_separators(element.price) + "</td>";
+//                 tr += "<td >" + element.pon + "</td>";
+//                 tr += "<td >" + element.sn + "</td>";
+//                 tr += "<td >" + element.dn + "</td>";
+//                 var twoWords = (element.desc).split(' ').slice(0,2).join(' ');
+//                 tr += "<td class='text-center'><p id='toolip' data-toggle='tooltip' title='"+element.desc+"'>" + twoWords + "</p></td>";
+//                 $(function () {
+//                     $('[data-toggle="tooltip"]').tooltip();
+//                   })
+//                 tr += "<td class='text-center'><div class='btn-group'>" +
+//                 "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo(" + element.id + ")'>" +
+//                 "<li class='fas fa-edit fa-sm'></li></button> ";
+//                 tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteCustomer(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
             
-                tr += "</tr>";
-                $("#tbl_customer_body").append(tr);
+//                 tr += "</tr>";
+//                 $("#tbl_customer_body").append(tr);
 
-            });
-            $(function () {
-                $('[data-toggle="tooltip"]').tooltip();
-              })
-            getIndexNumber('#tbl_customer tr')
-            createDataTableForCustomer("#tbl_customer");
-            hideLoad();
+//             });
+//             $(function () {
+//                 $('[data-toggle="tooltip"]').tooltip();
+//               })
+//             getIndexNumber('#tbl_customer tr')
+//             createDataTableForCustomer("#tbl_customer");
+//             hideLoad();
 
-        },
-        error:function (message){
-            dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            hideLoad();
-        }
-    });
+//         },
+//         error:function (message){
+//             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
+//             hideLoad();
+//         }
+//     });
 
-}
+// }
+
 function showCustomerInfo(customerId) {
     $("#updateUserForm").attr('action', 'javascript:updateCustomer()');
     $("#userId").val(customerId);
@@ -243,4 +245,32 @@ function matchId(){
           errorMessage(message);
         }
     });
+}
+
+function getCustomer() {
+    $('#tbl_customer').DataTable({
+        'destroy': true,
+        'processing': true,
+        'serverSide': true,
+        'ajax': {
+            type: 'POST',
+            url: BACKEND_URL + 'getCustomer',
+        },
+        'columns' : [
+                { data: 'DT_RowIndex' },
+                { data: 'reg_date' },
+                { data: 'name' },
+                { data: 'code' },
+                { data: 'phone' },
+                { data: 'address' },
+                { data: 'ip' },
+                { data: 'plan.name' },
+                { data: 'price' },
+                { data: 'pon' },
+                { data: 'sn' },
+                { data: 'dn' },
+                { data: 'desc' },
+                { data: 'action'}
+        ]
+    })
 }

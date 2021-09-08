@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\tbl_customer;
-use DB;
 use App\tbl_payment_detail;
+use Yajra\DataTables\Facades\DataTables;
+
 class CustomerController extends Controller
 {
     public function createCustomer(Request $request)
@@ -40,9 +35,11 @@ class CustomerController extends Controller
                 return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
     }
+
     public function getCustomer(Request $request)
     {
         $customer = tbl_customer::all();
+
         for($i=0;$i<count($customer);$i++){
             $payment=tbl_payment_detail::where('customer_id','=',$customer[$i]['id'])->get();
             if(!count($payment)){
@@ -64,11 +61,12 @@ class CustomerController extends Controller
                 $updateCustomer->save();
             }
         }
+
         $allCustomer=tbl_customer::with(['plan'])->orderBy('id', 'DESC')->get();
-        if(sizeof($customer)){
-            return response()->json($allCustomer, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
-        else{
+
+        if ( sizeof($customer) ) {
+            return $this->customerTable($allCustomer);
+        } else {
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
@@ -131,5 +129,19 @@ class CustomerController extends Controller
          else{
             return "0";
          }
+    }
+
+    public function customerTable($data) {
+        return Datatables::of($data)
+        ->editColumn('reg_date', function($data) {
+            $date = date('d/m/Y', strtotime($data['reg_date']));
+
+            return $date;
+        })
+        // ->editColumn('action', function($data) {
+
+        // })
+        ->addIndexColumn()
+        ->toJson();
     }
 }
