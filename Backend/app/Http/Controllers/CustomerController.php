@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\tbl_customer;
 use App\tbl_payment_detail;
+use App\customerClass;
 use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
@@ -24,6 +25,7 @@ class CustomerController extends Controller
                 $user->address=$data["address"];
                 $user->ip=$data["ip"];
                 $user->plan=$data["plan"];
+                $user->customer_class = $data["customer_class"];
                 $user->pon=$data["pon"];
                 $user->sn=$data["sn"];
                 $user->dn=$data["dn"];
@@ -62,7 +64,7 @@ class CustomerController extends Controller
             }
         }
 
-        $allCustomer=tbl_customer::with(['plan'])->orderBy('id', 'DESC')->get();
+        $allCustomer=tbl_customer::with(['plan', 'class'])->orderBy('id', 'DESC')->get();
 
         if ( sizeof($customer) ) {
             return $this->customerTable($allCustomer);
@@ -91,6 +93,7 @@ class CustomerController extends Controller
                 $customer->ip=$data["ip"];
                 $customer->plan=$data["plan"];
                 $customer->pon=$data["pon"];
+                $customer->customer_class = $data['customer_class'];
                 $customer->sn=$data["sn"];
                 $customer->dn=$data["dn"];
                 $customer->price=$data["price"];
@@ -165,5 +168,16 @@ class CustomerController extends Controller
         ])
         ->addIndexColumn()
         ->toJson();
+    }
+
+    public function getCustomerClass() {
+        try 
+        {
+            $data = customerClass::all();
+
+            return response()->json($data, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        } catch( \Exception $e ) {
+            return response()->json('something went wrong', 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
     }
 }

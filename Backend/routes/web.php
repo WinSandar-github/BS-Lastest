@@ -76,6 +76,9 @@ Route::post('matchId', array('middleware' => 'cors', 'uses' => 'CustomerControll
 
 Route::post('get_customer_for_payment', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForPayment'));
 
+Route::post('get_customer_class', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerClass'));
+Route::post('edit_class', array('middleware' => 'cors', 'uses' => 'PlanController@editClass'));
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
 

@@ -51,6 +51,8 @@ class VerifyCsrfToken extends Middleware
         'getCustomerById',
         'matchId',
         'delete_payment_detail',
-        'get_customer_for_payment'
+        'get_customer_for_payment',
+        'get_customer_class',
+        'edit_class'
     ];
 }

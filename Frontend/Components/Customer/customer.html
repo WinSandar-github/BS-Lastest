@@ -72,17 +72,26 @@
       <div class="main-sidebar">
       </div>
 
+      <!-- <div class="row" id="color-class">
+        <ul class="list-group list-group-horizontal">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+        </ul>
+      </div> -->
+
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
-          
-
           <div class="section-body custom-section-body">
             <div class="row">
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                   <div class="card-body">
                     <div class="table-responsive">
+                      <div class="mb-2" id="class-color-status">
+                        
+                      </div>
                       <table class="table table-md table-hover text-nowrap" id="tbl_customer">
                         <thead>
                           <tr>
@@ -94,6 +103,7 @@
                             <th class="text-center">Address</th>
                             <th class="text-center">IP</th>
                             <th class="text-center">Plan</th>
+                            <th class="text-center">Class</th>
                             <th class="text-center">Price</th>
                             <th class="text-center">Pon</th>
                             <th class="text-center">Sn</th>  
@@ -279,6 +289,14 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                  <div class="col-md-12">
+                    <label class="col-form-label">Class</label>
+                    <div class="pt-2" id="customer-class-radio">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
 
                   <div class="col-md-6">
                     <label class="col-form-label">Sn</label>
@@ -336,10 +354,15 @@
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer.js"></script>
   <script>
-  $(document).ready(function() {
-    loadUser();
-    loadPlan();
-  });
+    $(function() {
+      $('#class-color-status').load('../color_status/color_status.html')
+    })
+
+    $(document).ready(function() {
+      loadUser()
+      loadPlan()
+      getCustomerClass()
+    })
   </script>
 </body>
 </html>

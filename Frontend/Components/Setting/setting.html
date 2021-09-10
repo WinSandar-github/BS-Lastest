@@ -127,6 +127,34 @@
               </div>
 
             </div>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Customer Class</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <div class="col-md-12 col-sm-12">
+                        <div class="table-responsive">
+                          <table class="table table-hover" id="tbl-customer-class" width="100%">
+                            <thead>
+                              <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- /.row (main row) -->
           </div><!-- /.container-fluid -->
         </section>
@@ -141,62 +169,47 @@
       </footer>
     </div>
     <!-- /.control-sidebar -->
-    <div class="modal fade" id="user_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-md">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" id="user_form" autocomplete="off" name="user_form" enctype="multipart/form-data" method="post" action="javascript:createUser();">
-              <input type="hidden" id="user_id" />
-              <!-- Form Field Start From Here Below -->
-              <div class="form-group row">
-                <div class="col-md-12 col-sm-12">
-                  <label class="col-form-label">Name</label>
-                  <input type="type" class="form-control" autocomplete="off" id="name" placeholder="Enter Name" required oninvalid="this.setCustomValidity('Enter Name')" oninput="setCustomValidity('')">
-              </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label">Email</label>
-                  <input type="email" class="form-control" autocomplete="off" id="email" placeholder="Enter Email" required oninvalid="this.setCustomValidity('Enter Email')" oninput="setCustomValidity('')" >
-                  <div id="messageEmail"></div>
-              </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-12">
-                  <label class="col-form-label">Password</label>
-                  <div class="input-group" id="show_hide_password">
-                    <input type="password" class="form-control add_pwd " id="password" placeholder="Enter Password" autocomplete="off" />
-                    <div class="input-group-append">
-                      <a href="" class="btn btn-default first_pass input-group-text"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                    </div>
-                  </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="customer-class-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Class</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="javascript: editClass();">
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label class="control-label">Class</label>
+                  <input type="text" class="form-control" id="class" disabled>
                 </div>
               </div>
-              <div class="form-group row">
-                <div class="col-md-12 col-sm-12">
-                  <label class="col-form-label">Role</label>
-                  <select class="form-control" id="selected_role_id" style="width: 100%;">
-                    <option value="" disabled selected>Select Role</option>
-                    <option value="1">User</option>
-                    <option value="2">Admin</option>
-                  </select>
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                <input type="hidden" id="class-id">
+                <div class="form-group">
+                  <label class="control-label">Color</label>
+                  <input type="color" class="form-control" id="color" required>
                 </div>
               </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-success float-right">Save</button>
+              </div>
+            </div>
           </form>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" form="user_form">Save</button>
-          </div>
         </div>
       </div>
     </div>
   </div>
+
   <!-- ./wrapper -->
   <!-- General JS Scripts -->
   <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
@@ -221,9 +234,15 @@
   <!--Toastr-->
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
   <script src="../../Utilities/js/plan.js"></script>
+  <script src="../../Utilities/js/customer.js"></script>
   <script>
-    loadUser();
-    getPlan();
+    $(document).ready( function() {
+      loadUser()
+      getPlan()
+      getCustomerClass()
+
+      $('#name').inputmask('99[99] Mbps')
+    })
   </script>
 </body>
 </html>
