@@ -311,7 +311,7 @@ function getCustomerClass() {
 
                 let filename = url.substring(url.lastIndexOf('/')+1)
                 
-                if ( filename == 'customer.html' || filename == 'customer_registration.html') {
+                if ( filename == 'customer.html' || filename == 'customer_registration.html' || filename == "customer_payment.html") {
                     res.map( (el) => {
                         let radio_elem = `<div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="customer-class" id=${el.name} value=${el.id}>

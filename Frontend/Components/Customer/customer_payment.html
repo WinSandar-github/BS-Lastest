@@ -26,6 +26,7 @@
   <!--Authentication JS-->
   <script src="../../Utilities/js/auth.js"></script>
   <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
 </head>
 
 <body onload="getCustomerForPayment();">
@@ -84,21 +85,25 @@
                         <h4>All Payment</h4>
                       </div>
                     <div class="card-body">
+                      <div class="mb-2" id="class-color-status">
+                        
+                      </div>
                         <div class="table-responsive">
                           <table class="table table-md table-hover text-nowrap" id="tbl_customer" style="width: 100% !important;">
                             <thead>
                               <tr>
+                                  <th class="text-center"></th>
                                   <th class="text-center">#</th>
                                   <th class="text-center">Name</th>
-                                  <th class="text-center">ID</th>
+                                  <th class="text-center">Class</th>
                                   <!-- <th class="text-center">Address</th>
                                   <th class="text-center">Phone</th>
                                   <th class="text-center">Plan</th>
                                   <th class="text-center">Price/Month</th>
-                                  <th class="text-center">Total Price</th>   -->
+                                  <th class="text-center">Total Price</th>  
                                   <th>IP</th>
                                   <th class="text-center">Plan</th>
-                                  <th class="text-center">Paid For</th>
+                                  <th class="text-center">Paid For</th> -->
                                 </tr>
                             </thead>
   
@@ -241,12 +246,34 @@
   <!-- <script src="../../assets/js/page/index.js"></script> -->
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer_payment.js"></script>
+  <script src="../../Utilities/js/customer.js"></script>
   <script>
     $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+
+    $(function() {
+      $('#class-color-status').load('../color_status/color_status.html')
+    })
+
     $(document).ready(function() {
-      loadUser();
-  });
-  
+      getCustomerClass()
+      loadUser()
+    });
   </script>
+  <style>
+    td.details-control {
+      background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+      cursor: pointer;
+      background-size: 30px;
+    }
+
+    tr.details td.details-control {
+        background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+        background-size: 30px;
+    }
+
+   #extra-info tbody tr:hover {
+     background-color: white;
+   } 
+  </style>
 </body>
 </html>

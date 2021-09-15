@@ -251,7 +251,30 @@ function deletePaymentDetail(customerId,paymentId) {
 }
 
 function getCustomerForPayment() {
-    $('#tbl_customer').DataTable({
+    let format = (d) => {
+        let extra = `<table class="table" id="extra-info">
+            <tr>
+                <td>ID: </td>
+                <td>${d.code}</td>
+            </tr>
+            <tr>
+                <td>Ip: </td>
+                <td>${d.ip}</td>
+            </tr>
+            <tr>
+                <td>Plan: </td>
+                <td>${d.plan.name}</td>
+            </tr>
+            <tr>
+                <td>Action: </td>
+                <td>${d.action}</td>
+            </tr>
+        </table>`
+
+        return extra
+    }
+
+    let dt = $('#tbl_customer').DataTable({
         destroy: true,
         processing: true,
         serverSide: true,
@@ -261,12 +284,50 @@ function getCustomerForPayment() {
             url: BACKEND_URL + 'get_customer_for_payment',
         },
         columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "searchable":     false,
+                "data":           null,
+                "defaultContent": ''
+            },
             { data: 'DT_RowIndex' },
             { data: 'name' },
-            { data: 'code' },
-            { data: 'ip' },
-            { data: 'plan.name' },
-            { data: 'action' }
-        ]
+            { data: 'class.name' },
+        ],
+        createdRow: function(row, data, dataIndex) {
+            row.style.background = data.class.color
+        }
+    })
+
+    let detailRows = []
+
+    $('#tbl_customer tbody').on('click', 'td.details-control', function() {
+        let tr = $(this).closest('tr')
+        let row = dt.row(tr)
+        let idx = $.inArray( tr.attr('id'), detailRows );
+
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
+ 
+            // Remove from the 'open' array
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( row.data() ) ).show();
+ 
+            // Add to the 'open' array
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+
+        dt.on( 'draw', function () {
+            $.each( detailRows, function ( i, id ) {
+                $('#'+id+' td.details-control').trigger( 'click' );
+            } );
+        } );
     })
 }

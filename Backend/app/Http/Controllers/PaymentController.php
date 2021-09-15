@@ -166,7 +166,7 @@ class PaymentController extends Controller
     }
 
     public function getCustomerForPayment() {
-        $customers = tbl_customer::with('plan')->get();
+        $customers = tbl_customer::with(['plan', 'class'])->get();
 
         return $this->customerPaymentTable($customers);
     }
@@ -174,7 +174,9 @@ class PaymentController extends Controller
     public function customerPaymentTable($data) {
         return Datatables::of($data)
         ->editColumn('action', function($data) {
-            return 'button';
+            $paymentPage = "<button type='button' class='btn btn-success'>Make Payment</button>"; 
+
+            return $paymentPage;
         })
         ->addIndexColumn()
         ->toJson();
