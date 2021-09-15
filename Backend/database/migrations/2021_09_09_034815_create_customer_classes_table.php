@@ -16,7 +16,7 @@ class CreateCustomerClassesTable extends Migration
         Schema::create('customer_classes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('color');
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }

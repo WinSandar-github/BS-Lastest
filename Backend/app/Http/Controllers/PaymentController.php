@@ -23,7 +23,7 @@ class PaymentController extends Controller
             $reg_date = tbl_customer::where('id', $request->customerId)->pluck('reg_date')->first();
 
             $reg_mY = date('Ym', strtotime($reg_date));
-
+            $cur_mY = date('Ym');
             $pay_mY = $request->year.$this->nameToMonth($request->mth);
 
             if ( is_object($find_existed) ) {
@@ -36,7 +36,14 @@ class PaymentController extends Controller
                 $text = "Payment Cannot Be Made Before Registration Date ( {$date} )";
 
                 return response()->json($text, 403, config('common.header'), JSON_UNESCAPED_UNICODE);
-            } else {
+            } else if ( $pay_mY > $cur_mY) {
+                $date = date('d-m-Y');
+
+                $text = "Payment Cannot Be Made Over Current Month ( {$date} )";
+
+                return response()->json($text, 403, config('common.header'), JSON_UNESCAPED_UNICODE);
+            } 
+            else {
                 $payment = new tbl_payment_detail();
                 $date = date('Y-m-d');
                 $payment->date = date('Y-m-d');
@@ -172,9 +179,14 @@ class PaymentController extends Controller
     }
 
     public function customerPaymentTable($data) {
+        $count = 0;
         return Datatables::of($data)
         ->editColumn('action', function($data) {
-            $paymentPage = "<button type='button' class='btn btn-success'>Make Payment</button>"; 
+            $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-warning'>Make Payment</button>
+                            <button type='button' class='btn btn-success' onClick='printPayment($data->id)'>
+                            <i class='bi bi-printer'></i> </button>
+                            <button type='button' class='btn btn-primary' onClick='getEachPayment($data->id)'>
+                            <i class='bi bi-list-check'></i></button>";
 
             return $paymentPage;
         })

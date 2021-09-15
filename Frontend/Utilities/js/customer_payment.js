@@ -85,8 +85,8 @@ function createPayment(){
             printPaymentDetail($("#customerId").val(),data.payment_detail_id);
             successMessage("Payment Is Successfull!");
             $("#paymentModal").modal('toggle');
-            getCustomer();
-            getEachPayment($("#customerId").val());
+            location.reload();
+            // getEachPayment($("#customerId").val());
            
         },
         error: function (xhr, message, text){
@@ -178,17 +178,20 @@ function loadPayment(){
                     url: BACKEND_URL + "getPaymentDetail",
                     data: "customerId=" +customerId,
                     success: function (data) {
-
+                            let grand_total = 0;
                             data.forEach(function(element){
                                 var get_month=(element.month).substring(0,3);
                                 var tr = "<tr>";
                                 tr += "<th class='text-center'>" +  element.month + "</th>";
                                 tr += "<th class='text-center'>" + payment[0].plan.name + "</th>";
+                                tr += `<th class='text-center'>${thousands_separators(element.add_charges)} ${element.add_charges ? "Baht" : ""}</th>`;
                                 tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                                tr += `<th class='text-center'>${thousands_separators(payment[0].price + element.add_charges)} Baht</th>`;
                                 tr += "</tr>";
                                 $("#tbl_invoice_container").append(tr);
+                                grand_total+=payment[0].price + element.add_charges;
                             });
-                            $('#total').append(thousands_separators((payment[0].price*data.length))+" Baht");
+                            $('#total').append(thousands_separators(grand_total)+" Baht");
                     
                     // $('#month').append(array.join() );
                     // $('#subtotal').append(thousands_separators(payment[0].price*array.length));
@@ -208,9 +211,11 @@ function loadPayment(){
                 success: function (data) {
                     var get_month=(data[0].month).substring(0,3);
                     var tr = "<tr>";
-                    tr += "<td class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</td>";
-                    tr += "<td class='text-center font-weight-bold'>" + payment[0].plan.name + "</td>";
-                    tr += "<td class='text-center font-weight-bold'>" + thousands_separators(payment[0].price)+" Baht" + "</td>";
+                    tr += "<th class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</th>";
+                    tr += "<th class='text-center font-weight-bold'>" + payment[0].plan.name + "</th>";
+                    tr += `<th class='text-center'>${thousands_separators(data[0].add_charges)} ${data[0].add_charges ? "Baht" : ""}</th>`;
+                    tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                    tr += `<th class='text-center'>${thousands_separators(payment[0].price + data[0].add_charges)} Baht</th>`;
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
                     // $('#month').append(get_month);
