@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\customerClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Authenticatable;
@@ -68,6 +69,7 @@ class PlanController extends Controller
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
     public function getPlanByPlanId(Request $request)
     {
         $plan = tbl_plan::where('id','=',$request->plan_id)->get();
@@ -78,5 +80,20 @@ class PlanController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
-    
+
+    public function editClass(Request $request) 
+    {
+        try
+        {
+            $find_class = customerClass::find($request->id);
+            $find_class->color = $request->color;
+
+            $find_class->save();
+
+            return response()->json('Saved Successfully!', 201, config('common.header'), JSON_UNESCAPED_UNICODE);
+            
+        } catch( \Exception $e ) {
+            return response()->json($e->getMessage(), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
 }

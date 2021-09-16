@@ -1,48 +1,48 @@
-function getCustomer(){
-    destroyDatatable("#tbl_customer", "#tbl_customer_body");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getCustomer",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr onclick='getPaymentDetail(this)'>";
-                tr += "<td class='text-center'>" +  + "</td>";
-                tr += "<td class='text-center'><input type='hidden' value="+element.id+">" + element.name + "</td>";
-                tr += "<td class='text-center'>" + element.code + "</td>";
-                tr += "<td class='text-center'>" + element.address + "</td>";
-                tr += "<td class='text-center'>" + element.phone + "</td>";
-                tr += "<td class='text-center'>" + element.plan.name + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.plan.price) + "</td>";
-                tr += "<td class='text-right'>" + thousands_separators(element.total_price) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                        "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
-                        "<li class='fas fa-edit fa-sm'></li> payment </button>"+
-                        "<button type='button' class='btn btn-success btn-xs' onClick='printPayment(" + element.id + ")'>" +
-                        "<li class='fas fa-print fa-sm'></li> print </button>"+
-                        // "<button type='button' class='btn btn-warning btn-xs' onClick=getCreditList(\"" + encodeURIComponent(element.reg_date) + "\"," + element.id + ")>" +
-                        // "<li class='fas fa-print fa-sm'></li> credit </button>"
-                        // 
-                        "</div></td> ";
-                tr += "</tr>";
-                $("#tbl_customer_body").append(tr);
+// function getCustomer(){
+//     destroyDatatable("#tbl_customer", "#tbl_customer_body");
+//     $.ajax({
+//         beforeSend: function () {
+//             showLoad();
+//         },
+//         type: "POST",
+//         url: BACKEND_URL + "getCustomer",
+//         data: "",
+//         success: function (data) {
+//             data.forEach(function (element) {
+//                 var tr = "<tr onclick='getPaymentDetail(this)'>";
+//                 tr += "<td class='text-center'>" +  + "</td>";
+//                 tr += "<td class='text-center'><input type='hidden' value="+element.id+">" + element.name + "</td>";
+//                 tr += "<td class='text-center'>" + element.code + "</td>";
+//                 tr += "<td class='text-center'>" + element.address + "</td>";
+//                 tr += "<td class='text-center'>" + element.phone + "</td>";
+//                 tr += "<td class='text-center'>" + element.plan.name + "</td>";
+//                 tr += "<td class='text-right'>" + thousands_separators(element.plan.price) + "</td>";
+//                 tr += "<td class='text-right'>" + thousands_separators(element.total_price) + "</td>";
+//                 tr += "<td class='text-center'><div class='btn-group'>" +
+//                         "<button type='button' class='btn btn-primary btn-xs' onClick='addPayment(" + element.id + ")'>" +
+//                         "<li class='fas fa-edit fa-sm'></li> payment </button>"+
+//                         "<button type='button' class='btn btn-success btn-xs' onClick='printPayment(" + element.id + ")'>" +
+//                         "<li class='fas fa-print fa-sm'></li> print </button>"+
+//                         // "<button type='button' class='btn btn-warning btn-xs' onClick=getCreditList(\"" + encodeURIComponent(element.reg_date) + "\"," + element.id + ")>" +
+//                         // "<li class='fas fa-print fa-sm'></li> credit </button>"
+//                         // 
+//                         "</div></td> ";
+//                 tr += "</tr>";
+//                 $("#tbl_customer_body").append(tr);
 
-            });
-            getIndexNumber('#tbl_customer tr')
-            createDataTable("#tbl_customer");
-            hideLoad();
+//             });
+//             getIndexNumber('#tbl_customer tr')
+//             createDataTable("#tbl_customer");
+//             hideLoad();
 
-        },
-        error:function (message){
-            dataMessage(message, "#tbl_customer", "#tbl_customer_body");
-            hideLoad();
-        }
-    });
+//         },
+//         error:function (message){
+//             dataMessage(message, "#tbl_customer", "#tbl_customer_body");
+//             hideLoad();
+//         }
+//     });
+// }
 
-}
 function getCreditList(regDate,customerId){
     $.ajax({
         type: "POST",
@@ -85,12 +85,18 @@ function createPayment(){
             printPaymentDetail($("#customerId").val(),data.payment_detail_id);
             successMessage("Payment Is Successfull!");
             $("#paymentModal").modal('toggle');
-            getCustomer();
-            getEachPayment($("#customerId").val());
+            location.reload();
+            // getEachPayment($("#customerId").val());
            
         },
-        error: function (message){
-            errorMessage(message);
+        error: function (xhr, message, text){
+            if ( xhr.status == 409 ) {
+                infoMessage(xhr.responseJSON)
+            } else if ( xhr.status == 403 ) {
+                infoMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }
@@ -108,7 +114,6 @@ function getEachPayment(customerId){
         url: BACKEND_URL + "getPaymentDetail",
         data: "customerId="+customerId,
         success: function (data) {
-            console.log(data);
             data.forEach(function (element) {
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + "</td>";
@@ -124,7 +129,7 @@ function getEachPayment(customerId){
                 $("#tbl_payment_body").append(tr);
             });
             getIndexNumber('#tbl_payment tr')
-            createDataTable("#tbl_payment");
+            createDataTableForPaymentDetail("#tbl_payment",data[0].name);
             hideLoad();
         },
         error:function (message){
@@ -172,17 +177,20 @@ function loadPayment(){
                     url: BACKEND_URL + "getPaymentDetail",
                     data: "customerId=" +customerId,
                     success: function (data) {
-
+                            let grand_total = 0;
                             data.forEach(function(element){
                                 var get_month=(element.month).substring(0,3);
                                 var tr = "<tr>";
                                 tr += "<th class='text-center'>" +  element.month + "</th>";
                                 tr += "<th class='text-center'>" + payment[0].plan.name + "</th>";
+                                tr += `<th class='text-center'>${thousands_separators(element.add_charges)} ${element.add_charges ? "Baht" : ""}</th>`;
                                 tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                                tr += `<th class='text-center'>${thousands_separators(payment[0].price + element.add_charges)} Baht</th>`;
                                 tr += "</tr>";
                                 $("#tbl_invoice_container").append(tr);
+                                grand_total+=payment[0].price + element.add_charges;
                             });
-                            $('#total').append(thousands_separators((payment[0].price*data.length))+" Baht");
+                            $('#total').append(thousands_separators(grand_total)+" Baht");
                     
                     // $('#month').append(array.join() );
                     // $('#subtotal').append(thousands_separators(payment[0].price*array.length));
@@ -202,9 +210,11 @@ function loadPayment(){
                 success: function (data) {
                     var get_month=(data[0].month).substring(0,3);
                     var tr = "<tr>";
-                    tr += "<td class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</td>";
-                    tr += "<td class='text-center font-weight-bold'>" + payment[0].plan.name + "</td>";
-                    tr += "<td class='text-center font-weight-bold'>" + thousands_separators(payment[0].price)+" Baht" + "</td>";
+                    tr += "<th class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</th>";
+                    tr += "<th class='text-center font-weight-bold'>" + payment[0].plan.name + "</th>";
+                    tr += `<th class='text-center'>${thousands_separators(data[0].add_charges)} ${data[0].add_charges ? "Baht" : ""}</th>`;
+                    tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                    tr += `<th class='text-center'>${thousands_separators(payment[0].price + data[0].add_charges)} Baht</th>`;
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
                     // $('#month').append(get_month);
@@ -242,4 +252,90 @@ function deletePaymentDetail(customerId,paymentId) {
             }
         });
     }
+}
+
+function getCustomerForPayment() {
+    let format = (d) => {
+        let extra = `<table class="table" id="extra-info">
+            <tr>
+                <td>ID: </td>
+                <td>${d.code}</td>
+            </tr>
+            <tr>
+                <td>Ip: </td>
+                <td>${d.ip}</td>
+            </tr>
+            <tr>
+                <td>Plan: </td>
+                <td>${d.plan.name}</td>
+            </tr>
+            <tr>
+                <td>Action: </td>
+                <td>${d.action}</td>
+            </tr>
+        </table>`
+
+        return extra
+    }
+
+    let dt = $('#tbl_customer').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        scrollX: true,
+        ajax: {
+            type: 'POST',
+            url: BACKEND_URL + 'get_customer_for_payment',
+        },
+        columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "searchable":     false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'DT_RowIndex' },
+            { data: 'name' },
+            { data: 'class.name' },
+        ],
+        createdRow: function(row, data, dataIndex) {
+            row.style.background = data.class.color
+        }
+    })
+
+    let detailRows = []
+
+    $('#tbl_customer tbody').on('click', 'td.details-control', function() {
+        let tr = $(this).closest('tr')
+        let row = dt.row(tr)
+        let idx = $.inArray( tr.attr('id'), detailRows );
+
+        if ( row.child.isShown() ) {
+            tr.removeClass( 'details' );
+            row.child.hide();
+ 
+            // Remove from the 'open' array
+            detailRows.splice( idx, 1 );
+        }
+        else {
+            tr.addClass( 'details' );
+            row.child( format( row.data() ) ).show();
+ 
+            // Add to the 'open' array
+            if ( idx === -1 ) {
+                detailRows.push( tr.attr('id') );
+            }
+        }
+
+        dt.on( 'draw', function () {
+            $.each( detailRows, function ( i, id ) {
+                $('#'+id+' td.details-control').trigger( 'click' );
+            } );
+        } );
+    })
+}
+
+function getPaymentDetail(id){
+    window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
 }

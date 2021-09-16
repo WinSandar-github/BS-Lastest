@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\tbl_customer;
-use DB;
 use App\tbl_payment_detail;
+use App\customerClass;
+use Yajra\DataTables\Facades\DataTables;
+
 class CustomerController extends Controller
 {
     public function createCustomer(Request $request)
@@ -29,6 +25,7 @@ class CustomerController extends Controller
                 $user->address=$data["address"];
                 $user->ip=$data["ip"];
                 $user->plan=$data["plan"];
+                $user->customer_class = $data["customer_class"];
                 $user->pon=$data["pon"];
                 $user->sn=$data["sn"];
                 $user->dn=$data["dn"];
@@ -40,9 +37,11 @@ class CustomerController extends Controller
                 return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
     }
+
     public function getCustomer(Request $request)
     {
         $customer = tbl_customer::all();
+
         for($i=0;$i<count($customer);$i++){
             $payment=tbl_payment_detail::where('customer_id','=',$customer[$i]['id'])->get();
             if(!count($payment)){
@@ -64,11 +63,12 @@ class CustomerController extends Controller
                 $updateCustomer->save();
             }
         }
-        $allCustomer=tbl_customer::with(['plan'])->orderBy('id', 'DESC')->get();
-        if(sizeof($customer)){
-            return response()->json($allCustomer, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
-        else{
+
+        $allCustomer=tbl_customer::with(['plan', 'class'])->orderBy('id', 'DESC')->get();
+
+        if ( sizeof($customer) ) {
+            return $this->customerTable($allCustomer);
+        } else {
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
@@ -93,6 +93,7 @@ class CustomerController extends Controller
                 $customer->ip=$data["ip"];
                 $customer->plan=$data["plan"];
                 $customer->pon=$data["pon"];
+                $customer->customer_class = $data['customer_class'];
                 $customer->sn=$data["sn"];
                 $customer->dn=$data["dn"];
                 $customer->price=$data["price"];
@@ -131,5 +132,52 @@ class CustomerController extends Controller
          else{
             return "0";
          }
+    }
+
+    public function customerTable($data) {
+        return Datatables::of($data)
+        ->editColumn('reg_date', function($data) {
+            $date = date('d/m/Y', strtotime($data['reg_date']));
+
+            return $date;
+        })
+        ->editColumn('desc', function($data) {
+            if ( $data['desc'] !== "" ) {
+                $str_explode = explode(' ', $data['desc']);
+
+                $twoWords = $str_explode[0].' '.$str_explode[1];
+
+                $elem = "<p id='toolip' data-toggle='tooltip' title=\"{$data['desc']}\">$twoWords</p>";
+
+                return $elem;
+            }
+        })
+        ->editColumn('action', function($data) {
+            $edit_btn = "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo({$data['id']})'>
+            <li class='fas fa-edit fa-sm'></li></button>";
+
+            $del_btn = "<button type='button' class='btn btn-danger btn-xs' onClick='deleteCustomer(\"{$data['name']}\", {$data['id']})'>
+            <li class='fa fa-trash fa-sm' ></li ></button >";
+
+            return $edit_btn.$del_btn;
+        })
+        ->rawColumns([
+            'reg_date',
+            'desc',
+            'action'
+        ])
+        ->addIndexColumn()
+        ->toJson();
+    }
+
+    public function getCustomerClass() {
+        try 
+        {
+            $data = customerClass::all();
+
+            return response()->json($data, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        } catch( \Exception $e ) {
+            return response()->json('something went wrong', 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
     }
 }

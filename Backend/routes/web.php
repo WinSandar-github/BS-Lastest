@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,16 @@ Route::post('getPlanByPlanId', array('middleware' => 'cors', 'uses' => 'PlanCont
 Route::post('getCustomerById', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerById'));
 Route::post('matchId', array('middleware' => 'cors', 'uses' => 'CustomerController@matchId'));
 
+Route::post('get_customer_for_payment', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForPayment'));
+
+Route::post('get_customer_class', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerClass'));
+Route::post('edit_class', array('middleware' => 'cors', 'uses' => 'PlanController@editClass'));
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
+
+Route::get('/publicgetPlan', function() {
+    return 'Hello';
+});
+
 
