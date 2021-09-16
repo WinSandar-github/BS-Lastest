@@ -115,7 +115,9 @@ class PaymentController extends Controller
 
     public function getPaymentDetail(Request $request)
     {
-        $payment = tbl_payment_detail::where('customer_id','=',$request->customerId)->get();
+        $payment = tbl_payment_detail::where('customer_id','=',$request->customerId)
+                                    ->join('tbl_customer','tbl_customer.id','tbl_payment_detail.customer_id')
+                                    ->get();
         
         if(count($payment)){
             return response()->json($payment, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
@@ -182,11 +184,11 @@ class PaymentController extends Controller
         $count = 0;
         return Datatables::of($data)
         ->editColumn('action', function($data) {
-            $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-warning'>Make Payment</button>
+            $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-info'><i class='bi bi-cash-coin bi-lg'></i></button>
                             <button type='button' class='btn btn-success' onClick='printPayment($data->id)'>
-                            <i class='bi bi-printer'></i> </button>
-                            <button type='button' class='btn btn-primary' onClick='getEachPayment($data->id)'>
-                            <i class='bi bi-list-check'></i></button>";
+                            <i class='bi bi-printer bi-lg'></i> </button>
+                            <button type='button' class='btn btn-primary' onClick='getPaymentDetail($data->id)'>
+                            <i class='bi bi-list-check bi-lg'></i></button>";
 
             return $paymentPage;
         })

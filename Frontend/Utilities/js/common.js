@@ -1,12 +1,12 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
-// let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
-// let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
+let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
 // let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
 // let BACKEND_URL="http://localhost:8000/";
 
-let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
-let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
+// let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
+// let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
 
 var toastOptions = {
     "closeButton": true,
@@ -90,6 +90,27 @@ function createDataTable(table) {
         // "order": [[0, "desc"]]
     });
     jQuery(table).wrap('<div class="dataTables_scroll" />');
+
+}
+
+function createDataTableForPaymentDetail(table,name) {
+
+    $(table).DataTable({
+        "dom": '<"toolbar">frtip',
+        'destroy': true,
+        'paging': true,
+        'lengthChange': false,
+        "pageLength": 5,
+        'searching': true,
+        'ordering': true,
+        'info': false,
+        'autoWidth': false,
+        "scrollX": true,
+        'select': true,
+        // "order": [[0, "desc"]]
+    });
+    jQuery(table).wrap('<div class="dataTables_scroll" />');
+     $("div.toolbar").html("<span class='font-weight-bold'>Name - "+name+"</span>");
 
 }
 function destroyDatatable(table, tableBody) {

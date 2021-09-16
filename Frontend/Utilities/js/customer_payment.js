@@ -114,7 +114,6 @@ function getEachPayment(customerId){
         url: BACKEND_URL + "getPaymentDetail",
         data: "customerId="+customerId,
         success: function (data) {
-            console.log(data);
             data.forEach(function (element) {
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + "</td>";
@@ -130,7 +129,7 @@ function getEachPayment(customerId){
                 $("#tbl_payment_body").append(tr);
             });
             getIndexNumber('#tbl_payment tr')
-            createDataTable("#tbl_payment");
+            createDataTableForPaymentDetail("#tbl_payment",data[0].name);
             hideLoad();
         },
         error:function (message){
@@ -335,4 +334,8 @@ function getCustomerForPayment() {
             } );
         } );
     })
+}
+
+function getPaymentDetail(id){
+    window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
 }
