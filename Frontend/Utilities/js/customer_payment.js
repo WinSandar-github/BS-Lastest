@@ -213,8 +213,8 @@ function loadPayment(){
                     tr += "<th class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</th>";
                     tr += "<th class='text-center font-weight-bold'>" + payment[0].plan.name + "</th>";
                     tr += `<th class='text-right'>${thousands_separators(data[0].add_charges)} ${data[0].add_charges != 0 ? "Baht" : ""}</th>`;
-                    tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
-                    tr += `<th class='text-center'>${thousands_separators(Number(payment[0].price) + Number(data[0].add_charges))} Baht</th>`;
+                    tr += "<th class='text-right'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
+                    tr += `<th class='text-right'>${thousands_separators(Number(payment[0].price) + Number(data[0].add_charges))} Baht</th>`;
                     tr += "</tr>";
                     $("#tbl_invoice_container").append(tr);
                     // $('#month').append(get_month);
