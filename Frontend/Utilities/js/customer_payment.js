@@ -183,7 +183,7 @@ function loadPayment(){
                                 var tr = "<tr>";
                                 tr += "<th class='text-center'>" +  element.month + "</th>";
                                 tr += "<th class='text-center'>" + payment[0].plan.name + "</th>";
-                                tr += `<th class='text-center'>${thousands_separators(element.add_charges)} ${element.add_charges ? "Baht" : ""}</th>`;
+                                tr += `<th class='text-center'>${thousands_separators(element.add_charges)} ${element.add_charges != 0 ? "Baht" : ""}</th>`;
                                 tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
                                 tr += `<th class='text-center'>${thousands_separators(payment[0].price + element.add_charges)} Baht</th>`;
                                 tr += "</tr>";
@@ -212,7 +212,7 @@ function loadPayment(){
                     var tr = "<tr>";
                     tr += "<th class='text-center font-weight-bold'>" + mmmToMmmm(get_month) + "</th>";
                     tr += "<th class='text-center font-weight-bold'>" + payment[0].plan.name + "</th>";
-                    tr += `<th class='text-center'>${thousands_separators(data[0].add_charges)} ${data[0].add_charges ? "Baht" : ""}</th>`;
+                    tr += `<th class='text-center'>${thousands_separators(data[0].add_charges)} ${data[0].add_charges != 0 ? "Baht" : ""}</th>`;
                     tr += "<th class='text-center'>" + thousands_separators(payment[0].price)+" Baht" + "</th>";
                     tr += `<th class='text-center'>${thousands_separators(payment[0].price + data[0].add_charges)} Baht</th>`;
                     tr += "</tr>";
