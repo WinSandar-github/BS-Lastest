@@ -18,7 +18,7 @@ var toastOptions = {
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
-    "timeOut": "3000",
+    "timeOut": "4000",
     "extendedTimeOut": "3000",
     "showEasing": "swing",
     "hideEasing": "linear",
