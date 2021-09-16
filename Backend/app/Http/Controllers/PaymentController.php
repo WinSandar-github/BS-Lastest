@@ -183,10 +183,10 @@ class PaymentController extends Controller
         $count = 0;
         return Datatables::of($data)
         ->editColumn('action', function($data) {
-            $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-info'><i class='bi bi-cash-coin bi-lg'></i></button>
-                            <button type='button' class='btn btn-success' onClick='printPayment($data->id)'>
+            $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-info btn-sm'><i class='bi bi-cash-coin bi-lg'></i></button>
+                            <button type='button' class='btn btn-success btn-sm' onClick='printPayment($data->id)'>
                             <i class='bi bi-printer bi-lg'></i> </button>
-                            <button type='button' class='btn btn-primary' onClick='getPaymentDetail($data->id)'>
+                            <button type='button' class='btn btn-primary btn-sm' onClick='getPaymentDetail($data->id)'>
                             <i class='bi bi-list-check bi-lg'></i></button>";
 
             return $paymentPage;
