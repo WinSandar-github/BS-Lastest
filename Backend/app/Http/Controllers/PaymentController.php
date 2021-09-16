@@ -37,8 +37,7 @@ class PaymentController extends Controller
 
                 return response()->json($text, 403, config('common.header'), JSON_UNESCAPED_UNICODE);
             } else if ( $pay_mY > $cur_mY) {
-                $date = date('d-m-Y');
-
+                $date = date('M')." ".date('Y');
                 $text = "Payment Cannot Be Made Over Current Month ( {$date} )";
 
                 return response()->json($text, 403, config('common.header'), JSON_UNESCAPED_UNICODE);
