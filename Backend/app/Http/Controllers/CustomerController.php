@@ -64,7 +64,7 @@ class CustomerController extends Controller
             }
         }
 
-        $allCustomer=tbl_customer::with(['plan', 'class'])->orderBy('id', 'DESC')->get();
+        $allCustomer = tbl_customer::with(['plan.plan_class'])->orderBy('id', 'DESC')->get();
 
         if ( sizeof($customer) ) {
             return $this->customerTable($allCustomer);
@@ -72,6 +72,7 @@ class CustomerController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
     public function showCustomerInfo(Request $request)
     {
          $customer = tbl_customer::find($request->customerId);
@@ -82,6 +83,7 @@ class CustomerController extends Controller
             return response()->json($customer, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
          }
     }
+
     public function updateCustomer(Request $request)
     {
          try{
@@ -104,6 +106,7 @@ class CustomerController extends Controller
                 return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
     }
+
     public function deleteCustomer(Request $request)
     {
         $customer = tbl_customer::find($request->customerId);
@@ -113,6 +116,7 @@ class CustomerController extends Controller
              return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
     public function getCustomerById(Request $request)
     {
          $customer = tbl_customer::where('id','=',$request->customerId)->with(['plan'])->get();
@@ -123,6 +127,7 @@ class CustomerController extends Controller
             return response()->json($customer, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
          }
     }
+
     public function matchId(Request $request)
     {
          $customer = tbl_customer::where('code','=',$request->code)->get();
@@ -136,6 +141,11 @@ class CustomerController extends Controller
 
     public function customerTable($data) {
         return Datatables::of($data)
+        ->editColumn('plan_class', function($data) {
+            $json = json_decode($data, true);
+
+            return $json['plan']['name'].' '.$json['plan']['plan_class']['name'];
+        })
         ->editColumn('reg_date', function($data) {
             $date = date('d/m/Y', strtotime($data['reg_date']));
 
@@ -162,12 +172,13 @@ class CustomerController extends Controller
             return $edit_btn.$del_btn;
         })
         ->rawColumns([
+            'plan_class',
             'reg_date',
             'desc',
             'action'
         ])
         ->addIndexColumn()
-        ->toJson();
+        ->make();
     }
 
     public function getCustomerClass() {

@@ -281,8 +281,7 @@ function getCustomer() {
                 { data: 'phone' },
                 { data: 'address' },
                 { data: 'ip' },
-                { data: 'plan.name' },
-                { data: 'class.name' },
+                { data: `plan_class` },
                 { data: 'price' },
                 { data: 'pon' },
                 { data: 'sn' },
@@ -291,7 +290,7 @@ function getCustomer() {
                 { data: 'action'}
         ],
         'createdRow': function( row, data, dataIndex ) {
-            row.style.background = data.class.color
+            row.style.background = data.plan.plan_class.color
         }
     })
 

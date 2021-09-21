@@ -22,7 +22,6 @@ class CreateTblCustomersTable extends Migration
             $table->string('address','225');
             $table->string('ip','125');
             $table->string('plan','225');
-            $table->integer('customer_class');
             $table->string('pon','225');
             $table->string('sn','225');
             $table->string('dn','225');
