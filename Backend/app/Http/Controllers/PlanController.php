@@ -18,10 +18,13 @@ class PlanController extends Controller
     public function createPlan(Request $request)
     {
         try{
-            $plan=new tbl_plan();
-            $plan->name=$request->name;
-            $plan->price=$request->price;
+
+            $plan = new tbl_plan();
+            $plan->name = $request->name;
+            $plan->price = $request->price;
+            $plan->class = $request->class;
             $plan->save();
+
             return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
         }catch (\Exception $e) {
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
@@ -29,7 +32,7 @@ class PlanController extends Controller
     }
     public function getPlan(Request $request)
     {
-        $plan = tbl_plan::all();
+        $plan = tbl_plan::with('plan_class')->get();
         if(sizeof($plan)){
             return response()->json($plan, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }
@@ -53,7 +56,9 @@ class PlanController extends Controller
                 $plan = tbl_plan::find($request->planId);
                 $plan->name = $request->name;
                 $plan->price = $request->price;
+                $plan->class = $request->class;
                 $plan->save();
+                
                 return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }catch (\Exception $e) {
                 return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);

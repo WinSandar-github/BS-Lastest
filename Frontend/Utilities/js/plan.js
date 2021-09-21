@@ -1,5 +1,6 @@
 function createPlan() {
-    var plan = "name=" + $("#name").val()+"&price=" + $("#price").val();
+    let plan = "name=" + $("#name").val() +  "&price=" + $("#price").val() + "&class=" + $('input[name="customer-class"]:checked').val()
+
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "createPlan",
@@ -15,6 +16,7 @@ function createPlan() {
         }
     });
 }
+
 function getPlan(){
     destroyDatatable("#tbl_plan", "#tbl_plan_body");
     $.ajax({
@@ -29,6 +31,7 @@ function getPlan(){
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" +  + "</td>";
                 tr += "<td class='text-center'>" + element.name + "</td>";
+                tr += `<td class="text-center">${element.plan_class.name}</td>`
                 tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
                 "<button type='button' class='btn btn-primary btn-xs' onClick='showPlanInfo(" + element.id + ")'>" +
@@ -50,11 +53,13 @@ function getPlan(){
         }
     });
 }
+
 function showPlanInfo(planId) {
     $("#plan-form").attr('action', 'javascript:updatePlan()');
     $("#plan-id").val(planId);
 
     var data = "&planId=" + planId;
+    
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -65,6 +70,13 @@ function showPlanInfo(planId) {
         success: function (data) {
             $("#name").val(data.name);
             $("#price").val(data.price);
+
+            $('input[name="customer-class"]').each( function() {
+                if ( $(this).val() == data.class ) {
+                    $(this).prop('checked', true)
+                }
+            })
+
             hideLoad();
         },
         error:function (message){
@@ -75,7 +87,7 @@ function showPlanInfo(planId) {
 }
 
 function updatePlan() {
-    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val();
+    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val() + "&class" + $('input[name="customer-class"]')
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "updatePlan",
@@ -91,6 +103,7 @@ function updatePlan() {
         }
     });
 }
+
 function deletePlan(planName, planId) {
     var result = confirm("WARNING: This will delete the plan " + decodeURIComponent(planName) + " and all related stocks! Press OK to proceed.");
     if (result) {
