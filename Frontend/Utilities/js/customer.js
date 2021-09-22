@@ -281,7 +281,9 @@ function getCustomer() {
                 { data: 'phone' },
                 { data: 'address' },
                 { data: 'ip' },
-                { data: `plan_class` },
+                { data: null, render: function( data, type, row ) {
+                    return row.plan.name + ' ' + row.plan.plan_class.name
+                } },
                 { data: 'price' },
                 { data: 'pon' },
                 { data: 'sn' },
@@ -311,16 +313,16 @@ function getCustomerClass() {
                 let filename = url.substring(url.lastIndexOf('/')+1)
                 
                 if ( filename == 'customer.html' || filename == "customer_payment.html" || filename == "setting.html" ) {
-                    // res.map( (el) => {
-                    //     let radio_elem = `<div class="form-check form-check-inline">
-                    //     <input class="form-check-input" type="radio" name="customer-class" id=${el.name} value=${el.id}>
-                    //     <label class="form-check-label" for=${el.name}>
-                    //         ${el.name}
-                    //     </label>
-                    //     </div>`
+                    res.map( (el) => {
+                        let radio_elem = `<div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="customer-class" id=${el.name} value=${el.id}>
+                        <label class="form-check-label" for=${el.name}>
+                            ${el.name}
+                        </label>
+                        </div>`
     
-                    //     $('#customer-class-radio').append(radio_elem)
-                    // })
+                        $('#customer-class-radio').append(radio_elem)
+                    })
                     
                     if ( $('#class-color-lists') ) {
                         res.map( (el) => {
@@ -333,7 +335,6 @@ function getCustomerClass() {
                         })
                     }
 
-                } else {
                     destroyDatatable("#tbl-customer-class", "#tbl-customer-class tbody");
 
                     res.map( (el, index) => {
@@ -399,6 +400,8 @@ function editClass() {
                 successMessage(res)
 
                 $('#customer-class-modal').modal('hide')
+
+                $('#customer-class-radio').children().remove()
 
                 getCustomerClass()
             }

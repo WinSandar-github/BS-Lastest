@@ -141,11 +141,11 @@ class CustomerController extends Controller
 
     public function customerTable($data) {
         return Datatables::of($data)
-        ->editColumn('plan_class', function($data) {
-            $json = json_decode($data, true);
+        // ->editColumn('plan_class', function($data) {
+        //     $json = json_decode($data, true);
 
-            return $json['plan']['name'].' '.$json['plan']['plan_class']['name'];
-        })
+        //     return $json['plan']['name'].' '.$json['plan']['plan_class']['name'];
+        // })
         ->editColumn('reg_date', function($data) {
             $date = date('d/m/Y', strtotime($data['reg_date']));
 
@@ -172,7 +172,7 @@ class CustomerController extends Controller
             return $edit_btn.$del_btn;
         })
         ->rawColumns([
-            'plan_class',
+            // 'plan_class',
             'reg_date',
             'desc',
             'action'

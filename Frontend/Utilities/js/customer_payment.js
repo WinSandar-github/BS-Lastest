@@ -297,10 +297,12 @@ function getCustomerForPayment() {
             },
             { data: 'DT_RowIndex' },
             { data: 'name' },
-            { data: 'class.name' },
+            { data: null, render: function( data, type, row ) {
+                return row.plan.name + ' ' + row.plan.plan_class.name
+            } },
         ],
         createdRow: function(row, data, dataIndex) {
-            row.style.background = data.class.color
+            row.style.background = data.plan.plan_class.color
         }
     })
 
