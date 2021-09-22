@@ -50,8 +50,8 @@ function getCreditList(regDate,customerId){
         data: "regDate="+regDate+"&customerId="+customerId,
         success: function (data) {
             data.forEach(function(element){
-                if(element.jan=="1"){
-                    var tr = "<tr>";
+                if(element.jan == "1"){
+                    let tr = "<tr>";
                     tr += "<td >" +  + "</td>";
                     tr += "<td >" + element.code + "</td>";
                     tr += "</tr>";
@@ -283,6 +283,8 @@ function getCustomerForPayment() {
         processing: true,
         serverSide: true,
         scrollX: true,
+        lengthChange: false,
+        pageLength: 5,
         ajax: {
             type: 'POST',
             url: BACKEND_URL + 'get_customer_for_payment',

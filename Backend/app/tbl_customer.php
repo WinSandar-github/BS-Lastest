@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class tbl_customer extends Model
 {
     protected $table='tbl_customer';
-
+    
     public function plan()
     {
         return $this->belongsTo('App\tbl_plan','plan');
@@ -17,4 +17,10 @@ class tbl_customer extends Model
     {
         return $this->hasOne('App\customerClass', 'id', 'customer_class');
     }
+
+    public function initial_payment()
+    {
+        return $this->belongsTo('App\tbl_payment_plan','payment_plan_id');
+    }
+
 }

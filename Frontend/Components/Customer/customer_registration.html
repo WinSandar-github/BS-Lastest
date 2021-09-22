@@ -163,7 +163,8 @@
                               </div>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
+                       
+                        <!--<div class="form-group">
                           <div class="row">
                             <div class="col-sm-3 text-right">
                               <legend for="inputEmail3" class="col-form-label">Class</legend>
@@ -185,6 +186,18 @@
                                 please add price.
                               </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="row">
+                            <div class="col-sm-3 text-right">
+                              <legend for="inputEmail3" class="col-form-label">Initial Payment</legend>
+                            </div>
+                            <div class="col-sm-5 pt-2" id="initial-payment-radio">
+                              <div class="invalid-feedback">
+                                please select initial payment plan.
+                              </div>
+                            </div>
+                          </div>  
                         </div>
                         <div class="form-group row">
                           <div class="col-sm-3 text-right">
@@ -279,6 +292,8 @@
       loadUser()
       loadPlan()
       getCustomerClass()
+      getInitialPayment()
+
 
       var today = new Date();
         var dd = today.getDate();
