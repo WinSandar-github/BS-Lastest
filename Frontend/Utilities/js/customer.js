@@ -223,7 +223,7 @@ function loadPlan(){
         success: function (data) {
             data.forEach(function (element) {
                 var option = document.createElement('option');
-                option.text = element.name;
+                option.text = element.name + ' ' + element.plan_class.name
                 option.value = element.id;
                 select.add(option, 0);
 
@@ -288,8 +288,7 @@ function getCustomer() {
                 { data: 'phone' },
                 { data: 'address' },
                 { data: 'ip' },
-                { data: 'plan.name' },
-                { data: 'class.name' },
+                { data: 'plan_class' },
                 { data: 'initial_payment.month'},
                 { data: 'price' },
                 { data: 'pon' },
@@ -299,7 +298,7 @@ function getCustomer() {
                 { data: 'action'}
         ],
         'createdRow': function( row, data, dataIndex ) {
-            row.style.background = data.class.color
+            row.style.background = data.plan.plan_class.color
         }
     })
 
@@ -319,17 +318,17 @@ function getCustomerClass() {
 
                 let filename = url.substring(url.lastIndexOf('/')+1)
                 
-                if ( filename == 'customer.html' || filename == 'customer_registration.html' || filename == "customer_payment.html") {
-                    res.map( (el) => {
-                        let radio_elem = `<div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="customer-class" id=${el.name} value=${el.id}>
-                        <label class="form-check-label" for=${el.name}>
-                            ${el.name}
-                        </label>
-                        </div>`
+                if ( filename == 'customer.html' || filename == "customer_payment.html" || filename == "setting.html" ) {
+                    // res.map( (el) => {
+                    //     let radio_elem = `<div class="form-check form-check-inline">
+                    //     <input class="form-check-input" type="radio" name="customer-class" id=${el.name} value=${el.id}>
+                    //     <label class="form-check-label" for=${el.name}>
+                    //         ${el.name}
+                    //     </label>
+                    //     </div>`
     
-                        $('#customer-class-radio').append(radio_elem)
-                    })
+                    //     $('#customer-class-radio').append(radio_elem)
+                    // })
                     
                     if ( $('#class-color-lists') ) {
                         res.map( (el) => {
