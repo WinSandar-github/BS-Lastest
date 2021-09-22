@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblPaymentDetailsTable extends Migration
+class CreateTblPaymentPlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateTblPaymentDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_payment_detail', function (Blueprint $table) {
+        Schema::create('tbl_payment_plans', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->string('month',225);
-            $table->integer('add_charges');
-            $table->bigInteger('customer_id');
-            $table->boolean('status');
+            $table->string('month');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateTblPaymentDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_payment_detail');
+        Schema::dropIfExists('tbl_payment_plans');
     }
 }

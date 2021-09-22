@@ -22,12 +22,12 @@ class CreateTblCustomersTable extends Migration
             $table->string('address','225');
             $table->string('ip','125');
             $table->string('plan','225');
-            $table->integer('customer_class');
             $table->string('pon','225');
             $table->string('sn','225');
             $table->string('dn','225');
             $table->integer('price')->default(0);
             $table->integer('total_price')->default(0);
+            $table->integer('payment_plan_id')->nullable();
             $table->string('desc','225')->nullable();
             $table->timestamps();
         });

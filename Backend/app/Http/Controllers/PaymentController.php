@@ -174,7 +174,7 @@ class PaymentController extends Controller
     }
 
     public function getCustomerForPayment() {
-        $customers = tbl_customer::with(['plan', 'class'])->get();
+        $customers = tbl_customer::with(['plan.plan_class'])->get();
 
         return $this->customerPaymentTable($customers);
     }
