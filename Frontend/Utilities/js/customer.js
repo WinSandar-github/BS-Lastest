@@ -2,21 +2,22 @@ function createCustomer(){
     var result = confirm("WARNING: This will Add New User For " + ($("#name").val()) + "! Press OK to proceed.");
     if(result){
         if($("#codeStatus").val()==""){
-            var customer={};
-            customer["name"]=$("#name").val();
-            customer["regDate"]=$("#registeration_date").val();
-            customer["phone"]=$("#phone").val();
-            customer["code"]=$("#code").val();
-            customer["address"]=$("#address").val();
-            customer["code"]=$("#code").val();
-            customer["ip"]=$("#ip").val();
-            customer["plan"]=$("#selected_plan_id").val();
+            let customer = {};
+            customer["name"] = $("#name").val();
+            customer["regDate"] = $("#registeration_date").val();
+            customer["phone"] = $("#phone").val();
+            customer["code"] = $("#code").val();
+            customer["address"] = $("#address").val();
+            customer["code"] = $("#code").val();
+            customer["ip"] = $("#ip").val();
+            customer["plan"] = $("#selected_plan_id").val();
             customer["customer_class"] = $('input[name="customer-class"]:checked').val()
-            customer["pon"]=$("#pon").val();
-            customer["sn"]=$("#sn").val();
-            customer["dn"]=$("#dn").val();
-            customer["price"]=$("#price").val();
-            customer["desc"]=$("#desc").val();
+            customer["initial_payment"] = $('input[name="initital_payment"]:checked').val()
+            customer["pon"] = $("#pon").val();
+            customer["sn"] = $("#sn").val();
+            customer["dn"] = $("#dn").val();
+            customer["price"] = $("#price").val();
+            customer["desc"] = $("#desc").val();
             $.ajax({
                 beforeSend: function () {
                     showLoad();
@@ -145,6 +146,11 @@ function showCustomerInfo(customerId) {
                         $(this).attr('checked', true)
                     }
                 }) 
+                $('input[name="initital_payment"]').each( function() {
+                    if ( $(this).val() == data.payment_plan_id ) {
+                        $(this).attr('checked', true)
+                    }
+                }) 
     
                 $('#updateModal').modal('toggle')
             },
@@ -165,6 +171,7 @@ function updateCustomer(){
     customer["plan"]=$("#selected_plan_id").val();
     customer["pon"]=$("#update_pon").val();
     customer["customer_class"] = $('input[name="customer-class"]:checked').val()
+    customer["initial_payment"] = $('input[name="initital_payment"]:checked').val()
     customer["sn"]=$("#update_sn").val();
     customer["dn"]=$("#update_dn").val();
     customer["price"]=$("#update_price").val();
@@ -283,6 +290,7 @@ function getCustomer() {
                 { data: 'ip' },
                 { data: 'plan.name' },
                 { data: 'class.name' },
+                { data: 'initial_payment.month'},
                 { data: 'price' },
                 { data: 'pon' },
                 { data: 'sn' },
@@ -366,6 +374,27 @@ function getCustomerClass() {
         }, 
         error: function(err) {
             $('#customer-class-radio').append(err)
+        }
+    })
+}
+
+function getInitialPayment(){
+    $.ajax({
+        type: 'get',
+        url: BACKEND_URL + 'get_initital_payment_month',
+        success: function(data) {
+            data.map((obj)=> {
+                let month = `<div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="initital_payment" id=${obj.month} value=${obj.id}>
+                                <label class="form-check-label" for=${obj.month}>
+                                    ${obj.month} month
+                                </label>
+                            </div>`;
+                $('#initial-payment-radio').append(month);
+            })
+        }, 
+        error: function(err) {
+            $('#initial-payment-radio').append(err);
         }
     })
 }

@@ -79,6 +79,8 @@ Route::post('get_customer_for_payment', array('middleware' => 'cors', 'uses' => 
 Route::post('get_customer_class', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerClass'));
 Route::post('edit_class', array('middleware' => 'cors', 'uses' => 'PlanController@editClass'));
 
+Route::get('get_initital_payment_month', array('middleware' => 'cors', 'uses' => 'CustomerController@get_initital_payment_month'));
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
 
