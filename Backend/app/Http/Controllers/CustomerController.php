@@ -26,7 +26,6 @@ class CustomerController extends Controller
                 $user->address = $data["address"];
                 $user->ip = $data["ip"];
                 $user->plan = $data["plan"];
-                $user->customer_class = $data["customer_class"];
                 $user->payment_plan_id = $data["initial_payment"];
                 $user->pon = $data["pon"];
                 $user->sn = $data["sn"];
