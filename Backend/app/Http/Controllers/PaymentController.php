@@ -173,10 +173,30 @@ class PaymentController extends Controller
         }
     }
 
-    public function getCustomerForPayment() {
-        $customers = tbl_customer::with(['plan.plan_class'])->get();
+    public function getCustomerForPayment(Request $request) {
+        $filter = $request->filter;
 
-        return $this->customerPaymentTable($customers);
+        if ( $filter == 1 ) {
+            $customers = tbl_customer::with(
+                'plan.plan_class',
+            )
+            ->whereHas('payment_detail', function($q) {
+                return $q->where('status', '=', 0);
+            })
+            ->get();
+
+            return $this->customerPaymentTable($customers);
+        } else {
+            $customers = tbl_customer::with(
+                'plan.plan_class',
+            )
+            ->whereHas('payment_detail', function($q) {
+                return $q->where('status', '=', 1);
+            })
+            ->get();
+
+            return $this->customerPaymentTable($customers);
+        }
     }
 
     public function customerPaymentTable($data) {

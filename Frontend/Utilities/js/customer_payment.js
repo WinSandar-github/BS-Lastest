@@ -235,6 +235,7 @@ function loadPayment(){
           }
       });
 }
+
 function deletePaymentDetail(customerId,paymentId) {
     var result = confirm("WARNING: Are you sure to delete payment? Press OK to proceed.");
     if (result) {
@@ -253,31 +254,8 @@ function deletePaymentDetail(customerId,paymentId) {
         });
     }
 }
-
+   
 function getCustomerForPayment() {
-    let format = (d) => {
-        let extra = `<table class="table" id="extra-info">
-            <tr>
-                <td>ID: </td>
-                <td>${d.code}</td>
-            </tr>
-            <tr>
-                <td>Ip: </td>
-                <td>${d.ip}</td>
-            </tr>
-            <tr>
-                <td>Plan: </td>
-                <td>${d.plan.name}</td>
-            </tr>
-            <tr>
-                <td>Action: </td>
-                <td>${d.action}</td>
-            </tr>
-        </table>`
-
-        return extra
-    }
-
     let dt = $('#tbl_customer').DataTable({
         destroy: true,
         processing: true,
@@ -288,6 +266,7 @@ function getCustomerForPayment() {
         ajax: {
             type: 'POST',
             url: BACKEND_URL + 'get_customer_for_payment',
+            data: { 'filter': $('#filter').val() },
         },
         columns: [
             {
@@ -301,7 +280,7 @@ function getCustomerForPayment() {
             { data: 'name' },
             { data: null, render: function( data, type, row ) {
                 return row.plan.name + ' ' + row.plan.plan_class.name
-            } },
+            }},
         ],
         createdRow: function(row, data, dataIndex) {
             row.style.background = data.plan.plan_class.color
@@ -310,12 +289,14 @@ function getCustomerForPayment() {
 
     let detailRows = []
 
-    $('#tbl_customer tbody').on('click', 'td.details-control', function() {
+    $('#tbl_customer tbody').off('click').on('click', 'tr td.details-control', function() {
+
         let tr = $(this).closest('tr')
         let row = dt.row(tr)
-        let idx = $.inArray( tr.attr('id'), detailRows );
+        let idx = $.inArray( tr.attr('id'), detailRows )
 
         if ( row.child.isShown() ) {
+            console.log("S");
             tr.removeClass( 'details' );
             row.child.hide();
  
@@ -323,21 +304,51 @@ function getCustomerForPayment() {
             detailRows.splice( idx, 1 );
         }
         else {
+            console.log("h")
+            console.log(row.data());
+
             tr.addClass( 'details' );
-            row.child( format( row.data() ) ).show();
+            row.child( format(row.data()) ).show();
  
             // Add to the 'open' array
             if ( idx === -1 ) {
                 detailRows.push( tr.attr('id') );
             }
         }
+    });
 
-        dt.on( 'draw', function () {
-            $.each( detailRows, function ( i, id ) {
-                $('#'+id+' td.details-control').trigger( 'click' );
-            } );
-        } );
+    dt.on('draw', function () {
+        $.each( detailRows, function ( i, id ) {
+            $('#'+id+' td.details-control').trigger( 'click' );
+        });
+    });
+
+    $('#filter').on('change', function() {
+        getCustomerForPayment()
     })
+}
+
+let format = (d) => {
+    let extra = `<table class="table" id="extra-info">
+        <tr>
+            <td>ID: </td>
+            <td>${d.code}</td>
+        </tr>
+        <tr>
+            <td>Ip: </td>
+            <td>${d.ip}</td>
+        </tr>
+        <tr>
+            <td>Address: </td>
+            <td>${d.address}</td>
+        </tr>
+        <tr>
+            <td>Action: </td>
+            <td>${d.action}</td>
+        </tr>
+    </table>`
+
+    return extra;
 }
 
 function getPaymentDetail(id){

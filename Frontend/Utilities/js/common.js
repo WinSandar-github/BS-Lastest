@@ -113,12 +113,14 @@ function createDataTableForPaymentDetail(table,name) {
      $("div.toolbar").html("<span class='font-weight-bold'>Name - "+name+"</span>");
 
 }
+
 function destroyDatatable(table, tableBody) {
     if ($.fn.DataTable.isDataTable(table)) {
         $(table).DataTable().destroy();
     }
     $(tableBody).empty();
 }
+
 $('table tbody').on('click', 'tr', function () {
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');

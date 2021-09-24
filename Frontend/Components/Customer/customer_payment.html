@@ -37,7 +37,7 @@
  </style>
 </head>
 
-<body onload="getCustomerForPayment();">
+<body>
     <div id="overlay">
         <div id="loader" class="spinner-border">
         </div>
@@ -89,10 +89,25 @@
               <div class="row">
                 <div class="col-md-12 col-lg-12 col-sm-12">
                   <div class="card">
-                    <div class="card-header">
-                        <h4>All Payment</h4>
+                    <!-- <div class="card-header">
+                      <div class="row">
+                        <div class="form-group col-md-2">
+                          <select class="form-control" id="" style="width: 100%;" >
+                            <option value="1" selected>Credits</option>
+                            <option value="2">Complete</option>
+                          </select>
+                        </div>
                       </div>
+                    </div> -->
                     <div class="card-body">
+                      <div class="row mb-2">
+                        <div class="col-md-2">
+                          <select class="form-control" id="filter">
+                            <option value="1" selected>Credits</option>
+                            <option value="2">Complete</option>
+                          </select>
+                        </div>
+                      </div>
                       <div class="mb-2" id="class-color-status">
                         
                       </div>
@@ -240,6 +255,7 @@
     })
 
     $(document).ready(function() {
+      getCustomerForPayment()
       getCustomerClass()
       loadUser()
     });
