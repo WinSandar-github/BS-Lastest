@@ -296,7 +296,6 @@ function getCustomerForPayment() {
         let idx = $.inArray( tr.attr('id'), detailRows )
 
         if ( row.child.isShown() ) {
-            console.log("S");
             tr.removeClass( 'details' );
             row.child.hide();
  
@@ -304,9 +303,6 @@ function getCustomerForPayment() {
             detailRows.splice( idx, 1 );
         }
         else {
-            console.log("h")
-            console.log(row.data());
-
             tr.addClass( 'details' );
             row.child( format(row.data()) ).show();
  
@@ -353,4 +349,193 @@ let format = (d) => {
 
 function getPaymentDetail(id){
     window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
+}
+
+function invoicingPage(id) {
+    location.href = '../../Components/Customer/customer_invoicing.html?id=' + id 
+}
+
+function getCustomerById() {
+    let url = new URL(location.href)
+    let id = url.searchParams.get('id')
+
+    $.ajax({
+        url: BACKEND_URL + 'get_customer_for_invoicing',
+        type: 'POST',
+        data: { 'id': id },
+        success: function(res, text, xhr) {
+            if ( xhr.status == 200 ) {
+                let customer = res.customer
+
+                let elem = `<p>${customer.name}</p>
+                <p>${customer.address}</p>
+                <p>${customer.code}</p>
+                <p>${customer.ip}</p>
+                <p>${customer.plan.name + ' ' + customer.plan.plan_class.name}</p>
+                `
+                $('#customer-info').append(elem)
+
+                let credits = res.payment_left
+
+                let inv_list = 0
+
+                credits.map((val, index) => {
+                    let tr = `<tr>`
+                        tr += `<td style="padding-left: 18px">
+                            <input 
+                                type="checkbox" 
+                                class="check-btn" 
+                                id=row_${val.id} 
+                                value=${val.id} 
+                            ${ val.invoice == 1 ? 'checked' : 'unchecked' }/>
+                        </td>`
+                        tr += `<td>${index + 1}</td>`
+                        tr += `<td>${val.month}</td>`
+                        tr += `</tr>`
+
+                    $('#tbl-credit-body').append(tr)
+
+                    if ( val.invoice == 1 ) {
+                        inv_list += 1 
+                    }
+                })
+
+                $('#tbl-credit').DataTable({
+                    "searching": false,
+                    "pageLength": 10,
+                    "lengthChange": false,
+                    "ordering": false
+                })
+
+                addToInvoice()
+
+                $('#inv-badge').text(inv_list)
+            }
+        },
+        error: function(res, status, error) {
+            errorMessage(res.responseJSON)
+        }
+    })
+}
+
+function addToInvoice() {
+    $('.check-btn').on('change', function() {
+        let id = this.value
+        let checked = this.checked ? 1 : 0
+
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + 'add_to_invoice',
+            data: { 'id': id, 'checked': checked },
+            beforeSend: function() {
+                showLoad()
+            },
+            success: function(res, text, xhr) {
+                if ( xhr.status == 201 ) {
+                    hideLoad()
+
+                    successMessage(res)
+
+                    if ( checked ) {
+                        let addList = parseInt($('#inv-badge').text()) + 1
+
+                        $('#inv-badge').text(addList)
+                    } else {
+                        let removeList = parseInt($('#inv-badge').text()) - 1
+
+                        $('#inv-badge').text(removeList)
+                    }
+                }
+            },
+            error: function(res, status, error) {
+                hideLoad() 
+
+                errorMessage(res.responseJSON)
+            }
+        })
+    })
+}
+
+function toBilling() {
+    let inv_list = parseInt($('#inv-badge').text())
+
+    if ( inv_list < 1 ) {
+        infoMessage('There is nothing in invoice list!')
+    } else {
+        let url = new URL(window.location)
+        let id = url.searchParams.get('id')
+
+        clearBillingModal()
+
+        $('#billing-modal').modal('show')
+
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + 'get_customer_for_invoicing',
+            data: { 'id': id },
+            success: function( res, text, xhr ) {
+                if ( xhr.status == 200 ) {
+                    let lists = res.payment_left.filter( ({invoice}) => {
+                        return invoice == 1
+                    })
+
+                    let total = 0
+
+                    let price = res.customer.plan.price
+
+                    lists.map( (val, key) => {
+                        let tr = `<tr>`
+                            tr += `<td>${key + 1}</td>`
+                            tr += `<td>${val.month}</td>`
+                            tr += `<td>${thousands_separators(price)}</td>`
+                            tr += `</tr>`
+
+                        $('#item-lists').append(tr)
+
+                        total += parseFloat(price)
+                    })
+
+                    $('#total').text(thousands_separators(total))
+
+                    addCharge(total)
+                }
+            }
+        })
+    }
+}
+
+function clearBillingModal() {
+    $('#item-lists tr').remove()
+
+    $('#add-charge').text('')
+}
+
+function addCharge(total) {
+    $('#add-charge').on('input', function() {
+        let charge = this.value
+
+        let final = total + parseFloat(charge)
+
+        if ( charge !== '' ) {
+            $('#total').text(final)
+        } else {
+            $('#total').text(total)
+        }
+    })
+}
+
+function checkAll(e) {
+    if ( e.checked == true ) {
+        console.log('checked')
+
+        $('#tbl-credit-body tr').each( function() {
+            $(this).find('input[type="checkbox"]').prop('checked', true)
+        })
+    } else {
+        console.log('unchecked')
+
+        $('#tbl-credit-body tr').each( function() {
+            $(this).find('input[type="checkbox"]').prop('checked', false)
+        })
+    }
 }
