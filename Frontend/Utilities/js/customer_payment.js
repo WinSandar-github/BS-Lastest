@@ -82,7 +82,7 @@ function createPayment(){
         url: BACKEND_URL + "createPayment",
         data: payment,
         success: function (data) {
-            printPaymentDetail($("#customerId").val(),data.payment_detail_id);
+            // printPaymentDetail($("#customerId").val(),data.payment_detail_id);
             successMessage("Payment Is Successfull!");
             $("#paymentModal").modal('toggle');
             location.reload();
