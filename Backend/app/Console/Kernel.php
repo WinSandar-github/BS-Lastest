@@ -29,13 +29,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        // $schedule->call(function(Faker $faker) {
-        //     DB::table('tbl_test')->insert([
-        //         [ 'name' => $faker->name() ]
-        //     ]);
-        // })->everyMinute();
+        $schedule->command('payment:monthly')->everyMinute();
 
-        Log::info('Working');
+        $schedule->command('schedule:test')->monthly();
     }
 
     /**

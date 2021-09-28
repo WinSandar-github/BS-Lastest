@@ -17,7 +17,8 @@ class PaymentController extends Controller
         try{
             $find_existed = tbl_payment_detail::where([
                 ['customer_id', $request->customerId],
-                ['month', $request->month]
+                ['month', $request->month],
+                ['status', 1]
             ])->first();
 
             $reg_date = tbl_customer::where('id', $request->customerId)->pluck('reg_date')->first();
@@ -204,15 +205,34 @@ class PaymentController extends Controller
             return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
         else{
-            return $e->getMessage();
-            // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+            return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
 
-    public function getCustomerForPayment() {
-        $customers = tbl_customer::with(['plan.plan_class'])->get();
+    public function getCustomerForPayment(Request $request) {
+        $filter = $request->filter;
 
-        return $this->customerPaymentTable($customers);
+        if ( $filter == 1 ) {
+            $customers = tbl_customer::with(
+                'plan.plan_class',
+            )
+            ->whereHas('payment_detail', function($q) {
+                return $q->where('status', '=', 0);
+            })
+            ->get();
+
+            return $this->customerPaymentTable($customers);
+        } else {
+            $customers = tbl_customer::with(
+                'plan.plan_class',
+            )
+            ->whereHas('payment_detail', function($q) {
+                return $q->where('status', '=', 1);
+            })
+            ->get();
+
+            return $this->customerPaymentTable($customers);
+        }
     }
 
     public function customerPaymentTable($data) {
@@ -220,8 +240,8 @@ class PaymentController extends Controller
         return Datatables::of($data)
         ->editColumn('action', function($data) {
             $paymentPage = "<button type='button' onclick='addPayment($data->id)' class='btn btn-info btn-sm'><i class='bi bi-cash-coin bi-lg'></i></button>
-                            <button type='button' class='btn btn-success btn-sm' onClick='printPayment($data->id)'>
-                            <i class='bi bi-printer bi-lg'></i> </button>
+                            <button type='button' class='btn btn-success btn-sm' onClick='invoicingPage($data->id)'>
+                            <i class='fa fa-calculator fa-lg'></i> </button>
                             <button type='button' class='btn btn-primary btn-sm' onClick='getPaymentDetail($data->id)'>
                             <i class='bi bi-list-check bi-lg'></i></button>";
 
@@ -229,6 +249,59 @@ class PaymentController extends Controller
         })
         ->addIndexColumn()
         ->toJson();
+    }
+
+    public function getCustomerForInvoicing(Request $request)
+    {
+        $customer = tbl_customer::with('plan.plan_class')->find($request->id);
+
+        $payment = tbl_payment_detail::where([
+            ['customer_id', $request->id],
+            ['status', 0]
+        ])->get();
+
+        $data = [
+            'customer' => $customer,
+            'payment_left' => $payment
+        ];
+
+        return response()->json($data, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function addToInvoice(Request $request)
+    {
+        $payment_detail = tbl_payment_detail::find($request->id);
+
+        if ( $request->checked == 1 ) {
+            $payment_detail->invoice = 1;
+            $payment_detail->save();
+
+            $res = $payment_detail->month . ' Is Added To Invoice List!';
+
+            return response()->json($res, 201, config('common.header'), JSON_UNESCAPED_UNICODE);
+        } else {
+            $payment_detail->invoice = 0;
+            $payment_detail->save();
+
+            $res = $payment_detail->month . ' Is Removed From Invoice List!';
+
+            return response()->json($res, 201, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function Billing(Request $request)
+    {
+        $customer = tbl_customer::with('plan')
+        ->whereHas('payment_detail', function($q) {
+            return $q->where([
+                ['status', '=', 0],
+                ['invoice', '=', 1]
+            ]);
+        })
+        ->where('id', '=', $request->id)
+        ->first();
+
+        return $customer;
     }
 
     public function nameToMonth($name) {
