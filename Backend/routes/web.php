@@ -87,6 +87,8 @@ Route::get('/welcome', 'HomeController@index')->name('home');
 Route::post('get_customer_for_invoicing', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForInvoicing'));
 Route::post('add_to_invoice', array('middleware' => 'cors', 'uses' => 'PaymentController@addToInvoice'));
 
+Route::post('createInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@createInvoice'));
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });

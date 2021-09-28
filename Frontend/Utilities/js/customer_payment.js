@@ -390,7 +390,7 @@ function getCustomerById() {
                             ${ val.invoice == 1 ? 'checked' : 'unchecked' }/>
                         </td>`
                         tr += `<td>${index + 1}</td>`
-                        tr += `<td>${val.month}</td>`
+                        tr += `<td name='month'>${val.month}</td>`
                         tr += `</tr>`
 
                     $('#tbl-credit-body').append(tr)
