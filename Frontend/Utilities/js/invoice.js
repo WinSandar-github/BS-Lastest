@@ -1,7 +1,7 @@
 function createInvoice(){
 
     var result = confirm("WARNING: This will Add New Payment!. Press OK to proceed.");
-    
+
     if(result){
         let url = new URL(location.href)
         let id = url.searchParams.get('id')
@@ -89,7 +89,7 @@ function getPaymentInvoice(){
 
                 $("#tbl_invoice_container").append(tr);
 
-                total += res.customer[0]['price'];
+                total += Number(res.customer[0]['price']);
             })
 
             $("#total").html(`${thousands_separators(total)} Baht`);
