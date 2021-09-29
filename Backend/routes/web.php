@@ -84,6 +84,15 @@ Route::get('get_initital_payment_month', array('middleware' => 'cors', 'uses' =>
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
 
+Route::post('get_customer_for_invoicing', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForInvoicing'));
+Route::post('add_to_invoice', array('middleware' => 'cors', 'uses' => 'PaymentController@addToInvoice'));
+
+Route::post('createInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@createInvoice'));
+
+Route::get('getPaymentInvoice', 'InvoiceController@getPaymentInvoice');
+
+Route::get('getAllInvoices', 'InvoiceController@getAllInvoices');
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });

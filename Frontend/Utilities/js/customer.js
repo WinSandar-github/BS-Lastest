@@ -288,8 +288,12 @@ function getCustomer() {
                 { data: 'phone' },
                 { data: 'address' },
                 { data: 'ip' },
-                { data: 'plan_class' },
-                { data: 'initial_payment.month'},
+                { data: null, render: function( data, type, row ) {
+                    return row.plan.name + ' ' + row.plan.plan_class.name
+                }},
+                { data: null, render: function( data, type, row ) {
+                    return row.initial_payment.month + ' months'
+                }},
                 { data: 'price' },
                 { data: 'pon' },
                 { data: 'sn' },

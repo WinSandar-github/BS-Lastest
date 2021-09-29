@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>IQNet &mdash; Payment Details</title>
+  <title>IQNet &mdash; Invoicing</title>
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+  <!-- CSS Libraries -->
+  <!-- <link rel="stylesheet" href="../node_modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css"> -->
   <!-- DataTables -->
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
@@ -24,11 +29,12 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
   <!-- Bootstrap Font Icon CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  <style>
-     .bi-lg{
-      font-size: 1rem;
-     }
-  </style>
+  <!-- <link rel="stylesheet" href="../../plugins/bootstrap-icons-font-2.0.7/dist/bootstrap-icons-font.css"> -->
+ <style>
+   .bi-lg{
+    font-size: 1rem;
+   }
+ </style>
 </head>
 
 <body>
@@ -62,10 +68,10 @@
       <div class="fixed-content">
         <section class="">
           <div class="fixed-header">
-            <h1>Payment</h1>
+            <h1>Invoicing</h1>
             <div class="fixed-header-breadcrumb">
               <div class="fixed-breadcrumb-item breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="fixed-breadcrumb-item breadcrumb-item">Payment Details</div>
+              <div class="fixed-breadcrumb-item breadcrumb-item">Payment</div>
             </div>
           </div>
         </section>
@@ -73,32 +79,52 @@
       </div>
       <div class="main-sidebar">
       </div>
+
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
             <div class="section-body custom-section-body">
               <div class="row">
-                <div class="col-12 col-md-12 col-lg-12">
-                  <div class="card">
-                    <div class="card-header">
-                        <h4>Payment Details</h4>
-                      </div>
-                    <div class="card-body">
-                      <table class="table table-hover text-nowrap" id="tbl_payment">
-                        <thead class="text-center">
-                          <tr>
-                              <th>#</th>
-                              <th>Invoice-No</th>
-                              <th>Total</th>
-                              <th>Action</th>
-                          </tr> 
-                        </thead>
-
-                        <tbody id="tbl_payment_body" class="hoverTable"></tbody>
-                        </table>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Customer Info</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="customer-info"></div>
+                        </div>
                     </div>
-                  </div>
                 </div>
+                <div class="col-lg-8 col-md-8 col-sm-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 style="width: 30%;">List of Credits</h4>
+                            <div style="width: 70%;">
+                              <button type="button" class="btn btn-primary float-right" style="border-radius: 0px;" onclick="toBilling()">
+                                <span class="badge badge-light" id="inv-badge" style="margin: 0;"></span> Invoice Lists
+                              </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="tbl-credit">
+                                    <thead>
+                                        <tr>
+                                            <!-- <th><input type="checkbox" id="check-all" onclick="checkAll(this);"></th> -->
+                                            <th></th>
+                                            <th>#</th>
+                                            <th>Month</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbl-credit-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6"></div>
               </div>
             </div>
           </section>
@@ -114,6 +140,58 @@
     </div>
   </div>
 
+  <div class="modal" tabindex="-1" role="dialog" id="billing-modal">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Invoice Lists</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="post" action="javascript:createInvoice();">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 table-responsive">
+                <table class="table" id="tbl_invoice">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Month</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="item-lists"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Additional Charges: </h6>
+              </div>
+              <div class="col-md-6">
+                <input type="number" min="0" name="add-charge" id="add-charge" placeholder="xxxx" value="0" />
+              </div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+              <div class="col-md-6">
+                <h6>Total:</h6>
+              </div>
+              <div class="col-md-6">
+                <h6 id="total" name="total"></h6>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Proceed</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+
   <!-- General JS Scripts -->
   <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
    <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
@@ -121,7 +199,6 @@
    <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
    <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
-
   <script src="../Main/js/default_template.js.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
@@ -136,46 +213,27 @@
   <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
   <!--Toastr-->
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
-  <!-- Page Specific JS File -->
-  <!-- <script src="../../assets/js/page/index.js"></script> -->
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer_payment.js"></script>
-  <script src="../../Utilities/js/customer.js"></script>
   <script src="../../Utilities/js/invoice.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    $('#pay_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-
-    $(function() {
-      $('#class-color-status').load('../color_status/color_status.html')
-    })
-
-    $(document).ready(function() {
-        $('.payment').addClass('active');
-        loadUser();
-        var currentUrl = window.location.href;
-        var url = new URL(currentUrl);
-        var customerId = url.searchParams.get("customerId");
-        
-        getAllInvoices(customerId);
-       
-    });
+      $(document).ready( function() {
+          getCustomerById()
+          loadUser()
+      })
   </script>
+
   <style>
-    td.details-control {
-      background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
-      cursor: pointer;
-      background-size: 30px;
+    #add-charge {
+      border: none;
+      font-size: 1em;
+      font-weight: 700;
     }
 
-    tr.details td.details-control {
-        background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
-        background-size: 30px;
+    #add-charge:focus {
+      outline-width: 0;
     }
-
-   #extra-info tbody tr:hover {
-     background-color: white;
-   } 
   </style>
 </body>
 </html>

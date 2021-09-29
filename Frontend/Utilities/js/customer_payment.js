@@ -72,6 +72,7 @@ function addPayment(customerId){
     $("#customerId").val(customerId);
 }
 function createPayment(){
+
     let addCharges=$("#charges").val();
     let yrMonth=$("#month").val();
     var month=yrMonth[5]+yrMonth[6];
@@ -81,9 +82,9 @@ function createPayment(){
         type: "POST",
         url: BACKEND_URL + "createPayment",
         data: payment,
-        success: function (data) {
-            printPaymentDetail($("#customerId").val(),data.payment_detail_id);
-            successMessage("Payment Is Successfull!");
+        success: function (res) {
+            // printPaymentDetail($("#customerId").val(),data.payment_detail_id);
+            successMessage(res);
             $("#paymentModal").modal('toggle');
             location.reload();
             // getEachPayment($("#customerId").val());
@@ -235,6 +236,7 @@ function loadPayment(){
           }
       });
 }
+
 function deletePaymentDetail(customerId,paymentId) {
     var result = confirm("WARNING: Are you sure to delete payment? Press OK to proceed.");
     if (result) {
@@ -253,31 +255,8 @@ function deletePaymentDetail(customerId,paymentId) {
         });
     }
 }
-
+   
 function getCustomerForPayment() {
-    let format = (d) => {
-        let extra = `<table class="table" id="extra-info">
-            <tr>
-                <td>ID: </td>
-                <td>${d.code}</td>
-            </tr>
-            <tr>
-                <td>Ip: </td>
-                <td>${d.ip}</td>
-            </tr>
-            <tr>
-                <td>Plan: </td>
-                <td>${d.plan.name}</td>
-            </tr>
-            <tr>
-                <td>Action: </td>
-                <td>${d.action}</td>
-            </tr>
-        </table>`
-
-        return extra
-    }
-
     let dt = $('#tbl_customer').DataTable({
         destroy: true,
         processing: true,
@@ -288,6 +267,7 @@ function getCustomerForPayment() {
         ajax: {
             type: 'POST',
             url: BACKEND_URL + 'get_customer_for_payment',
+            data: { 'filter': $('#filter').val() },
         },
         columns: [
             {
@@ -299,19 +279,22 @@ function getCustomerForPayment() {
             },
             { data: 'DT_RowIndex' },
             { data: 'name' },
-            { data: 'class.name' },
+            { data: null, render: function( data, type, row ) {
+                return row.plan.name + ' ' + row.plan.plan_class.name
+            }},
         ],
         createdRow: function(row, data, dataIndex) {
-            row.style.background = data.class.color
+            row.style.background = data.plan.plan_class.color
         }
     })
 
     let detailRows = []
 
-    $('#tbl_customer tbody').on('click', 'td.details-control', function() {
+    $('#tbl_customer tbody').off('click').on('click', 'tr td.details-control', function() {
+
         let tr = $(this).closest('tr')
         let row = dt.row(tr)
-        let idx = $.inArray( tr.attr('id'), detailRows );
+        let idx = $.inArray( tr.attr('id'), detailRows )
 
         if ( row.child.isShown() ) {
             tr.removeClass( 'details' );
@@ -322,22 +305,238 @@ function getCustomerForPayment() {
         }
         else {
             tr.addClass( 'details' );
-            row.child( format( row.data() ) ).show();
+            row.child( format(row.data()) ).show();
  
             // Add to the 'open' array
             if ( idx === -1 ) {
                 detailRows.push( tr.attr('id') );
             }
         }
+    });
 
-        dt.on( 'draw', function () {
-            $.each( detailRows, function ( i, id ) {
-                $('#'+id+' td.details-control').trigger( 'click' );
-            } );
-        } );
+    dt.on('draw', function () {
+        $.each( detailRows, function ( i, id ) {
+            $('#'+id+' td.details-control').trigger( 'click' );
+        });
+    });
+
+    $('#filter').on('change', function() {
+        getCustomerForPayment()
     })
+}
+
+let format = (d) => {
+    let extra = `<table class="table" id="extra-info">
+        <tr>
+            <td>ID: </td>
+            <td>${d.code}</td>
+        </tr>
+        <tr>
+            <td>Ip: </td>
+            <td>${d.ip}</td>
+        </tr>
+        <tr>
+            <td>Address: </td>
+            <td>${d.address}</td>
+        </tr>
+        <tr>
+            <td>Action: </td>
+            <td>${d.action}</td>
+        </tr>
+    </table>`
+
+    return extra;
 }
 
 function getPaymentDetail(id){
     window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
+}
+
+function invoicingPage(id) {
+    location.href = '../../Components/Customer/customer_invoicing.html?id=' + id 
+}
+
+function getCustomerById() {
+    let url = new URL(location.href)
+    let id = url.searchParams.get('id')
+
+    $.ajax({
+        url: BACKEND_URL + 'get_customer_for_invoicing',
+        type: 'POST',
+        data: { 'id': id },
+        success: function(res, text, xhr) {
+            if ( xhr.status == 200 ) {
+                let customer = res.customer
+
+                let elem = `<p>${customer.name}</p>
+                <p>${customer.address}</p>
+                <p>${customer.code}</p>
+                <p>${customer.ip}</p>
+                <p>${customer.plan.name + ' ' + customer.plan.plan_class.name}</p>
+                `
+                $('#customer-info').append(elem)
+
+                let credits = res.payment_left
+
+                let inv_list = 0
+
+                credits.map((val, index) => {
+                    let tr = `<tr>`
+                        tr += `<td style="padding-left: 18px">
+                            <input 
+                                type="checkbox" 
+                                class="check-btn" 
+                                id=row_${val.id} 
+                                value=${val.id} 
+                            ${ val.invoice == 1 ? 'checked' : 'unchecked' }/>
+                        </td>`
+                        tr += `<td>${index + 1}</td>`
+                        tr += `<td name='month'>${val.month}</td>`
+                        tr += `</tr>`
+
+                    $('#tbl-credit-body').append(tr)
+
+                    if ( val.invoice == 1 ) {
+                        inv_list += 1 
+                    }
+                })
+
+                $('#tbl-credit').DataTable({
+                    "searching": false,
+                    "pageLength": 10,
+                    "lengthChange": false,
+                    "ordering": false
+                })
+
+                addToInvoice()
+
+                $('#inv-badge').text(inv_list)
+            }
+        },
+        error: function(res, status, error) {
+            errorMessage(res.responseJSON)
+        }
+    })
+}
+
+function addToInvoice() {
+    $('.check-btn').on('change', function() {
+        let id = this.value
+        let checked = this.checked ? 1 : 0
+
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + 'add_to_invoice',
+            data: { 'id': id, 'checked': checked },
+            beforeSend: function() {
+                showLoad()
+            },
+            success: function(res, text, xhr) {
+                if ( xhr.status == 201 ) {
+                    hideLoad()
+
+                    successMessage(res)
+
+                    if ( checked ) {
+                        let addList = parseInt($('#inv-badge').text()) + 1
+
+                        $('#inv-badge').text(addList)
+                    } else {
+                        let removeList = parseInt($('#inv-badge').text()) - 1
+
+                        $('#inv-badge').text(removeList)
+                    }
+                }
+            },
+            error: function(res, status, error) {
+                hideLoad() 
+
+                errorMessage(res.responseJSON)
+            }
+        })
+    })
+}
+
+function toBilling() {
+    let inv_list = parseInt($('#inv-badge').text())
+
+    if ( inv_list < 1 ) {
+        infoMessage('There is nothing in invoice list!')
+    } else {
+        let url = new URL(window.location)
+        let id = url.searchParams.get('id')
+
+        clearBillingModal()
+
+        $('#billing-modal').modal('show')
+
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + 'get_customer_for_invoicing',
+            data: { 'id': id },
+            success: function( res, text, xhr ) {
+                if ( xhr.status == 200 ) {
+                    let lists = res.payment_left.filter( ({invoice}) => {
+                        return invoice == 1
+                    })
+
+                    let total = 0
+
+                    let price = res.customer.plan.price
+
+                    lists.map( (val, key) => {
+                        let tr = `<tr>`
+                            tr += `<td>${key + 1}</td>`
+                            tr += `<td>${val.month}</td>`
+                            tr += `<td>${thousands_separators(price)}</td>`
+                            tr += `</tr>`
+
+                        $('#item-lists').append(tr)
+
+                        total += parseFloat(price)
+                    })
+
+                    $('#total').text(thousands_separators(total))
+
+                    addCharge(total)
+                }
+            }
+        })
+    }
+}
+
+function clearBillingModal() {
+    $('#item-lists tr').remove()
+
+    $('#add-charge').text('')
+}
+
+function addCharge(total) {
+    $('#add-charge').on('input', function() {
+        let charge = this.value
+
+        let final = total + parseFloat(charge)
+
+        if ( charge !== '' ) {
+            $('#total').text(final)
+        } else {
+            $('#total').text(total)
+        }
+    })
+}
+
+function checkAll(e) {
+    if ( e.checked == true ) {
+        console.log('checked')
+
+        $('#tbl-credit-body tr').each( function() {
+            $(this).find('input[type="checkbox"]').prop('checked', true)
+        })
+    } else {
+        console.log('unchecked')
+
+        $('#tbl-credit-body tr').each( function() {
+            $(this).find('input[type="checkbox"]').prop('checked', false)
+        })
+    }
 }

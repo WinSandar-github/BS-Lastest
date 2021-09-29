@@ -54,8 +54,9 @@ class CustomerController extends Controller
     {
         $customer = tbl_customer::all();
 
-        for($i=0;$i<count($customer);$i++){
+        for( $i=0; $i<count($customer); $i++ ){
             $payment = tbl_payment_detail::where('customer_id','=',$customer[$i]['id'])->get();
+            
             if(!count($payment)){
                 $date1=$customer[$i]['reg_date'];
                 $date2 = date('Y-m-d');
@@ -153,11 +154,6 @@ class CustomerController extends Controller
 
     public function customerTable($data) {
         return Datatables::of($data)
-        ->editColumn('plan_class', function($data) {
-            $json = json_decode($data, true);
-
-            return $json['plan']['name'].' '.$json['plan']['plan_class']['name'];
-        })
         ->editColumn('reg_date', function($data) {
             $date = date('d/m/Y', strtotime($data['reg_date']));
 
@@ -167,11 +163,13 @@ class CustomerController extends Controller
             if ( $data['desc'] !== "" ) {
                 $str_explode = explode(' ', $data['desc']);
 
-                $twoWords = $str_explode[0].' '.$str_explode[1];
+                if( count($str_explode) > 1  ) {
+                    $twoWords = $str_explode[0].' '.$str_explode[1];
 
-                $elem = "<p id='toolip' data-toggle='tooltip' title=\"{$data['desc']}\">$twoWords</p>";
+                    $elem = "<p id='toolip' data-toggle='tooltip' title=\"{$data['desc']}\">$twoWords</p>";
 
-                return $elem;
+                    return $elem;
+                }
             }
         })
         ->editColumn('action', function($data) {
@@ -184,7 +182,6 @@ class CustomerController extends Controller
             return $edit_btn.$del_btn;
         })
         ->rawColumns([
-            'plan_class',
             'reg_date',
             'desc',
             'action'
