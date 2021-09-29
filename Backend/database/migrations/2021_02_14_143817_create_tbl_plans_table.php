@@ -16,6 +16,7 @@ class CreateTblPlansTable extends Migration
         Schema::create('tbl_plan', function (Blueprint $table) {
             $table->id();
             $table->string('name','125');
+            $table->integer('class');
             $table->integer('price');
             $table->timestamps();
         });

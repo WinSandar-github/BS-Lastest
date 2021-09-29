@@ -23,9 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('api_key',225);
             $table->timestamps();
         });
-       Artisan::call('db:seed',[
-            '--class' => UserSeeder::class
-     ]); 
     }
 
     /**

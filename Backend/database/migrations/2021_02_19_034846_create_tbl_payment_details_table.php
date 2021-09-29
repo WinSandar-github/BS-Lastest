@@ -19,6 +19,8 @@ class CreateTblPaymentDetailsTable extends Migration
             $table->string('month',225);
             $table->integer('add_charges');
             $table->bigInteger('customer_id');
+            $table->boolean('status');
+            $table->boolean('invoice')->default(0);
             $table->timestamps();
         });
     }

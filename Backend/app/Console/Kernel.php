@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
@@ -27,7 +29,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        Log::info('Working');
+        $schedule->command('payment:monthly')->everyMinute();
+
+        $schedule->command('schedule:test')->monthly();
     }
 
     /**

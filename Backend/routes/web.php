@@ -79,8 +79,19 @@ Route::post('get_customer_for_payment', array('middleware' => 'cors', 'uses' => 
 Route::post('get_customer_class', array('middleware' => 'cors', 'uses' => 'CustomerController@getCustomerClass'));
 Route::post('edit_class', array('middleware' => 'cors', 'uses' => 'PlanController@editClass'));
 
+Route::get('get_initital_payment_month', array('middleware' => 'cors', 'uses' => 'CustomerController@get_initital_payment_month'));
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/welcome', 'HomeController@index')->name('home');
+
+Route::post('get_customer_for_invoicing', array('middleware' => 'cors', 'uses' => 'PaymentController@getCustomerForInvoicing'));
+Route::post('add_to_invoice', array('middleware' => 'cors', 'uses' => 'PaymentController@addToInvoice'));
+
+Route::post('createInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@createInvoice'));
+
+Route::get('getPaymentInvoice', 'InvoiceController@getPaymentInvoice');
+
+Route::get('getAllInvoices', 'InvoiceController@getAllInvoices');
 
 Route::get('/publicgetPlan', function() {
     return 'Hello';

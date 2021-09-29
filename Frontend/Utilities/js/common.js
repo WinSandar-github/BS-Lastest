@@ -113,12 +113,14 @@ function createDataTableForPaymentDetail(table,name) {
      $("div.toolbar").html("<span class='font-weight-bold'>Name - "+name+"</span>");
 
 }
+
 function destroyDatatable(table, tableBody) {
     if ($.fn.DataTable.isDataTable(table)) {
         $(table).DataTable().destroy();
     }
     $(tableBody).empty();
 }
+
 $('table tbody').on('click', 'tr', function () {
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
@@ -156,7 +158,7 @@ function thousands_separators(num) {
     return num_parts.join(".");
 }
 function removeComma(number){
-    var number_part=parseInt(number.split(',').join(""));
+    var number_part = parseInt(number.split(',').join(""));
     return number_part;
 }
 function startDataTable(table) {
