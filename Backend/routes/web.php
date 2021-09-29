@@ -89,6 +89,10 @@ Route::post('add_to_invoice', array('middleware' => 'cors', 'uses' => 'PaymentCo
 
 Route::post('createInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@createInvoice'));
 
+Route::get('getPaymentInvoice', 'InvoiceController@getPaymentInvoice');
+
+Route::get('getAllInvoices', 'InvoiceController@getAllInvoices');
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });

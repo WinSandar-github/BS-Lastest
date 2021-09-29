@@ -55,14 +55,7 @@ class PaymentController extends Controller
                     $payment = new tbl_payment_detail();
                     $date = date('Y-m-d');
                     $payment->date = date('Y-m-d');
-
-                    if( $request->addCharges ) {
-                        $payment->add_charges = $request->addCharges;
-                    }
-                    else {
-                        $payment->add_charges = 0;
-                    }
-
+                    $payment->add_charges = 0;
                     $payment->customer_id = $request->customerId;
                     $payment->month = $request->month;
                     $payment->status = 0;

@@ -9,6 +9,7 @@ use App\tbl_customer;
 use App\tbl_income_outcome;
 use App\tbl_income_detail;
 use App\tbl_payment_detail;
+use DB;
 
 class InvoiceController extends Controller
 {
@@ -81,73 +82,60 @@ class InvoiceController extends Controller
             }
 
             return response()->json(['invoice_id'=>$invoice->id], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
-
-            // $payment = new tbl_payment_detail();
-            // $date = date('Y-m-d');
-            // $payment->date = date('Y-m-d');
-
-            // if($req_data[0]) {
-            //     $payment->add_charges = $req_data[0];
-            // }
-            // else {
-            //     $payment->add_charges = 0;
-            // }
-
-            // $payment->customer_id = $request->customerId;
-            // $payment->month = $req_data[0];
-            // $payment->save();
-
-            // $customer=tbl_customer::find($request->customerId);
-            // $date1=$customer->reg_date;
-            // $date2 = date('Y-m-d');
-            // $ts1 = strtotime($date1);
-            // $ts2 = strtotime($date2);
-    
-            // $year1 = date('Y', $ts1);
-            // $year2 = date('Y', $ts2);
-    
-            // $month1 = date('m', $ts1);
-            // $month2 = date('m', $ts2);
-            
-            // $diff = (($year2 - $year1) * 12) + ($month2 - $month1);
-            // $totalMonth=$diff+1;
-            // $paymentDetail=tbl_payment_detail::where('customer_id','=',$request->customerId)->get();
-            // $payMonth=count($paymentDetail);
-            // $customer->total_price=($totalMonth-$payMonth)*$customer->price;
-            // $customer->save();
-            // $income_outcome=tbl_income_outcome::whereDate('date',date('Y-m-d', strtotime($date)))->get();
-            // if(count($income_outcome)){
-            //     for($i=0;$i<count($income_outcome);$i++){
-            //         $income=tbl_income_outcome::find($income_outcome[$i]->id);
-            //         $income->income_total= $income->income_total+$customer->price+$request->addCharges;
-            //         $income->save();
-            //         $income_detail=new tbl_income_detail();
-            //         $income_detail->income_outcome_id=$income->id;
-            //         $income_detail->payment_detail_id=$payment->id;
-            //         $income_detail->date=date('Y-m-d', strtotime($date));
-            //         $income_detail->reason='Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
-            //         $income_detail->unit_amount=$customer->price+$request->addCharges;
-            //         $income_detail->save();
-            //     }
-            // }else{
-            //     $income=new tbl_income_outcome();
-            //     $income->date=date('Y-m-d', strtotime($date));
-            //     $income->income_total=$customer->price+$request->addCharges;
-            //     $income->save();
-            //     $income_detail=new tbl_income_detail();
-            //     $income_detail->income_outcome_id=$income->id;
-            //     $income_detail->payment_detail_id=$payment->id;
-            //     $income_detail->date=date('Y-m-d', strtotime($date));
-            //     $income_detail->reason='Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
-            //     $income_detail->unit_amount=$customer->price+$request->addCharges;
-            //     $income_detail->save();
-            // }
-
-            // return response()->json(['payment_detail_id'=>$payment->id], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
-            
+   
         }catch (\Exception $e) {
             return $e->getMessage();
            // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function getPaymentInvoice(Request $request)
+    {
+        try{
+            
+            $invoice = tbl_invoice::find($request->id);
+
+            $customer =  DB::select("SELECT tbl_customer.name as customer_name , tbl_plan.name as plan_name,
+                                        customer_classes.name as class ,tbl_customer.address , tbl_customer.code,
+                                        tbl_customer.pon, tbl_customer.sn, tbl_customer.dn ,tbl_plan.price ,
+                                        tbl_invoices.add_charges, tbl_invoices.total
+                                        FROM  tbl_customer , tbl_plan , customer_classes , tbl_invoices
+                                        Where tbl_customer.plan = tbl_plan.id 
+                                        AND customer_classes.id = tbl_plan.class
+                                        AND tbl_customer.id = tbl_invoices.customer_id
+                                        AND tbl_customer.id = '$invoice->customer_id'
+                                        AND tbl_invoices.id = '$invoice->id'");
+
+            $invoic_detail =  DB::select("SELECT *
+                                        FROM  tbl_invoice_details , tbl_invoices
+                                        Where tbl_invoices.id = tbl_invoice_details.invoice_id
+                                        AND tbl_invoice_details.invoice_id = '$request->id'");
+
+            return response()->json(['customer'=> $customer,'invoice_detail'=> $invoic_detail ], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+   
+        }catch (\Exception $e) {
+            return $e->getMessage();
+           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+    
+    public function getAllInvoices(Request $request)
+    {
+        try{
+            $invoices =  DB::select("SELECT *
+                                        FROM  tbl_customer , tbl_invoices
+                                        Where tbl_customer.id = '$request->id'
+                                        AND tbl_customer.id =  tbl_invoices.customer_id");
+
+            // $invoices = tbl_invoice::where('customer_id',$request->id)->get();
+
+            return response()->json($invoices, 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+   
+        }catch (\Exception $e) {
+            return $e->getMessage();
+           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+    
+
 }

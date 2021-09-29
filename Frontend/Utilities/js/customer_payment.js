@@ -72,6 +72,7 @@ function addPayment(customerId){
     $("#customerId").val(customerId);
 }
 function createPayment(){
+
     let addCharges=$("#charges").val();
     let yrMonth=$("#month").val();
     var month=yrMonth[5]+yrMonth[6];
@@ -81,9 +82,9 @@ function createPayment(){
         type: "POST",
         url: BACKEND_URL + "createPayment",
         data: payment,
-        success: function (data) {
+        success: function (res) {
             // printPaymentDetail($("#customerId").val(),data.payment_detail_id);
-            successMessage("Payment Is Successfull!");
+            successMessage(res);
             $("#paymentModal").modal('toggle');
             location.reload();
             // getEachPayment($("#customerId").val());

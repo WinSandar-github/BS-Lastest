@@ -59,6 +59,7 @@
                               <hr class="mb-3 mt-3" style="border-top:1px solid grey;">
                               <div class="text-right">
                                 <h6>Date - <span id="get_date"></span></h6>
+                                <h6>Invoice-No - <span id="inv_no"></span></h6>
                               </div>
                               <div class="row">
                                 <div class="col-12">
@@ -90,27 +91,24 @@
                                   <tr>
                                     <th class='text-center'>Month</th>
                                     <th class='text-center'>Plan</th>
-                                    <th class='text-center'>Additional Charges</th>
-                                    <th class='text-center'>Amount</th>
-                                    <th class='text-center'>Total</th>
+                                    <th class='text-center'>Price</th>
                                   </tr>
                                 </thead>
                                 <tbody id="tbl_invoice_container"></tbody>
-                                <!-- <tfoot>
+                                <tfoot>
                                   <tr>
-                                      <th colspan="5" class="text-right">SubTotal(Baht):</th>
-                                      <td colspan="6" class="text-right"><span id="subtotal"></span></td>
-                                        
+                                    <th colspan="2" class="text-right">Total</th>
+                                    <td class="text-right"><span id="total"></span></td>
                                   </tr>
                                   <tr>
-                                      <th colspan="5" class="text-right">Additional Charges:</th>
-                                      <td colspan="6" class="text-right"><span id="addcharges"></span></td>
+                                    <th colspan="2" class="text-right">Additional Charges</th>
+                                    <td class="text-right"><span id="add_charges"></span></td>
                                   </tr>
                                   <tr>
-                                      <th colspan="5" class="text-right">GrandTotal(Baht):</th>
-                                      <td colspan="6" class="text-right"><span id="grandtotal"></span></td>
+                                    <th colspan="2" class="text-right">Grand Total</th>
+                                    <td class="text-right"><span id="grand_total"></span></td>
                                   </tr>
-                              </tfoot> -->
+                                </tfoot>
                               </table>
                              
                             </div>
@@ -138,28 +136,25 @@
           </div>
         </div>
 
-         
-    
-
     <!-- General JS Scripts -->
     <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
-     <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
-     <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
-     <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
-     <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+    <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+    <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+    <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
     <script src="../../assets/js/stisla.js"></script>
     <script src="../Main/js/default_template.js.js"></script>
      <!-- Template JS File -->
      <script src="../../assets/js/scripts.js"></script>
      <script src="../../assets/js/custom.js"></script>
 
-    <!-- DataTables -->
-    <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <!-- DataTables -->
+  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="../../Utilities/js/common.js"></script>
-  <script src="../../Utilities/js/customer_payment.js"></script>
+  <script src="../../Utilities/js/invoice.js"></script>
   <script>
     $(document).ready(function() {
       var today = new Date();
@@ -169,7 +164,7 @@
 
       today = mm + '/' + dd + '/' + yyyy;
       $('#get_date').append(today);
-      loadPayment();
+      getPaymentInvoice();
     });
     
   </script>
