@@ -93,6 +93,11 @@ Route::get('getPaymentInvoice', 'InvoiceController@getPaymentInvoice');
 
 Route::get('getAllInvoices', 'InvoiceController@getAllInvoices');
 
+Route::get('showInvoice', 'InvoiceController@showInvoice');
+
+Route::post('updateInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@updateInvoice'));
+
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });

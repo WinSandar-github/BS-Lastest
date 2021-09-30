@@ -356,7 +356,7 @@ let format = (d) => {
 }
 
 function getPaymentDetail(id){
-    window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
+    location.href = '../../Components/Customer/payment_detail.html?customerId=' + id;
 }
 
 function invoicingPage(id) {
@@ -492,8 +492,8 @@ function toBilling() {
                     let price = res.customer.plan.price
 
                     lists.map( (val, key) => {
-                        let tr = `<tr>`
-                            tr += `<td>${key + 1}</td>`
+                        let tr = `<tr value='${val.id}'>`
+                            tr += `<td>${key + 1}<</td>`
                             tr += `<td>${val.month}</td>`
                             tr += `<td>${thousands_separators(price)}</td>`
                             tr += `</tr>`

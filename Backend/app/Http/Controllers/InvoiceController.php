@@ -51,7 +51,7 @@ class InvoiceController extends Controller
                 for($i=0;$i<count($income_outcome);$i++){
 
                     $income = tbl_income_outcome::find($income_outcome[$i]->id);
-                    $income->income_total = $income->income_total + $req_data[1] + $req_data[0];
+                    $income->income_total = $income->income_total + $req_data[1] ;
                     $income->save();
 
                     $income_detail = new tbl_income_detail();
@@ -59,7 +59,7 @@ class InvoiceController extends Controller
                     $income_detail->invoice_id = $invoice->id;
                     $income_detail->date = date('Y-m-d', strtotime($date));
                     $income_detail->reason = 'Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
-                    $income_detail->unit_amount = $req_data[1] + $req_data[0];
+                    $income_detail->unit_amount = $req_data[1];
                     $income_detail->save();
 
                 }
@@ -68,7 +68,7 @@ class InvoiceController extends Controller
 
                 $income = new tbl_income_outcome();
                 $income->date = date('Y-m-d', strtotime($date));
-                $income->income_total = $req_data[1] + $req_data[0];
+                $income->income_total = $req_data[1];
                 $income->save();
 
                 $income_detail = new tbl_income_detail();
@@ -76,7 +76,7 @@ class InvoiceController extends Controller
                 $income_detail->invoice_id = $invoice->id;
                 $income_detail->date = date('Y-m-d', strtotime($date));
                 $income_detail->reason = 'Adding Payment('.$customer->name.' , '.date('d/m/Y').')';
-                $income_detail->unit_amount =$req_data[1] + $req_data[0];
+                $income_detail->unit_amount =$req_data[1];
                 $income_detail->save();
 
             }
@@ -136,6 +136,88 @@ class InvoiceController extends Controller
            // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function showInvoice(Request $request)
+    {
+        try{
+            $invoices =  DB::select("SELECT *
+                                    FROM  tbl_invoices, tbl_invoice_details
+                                    Where tbl_invoices.id = '$request->id'
+                                    AND tbl_invoice_details.invoice_id =  tbl_invoices.id");
+
+
+            return response()->json($invoices, 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+   
+        }catch (\Exception $e) {
+            return $e->getMessage();
+           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function updateInvoice(Request $request)
+    {
+        try{
+            $req_data = json_decode($request->getContent(), true);
+            
+            $invoice_detail = tbl_invoice_detail::where('invoice_id',$req_data[2])->first();
+
+            $old_invoice = json_decode($invoice_detail->desc);
+
+            $old_total = 0;
+
+            for($i = 0; $i < count($old_invoice); $i++){
+
+                // $old_total = $old_total + (int) $old_invoice[$i]->price ;
+
+                $payment_plan = tbl_payment_detail::find($old_invoice[$i]->id);
+
+                $payment_plan->status = 0;
+
+                $payment_plan->save();
+            }
+
+            $invoice = tbl_invoice::find($req_data[2]);
+
+            $old_total = $invoice->total ;
+
+            $invoice->total = $req_data[1];
+            $invoice->add_charges = $req_data[0];
+            $invoice->save();
+            
+            $invoice_detail->desc = json_encode($req_data[4]) ;
+            $invoice_detail->save();
+
+            $invoices = $req_data[4];
+
+            for($j=0; $j<count($invoices); $j++){
+
+                $payment_detail = tbl_payment_detail::where('customer_id', $req_data[3])
+                                                     ->where('month',$invoices[$j]['month'])
+                                                     ->first();
+                                                               
+                $payment_detail->status = 1;
+                
+                $payment_detail->save();
+
+            }
+           
+            $income_detail = tbl_income_detail::where('invoice_id',$req_data[2])->first();
+            $income_detail->unit_amount = ($income_detail->unit_amount - $old_total) + ($req_data[1]);
+            $income_detail->save();
+
+            $income = tbl_income_outcome::find($income_detail->income_outcome_id);
+            $income->income_total = ( $income->income_total  - $old_total ) + $req_data[1] ;
+            $income->save();
+
+            return response()->json(['invoice_id'=>$invoice->id], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+   
+        }catch (\Exception $e) {
+            return $e->getMessage();
+           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    
     
 
 }
