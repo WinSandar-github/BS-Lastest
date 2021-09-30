@@ -67,10 +67,12 @@ function getCreditList(regDate,customerId){
     });
     $("#creditModal").modal('toggle');
 }
+
 function addPayment(customerId){
     $("#paymentModal").modal('toggle');
     $("#customerId").val(customerId);
 }
+
 function createPayment(){
     let addCharges=$("#charges").val();
     let yrMonth=$("#month").val();
@@ -100,10 +102,12 @@ function createPayment(){
         }
     });
 }
+
 function getPaymentDetail(e){
     let customerId=e.cells[1].children[0].value;
     getEachPayment(customerId);
 }
+
 function getEachPayment(customerId){
     destroyDatatable("#tbl_payment", "#tbl_payment_body");
     $.ajax({
@@ -137,16 +141,19 @@ function getEachPayment(customerId){
         }
     });
 }
+
 function printPayment(customerId)
 {
     window.open(INVOICE_URL+"payment_invoice.html?customerId="+customerId);
 
 }
+
 function printPaymentDetail(customerId,paymentId)
 {
     window.open(INVOICE_URL+"payment_invoice_detail.html?customerId="+customerId+"&paymentId="+paymentId);
 
 }
+
 function loadPayment(){
     var currentUrl = window.location.href;
     var url = new URL(currentUrl);
