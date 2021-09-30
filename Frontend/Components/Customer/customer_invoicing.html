@@ -149,42 +149,45 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12 table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Month</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody id="item-lists"></tbody>
-              </table>
+        <form method="post" action="javascript:createInvoice();">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 table-responsive">
+                <table class="table" id="tbl_invoice">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Month</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody id="item-lists"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h6>Additional Charges: </h6>
+              </div>
+              <div class="col-md-6">
+                <input type="number" min="0" name="add-charge" id="add-charge" placeholder="xxxx" value="0" />
+              </div>
+            </div>
+            <div class="row" style="margin-top: 5px;">
+              <div class="col-md-6">
+                <h6>Total:</h6>
+              </div>
+              <div class="col-md-6">
+                <h6 id="total" name="total"></h6>
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <h6>Additional Charges: </h6>
-            </div>
-            <div class="col-md-6">
-              <input type="number" min="0" id="add-charge" placeholder="xxxx" value="0" />
-            </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Proceed</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
-          <div class="row" style="margin-top: 5px;">
-            <div class="col-md-6">
-              <h6>Total:</h6>
-            </div>
-            <div class="col-md-6">
-              <h6 id="total"></h6>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Proceed</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
+        </form>
+        
       </div>
     </div>
   </div>
@@ -212,10 +215,12 @@
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
   <script src="../../Utilities/js/common.js"></script>
   <script src="../../Utilities/js/customer_payment.js"></script>
+  <script src="../../Utilities/js/invoice.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
       $(document).ready( function() {
           getCustomerById()
+          loadUser()
       })
   </script>
 

@@ -74,6 +74,7 @@ function addPayment(customerId){
 }
 
 function createPayment(){
+
     let addCharges=$("#charges").val();
     let yrMonth=$("#month").val();
     var month=yrMonth[5]+yrMonth[6];
@@ -83,9 +84,9 @@ function createPayment(){
         type: "POST",
         url: BACKEND_URL + "createPayment",
         data: payment,
-        success: function (data) {
-            printPaymentDetail($("#customerId").val(),data.payment_detail_id);
-            successMessage("Payment Is Successfull!");
+        success: function (res) {
+            // printPaymentDetail($("#customerId").val(),data.payment_detail_id);
+            successMessage(res);
             $("#paymentModal").modal('toggle');
             location.reload();
             // getEachPayment($("#customerId").val());
@@ -397,7 +398,7 @@ function getCustomerById() {
                             ${ val.invoice == 1 ? 'checked' : 'unchecked' }/>
                         </td>`
                         tr += `<td>${index + 1}</td>`
-                        tr += `<td>${val.month}</td>`
+                        tr += `<td name='month'>${val.month}</td>`
                         tr += `</tr>`
 
                     $('#tbl-credit-body').append(tr)
