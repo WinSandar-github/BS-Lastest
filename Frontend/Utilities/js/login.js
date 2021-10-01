@@ -17,7 +17,7 @@ function login(e)
                 if (typeof (localStorage) !== "undefined") {
                       localStorage.setItem('userinfo', xhttp.responseText);
                       showLoad();
-                      location.href='../../Components/Home/index.html';
+                      location.href='../../Components/Customer/customer_registration.html';
                       
                   }
                 }

@@ -19,6 +19,7 @@ class CreateTblInvoicesTable extends Migration
             $table->string('invoice_no')->nullable();
             $table->integer('add_charges')->default(0);
             $table->integer('total');
+            $table->boolean('cancel')->default(0);
             $table->timestamps();
         });
     }

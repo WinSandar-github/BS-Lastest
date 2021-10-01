@@ -1,0 +1,26 @@
+@media only screen and (max-width: 480px) {
+    .table-responsive table {
+        min-width: 320px !important;
+    }
+
+    #tbl_customer thead th {
+        width: 20px !important;
+    }
+
+    .text-center {
+        text-align: left !important;
+        /* width: 10% !important; */
+        white-space: nowrap;
+    }
+
+    .class-status {
+        width: 50%;
+        margin-bottom: 5px;
+    }
+}
+
+@media only screen and ( min-width: 481px ) {
+    #tbl_customer {
+        width: 100% !important;
+    }
+}

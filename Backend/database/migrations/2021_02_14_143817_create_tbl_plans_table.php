@@ -29,6 +29,6 @@ class CreateTblPlansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_plans');
+        Schema::dropIfExists('tbl_plan');
     }
 }

@@ -217,10 +217,10 @@ class PaymentController extends Controller
             return $this->customerPaymentTable($customers);
         } else {
             $customers = tbl_customer::with(
-                'plan.plan_class',
+                'plan.plan_class'
             )
-            ->whereHas('payment_detail', function($q) {
-                return $q->where('status', '=', 1);
+            ->whereDoesntHave('payment_detail', function($q) {
+                return $q->where('status', 0);
             })
             ->get();
 

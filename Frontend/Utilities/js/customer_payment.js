@@ -67,10 +67,12 @@ function getCreditList(regDate,customerId){
     });
     $("#creditModal").modal('toggle');
 }
+
 function addPayment(customerId){
     $("#paymentModal").modal('toggle');
     $("#customerId").val(customerId);
 }
+
 function createPayment(){
 
     let addCharges=$("#charges").val();
@@ -101,10 +103,12 @@ function createPayment(){
         }
     });
 }
+
 function getPaymentDetail(e){
     let customerId=e.cells[1].children[0].value;
     getEachPayment(customerId);
 }
+
 function getEachPayment(customerId){
     destroyDatatable("#tbl_payment", "#tbl_payment_body");
     $.ajax({
@@ -138,16 +142,19 @@ function getEachPayment(customerId){
         }
     });
 }
+
 function printPayment(customerId)
 {
     window.open(INVOICE_URL+"payment_invoice.html?customerId="+customerId);
 
 }
+
 function printPaymentDetail(customerId,paymentId)
 {
     window.open(INVOICE_URL+"payment_invoice_detail.html?customerId="+customerId+"&paymentId="+paymentId);
 
 }
+
 function loadPayment(){
     var currentUrl = window.location.href;
     var url = new URL(currentUrl);
@@ -319,11 +326,11 @@ function getCustomerForPayment() {
             $('#'+id+' td.details-control').trigger( 'click' );
         });
     });
-
-    $('#filter').on('change', function() {
-        getCustomerForPayment()
-    })
 }
+
+$('#filter').on('change', function() {
+    getCustomerForPayment()
+})
 
 let format = (d) => {
     let extra = `<table class="table" id="extra-info">
@@ -349,7 +356,7 @@ let format = (d) => {
 }
 
 function getPaymentDetail(id){
-    window.open(INVOICE_URL+"payment_detail.html?customerId="+id);
+    location.href = '../../Components/Customer/payment_detail.html?customerId=' + id
 }
 
 function invoicingPage(id) {
@@ -485,7 +492,7 @@ function toBilling() {
                     let price = res.customer.plan.price
 
                     lists.map( (val, key) => {
-                        let tr = `<tr>`
+                        let tr = `<tr value="${val.id}">`
                             tr += `<td>${key + 1}</td>`
                             tr += `<td>${val.month}</td>`
                             tr += `<td>${thousands_separators(price)}</td>`
