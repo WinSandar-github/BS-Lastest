@@ -8,8 +8,10 @@ use App\tbl_invoice_detail;
 use App\tbl_customer;
 use App\tbl_income_outcome;
 use App\tbl_income_detail;
+use App\tbl_outcome_detail;
 use App\tbl_payment_detail;
-use DB;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -122,18 +124,38 @@ class InvoiceController extends Controller
     public function getAllInvoices(Request $request)
     {
         try{
-            $invoices =  DB::select("SELECT *
+            $approved =  DB::select("SELECT *
                                         FROM  tbl_customer , tbl_invoices
                                         Where tbl_customer.id = '$request->id'
-                                        AND tbl_customer.id =  tbl_invoices.customer_id");
+                                        AND tbl_customer.id =  tbl_invoices.customer_id
+                                        AND tbl_invoices.cancel = 0");
 
-            // $invoices = tbl_invoice::where('customer_id',$request->id)->get();
+            $cancelled =  DB::select("SELECT *
+            FROM  tbl_customer , tbl_invoices
+            Where tbl_customer.id = '$request->id'
+            AND tbl_customer.id =  tbl_invoices.customer_id
+            AND tbl_invoices.cancel = 1");
 
-            return response()->json($invoices, 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+            $cus_name = tbl_customer::where('id', $request->id)->pluck('name')->first();
+
+            if ( $request->filter == 0 ) {
+                return response()->json(
+                    ['data' => $approved, 'name' => $cus_name ],
+                    200,
+                    config('common.header'), 
+                    JSON_UNESCAPED_UNICODE
+                );  
+            } else {
+                return response()->json(
+                    ['data' => $cancelled, 'name' => $cus_name ],
+                    200,
+                    config('common.header'), 
+                    JSON_UNESCAPED_UNICODE
+                );
+            }
    
         }catch (\Exception $e) {
-            return $e->getMessage();
-           // return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+           return response()->json($e->getMessage(), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
 
@@ -219,5 +241,74 @@ class InvoiceController extends Controller
 
     
     
+    public function delInvoiceHistory(Request $request)
+    {
+        $details = tbl_invoice_detail::where('invoice_id', $request->id)->get();
 
+        if ( count($details) > 0 ) {
+            $exception = DB::transaction( function() use($request) {
+
+                // Change Cancel Status in Invoice Table //
+                $invoice = tbl_invoice::find($request->id);
+                $invoice->cancel = 1;
+                $invoice->save();
+
+                // Check tbl_income_outcome record by current date //
+                $in_out = tbl_income_outcome::where('date', date('Y-m-d'))->first();
+
+                // Modify tbl_income_outcome with pre written function within this class //
+                // Not Sure If DB::transaction Will Affect This Function If Thrown Exception //
+                $in_out_id = $this->modifyIncomeOutcome($in_out, $invoice);
+
+                // Add Record To tbl_outcome_detail Table //
+                $outcome = new tbl_outcome_detail();
+                $outcome->date = date('Y-m-d');
+                $outcome->reason = "Cancelled Invoice - {$invoice->invoice_no}";
+                $outcome->unit_amount = $invoice->total;
+                $outcome->income_outcome_id = $in_out_id;
+                $outcome->save();
+
+                // Get Invoice Details From tbl_invoice_detail //
+                $payment_details = json_decode(
+                    tbl_invoice_detail::where('invoice_id', $request->id)->pluck('desc')->first(),
+                    true
+                );
+
+                if ( count($payment_details) > 0 ) {
+                    foreach( $payment_details as $pay ) {
+                        // Update value of 'status' and 'invoice' fields //
+                        $payment = tbl_payment_detail::find($pay['id']);
+                        $payment->status = 0;
+                        $payment->invoice = 0;
+                        $payment->save();
+                    }
+                }
+            });
+
+            if ( is_null($exception) ) {
+                return response()->json("{$request->inv} History is Cancelled Successfully!", 201, config('common.header'), JSON_UNESCAPED_UNICODE);
+            } else {
+                return response()->json($exception, 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        }
+    }
+
+    public function modifyIncomeOutcome($in_out, $invoice)
+    {
+        if ( !is_null($in_out) ) {
+            $in_out->date = date('Y-m-d');
+            $in_out->outcome_total = (float)$in_out->outcome_total + (float)$invoice->total;
+            $in_out->save();
+
+            return $in_out->id;
+        } else {
+            $txn = new tbl_income_outcome();
+            $txn->date = date('Y-m-d');
+            $txn->income_total = 0;
+            $txn->outcome_total = $invoice->total;
+            $txn->save();
+
+            return $txn->id;
+        }
+    }
 }
