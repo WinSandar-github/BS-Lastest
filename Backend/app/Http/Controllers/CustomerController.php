@@ -79,11 +79,13 @@ class CustomerController extends Controller
 
         $allCustomer = tbl_customer::with(['plan.plan_class','initial_payment'])->orderBy('id', 'DESC')->get();
 
-        if ( sizeof($customer) ) {
-            return $this->customerTable($allCustomer);
-        } else {
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
+        return $this->customerTable($allCustomer);
+
+        // if ( sizeof($customer) ) {
+        //     return $this->customerTable($allCustomer);
+        // } else {
+        //     return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+        // }
     }
 
     public function showCustomerInfo(Request $request)
