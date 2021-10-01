@@ -18,6 +18,7 @@ function createInvoice(){
             let tds = $(this).find("td");
 
             let obj = { 
+                        id: $(this).attr('value'),
                         month: $(tds[1]).html(),
                         price: $(tds[2]).html()
                     }
@@ -36,10 +37,7 @@ function createInvoice(){
 
                 successMessage("Payment Is Successfull!");
 
-                $("#billing-modal").modal('toggle');
-            
-                location.reload();
-           
+                $("#billing-modal").modal('toggle');   
             },
             error: function (xhr, message, text){
             
@@ -50,7 +48,7 @@ function createInvoice(){
 }
 
 function printInvoice(id) {
-    window.open( '../../Components/Invoice/payment_invoice.html?id=' + id  ) ;
+    location.href = '../../Components/Invoice/payment_invoice.html?id=' + id
 }
 
 function getPaymentInvoice(){
@@ -106,15 +104,18 @@ function getPaymentInvoice(){
 }
 
 function getAllInvoices(customerId){
+    let filter = $('#history-filter').val()
+
+    destroyDatatable('#tbl_payment', '#tbl_payment_body')
 
     $.ajax({
         type: "get",
         url: BACKEND_URL + "getAllInvoices",
-        data: "id=" + customerId,
+        data: {"id": customerId, "filter": filter},
         success: function (res) {
 
             let indexNo = 0;
-            res.map( (obj) => {
+            res.data.map( (obj) => {
 
                 let tr = `<tr>` ;
 
@@ -127,6 +128,12 @@ function getAllInvoices(customerId){
                 tr += `<td class='text-center'>
                     <button type='button' class='btn btn-success btn-sm' onClick='printInvoice(${obj.id})'> 
                     <i class='bi bi-printer bi-lg'></i></button>
+                    ${
+                        filter == 0 ?
+                        `<button type="button" class="btn btn-danger btn-sm" onClick='delInvoiceHistory(${customerId}, ${obj.id}, "${obj.invoice_no}")'>
+                        <i class="fa fa-trash fa-lg"></i>
+                        </button>` : ''
+                    }
                 </td> `;
                 tr += `</tr>` ;
 
@@ -134,10 +141,39 @@ function getAllInvoices(customerId){
 
             })
 
-            createDataTableForPaymentDetail("#tbl_payment",res[0].name);
+            createDataTableForPaymentDetail("#tbl_payment",res.name); 
         },
         error: function (xhr, message, text){
             
         }
     });
+}
+
+function delInvoiceHistory(customerId, id, inv) {
+    let accept = confirm('Warning! This specific invoice will be cancelled and its related payment tansactions will also be added to outcome list!')
+
+    if ( accept ) {
+        $.ajax({
+            type: 'POST',
+            url: BACKEND_URL + 'del_inv_history',
+            data: { 'id': id, 'inv': inv },
+            beforeSend: function() {
+                showLoad()
+            },
+            success: function( res, text, xhr ) {
+                if ( xhr.status == 201 ) {
+                    hideLoad()
+
+                    successMessage(xhr.responseJSON)
+
+                    getAllInvoices(customerId)
+                }
+            },
+            error: function( xhr, msg, text ) {
+                hideLoad()
+
+                errorMessage(xhr.responseJSON)
+            }
+        })
+    }
 }

@@ -93,6 +93,8 @@ Route::get('getPaymentInvoice', 'InvoiceController@getPaymentInvoice');
 
 Route::get('getAllInvoices', 'InvoiceController@getAllInvoices');
 
+Route::post('del_inv_history', array('middleware' => 'cors', 'uses' => 'InvoiceController@delInvoiceHistory'));
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });
