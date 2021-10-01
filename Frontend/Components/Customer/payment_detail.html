@@ -24,10 +24,20 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
   <!-- Bootstrap Font Icon CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
   <style>
-     .bi-lg{
+    .bi-lg{
       font-size: 1rem;
      }
+    #add-charge {
+      border: none;
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    #add-charge:focus {
+      outline-width: 0;
+    }
   </style>
 </head>
 
@@ -129,9 +139,9 @@
                         <thead class='text-center'>
                           <tr>
                             <th>#</th>
-                            <th>Action</th>
                             <th>Month</th>
                             <th>Price</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody id="item-lists" class='text-center'></tbody>

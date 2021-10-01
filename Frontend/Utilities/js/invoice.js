@@ -38,6 +38,8 @@ function createInvoice(){
                 successMessage("Payment Is Successfull!");
 
                 $("#billing-modal").modal('toggle');   
+
+                location.reload() ;
             },
             error: function (xhr, message, text){
             
@@ -48,7 +50,7 @@ function createInvoice(){
 }
 
 function printInvoice(id) {
-    location.href = '../../Components/Invoice/payment_invoice.html?id=' + id
+    window.open('../../Components/Invoice/payment_invoice.html?id=' + id );
 }
 
 function getPaymentInvoice(){
@@ -126,13 +128,15 @@ function getAllInvoices(customerId){
                 tr += `<td class='text-right'>${thousands_separators(obj.total)}</td>`;
 
                 tr += `<td class='text-center'>
-                    <button type='button' class='btn btn-success btn-sm' onClick='printInvoice(${obj.id})'> 
-                    <i class='bi bi-printer bi-lg'></i></button>
-                    <button type='button' class='btn btn-primary btn-sm' onClick='showInvoice(${obj.id})'> 
-                    <i class="bi bi-pencil-square bi-lg"></i></button>
-                     </td> `;
-
-                tr +=  `<td> ${
+                        
+                        ${
+                            filter == 0 ?
+                            `<button type='button' class='btn btn-primary btn-sm' onClick='showInvoice(${obj.id})'> 
+                            <i class="bi bi-pencil-square bi-lg"></i></button>` : ''
+                        }
+                        <button type='button' class='btn btn-success btn-sm' onClick='printInvoice(${obj.id})'> 
+                        <i class='bi bi-printer bi-lg'></i></button>
+                        ${
                             filter == 0 ?
                             `<button type="button" class="btn btn-danger btn-sm" onClick='delInvoiceHistory(${customerId}, ${obj.id}, "${obj.invoice_no}")'>
                             <i class="fa fa-trash fa-lg"></i>
@@ -163,21 +167,23 @@ function showInvoice(id){
         data: { 'id': id },
         success: function( res, text, xhr ) {
             if ( xhr.status == 200 ) {
+
                 $("#invoice_id").val(id);
+
                 JSON.parse(res[0].desc).map( (val, key) => {
 
                     let tr = `<tr value='${val.id}'>`
 
                         tr += `<td>${key + 1}</td>`
 
-                        tr += `<td>
-                        <button type='button' class='btn btn-danger btn-sm' onClick='removeInvoice(${val.id})'> 
-                        <i class="bi bi-x bi-lg"></i></i></button>
-                        </td> `;
-
                         tr += `<td>${val.month}</td>`
 
                         tr += `<td>${thousands_separators(val.price)}</td>`
+
+                        tr += `<td>
+                        <button type='button' class='btn btn-danger btn-sm'> 
+                        <i class="bi bi-x bi-lg"></i></i></button>
+                        </td> `;
 
                         tr += `</tr>`
 
@@ -196,9 +202,8 @@ function showInvoice(id){
     })
 }
 
-function removeInvoice(id){
-    $("#tbl_invoice").on('click', '.btn-danger', function () {
-        
+$("#tbl_invoice").on('click', '.btn-danger', function () {
+    if($("#item-lists tr").length > 1){
         $(this).closest('tr').remove();
 
         getIndexNumber('#tbl_invoice tr');
@@ -208,16 +213,19 @@ function removeInvoice(id){
         $("#tbl_invoice tr:not(:first)").each(function () {
             let tds = $(this).find("td");
 
-            total += Number(removeComma($(tds[3]).html()) );
+            total += Number(removeComma($(tds[2]).html()) );
 
         });
 
         $('#total').text(`${thousands_separators(Number($("#add-charge").val())+Number(total))}`);
 
         addCharge(total);
-    });
-    
-}
+    }
+    else{
+        infoMessage('WARNING: You cannot remove all invoices.');
+    }
+        
+});
 
 function updateInvoice(){
 
@@ -240,8 +248,8 @@ function updateInvoice(){
             let tds = $(this).find("td");
 
             let obj = { 
-                        month: $(tds[2]).html(),
-                        price: removeComma($(tds[3]).html()),
+                        month: $(tds[1]).html(),
+                        price: removeComma($(tds[2]).html()),
                         id: $(this).attr('value')
                     }
             invoiceArr.push(obj);
@@ -254,17 +262,21 @@ function updateInvoice(){
             type: "POST",
             url: BACKEND_URL + "updateInvoice",
             data:  JSON.stringify(arr),
+            beforeSend: function() {
+                showLoad()
+            },
             success: function (data) {
+                hideLoad()
 
                 successMessage("Invoice Is Successfully Updated!");
 
-                $("#billing-modal").modal('toggle');
-            
-                location.reload();
+                $("#invoice-modal").modal('toggle');
+                
+                getAllInvoices(data.customer_id);
            
             },
             error: function (xhr, message, text){
-            
+                hideLoad()
             }
         });
     }

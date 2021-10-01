@@ -231,7 +231,7 @@ class InvoiceController extends Controller
             $income->income_total = ( $income->income_total  - $old_total ) + $req_data[1] ;
             $income->save();
 
-            return response()->json(['invoice_id'=>$invoice->id], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
+            return response()->json(['customer_id'=>$req_data[3]], 200,config('common.header'), JSON_UNESCAPED_UNICODE);   
    
         }catch (\Exception $e) {
             return $e->getMessage();
