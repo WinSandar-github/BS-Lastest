@@ -39,7 +39,9 @@ function createInvoice(){
 
                 $("#billing-modal").modal('toggle');   
 
-                location.reload() ;
+                destroyDatatable('#tbl-credit','#tbl-credit-body');
+
+                getCustomerById();
             },
             error: function (xhr, message, text){
             
