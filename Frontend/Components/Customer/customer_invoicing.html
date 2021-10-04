@@ -71,7 +71,7 @@
             <h1>Invoicing</h1>
             <div class="fixed-header-breadcrumb">
               <div class="fixed-breadcrumb-item breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="fixed-breadcrumb-item breadcrumb-item">Payment</div>
+              <div class="fixed-breadcrumb-item breadcrumb-item"><a href="customer_payment.html">Payment</a> </div>
             </div>
           </div>
         </section>
@@ -166,7 +166,6 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6">
                 <h6>Additional Charges: </h6>
               </div>
               <div class="col-md-6">
@@ -219,6 +218,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
       $(document).ready( function() {
+        $('.payment').addClass('active');
           getCustomerById()
           loadUser()
       })
