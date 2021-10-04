@@ -20,8 +20,7 @@ function createInvoice(){
             let obj = { 
                         id: $(this).attr('value'),
                         month: $(tds[1]).html(),
-                        price: $(tds[2]).html(),
-                        id: $(this).attr('value')
+                        price: $(tds[2]).html()
                     }
             invoiceArr.push(obj);
         });
@@ -119,6 +118,7 @@ function getAllInvoices(customerId){
         success: function (res) {
 
             let indexNo = 0;
+            
             res.data.map( (obj) => {
 
                 let tr = `<tr>` ;
@@ -176,16 +176,18 @@ function showInvoice(id){
 
                     let tr = `<tr value='${val.id}'>`
 
+                        tr += `<td>
+                        <button type='button' class='btn btn-danger btn-sm'> 
+                        <i class="bi bi-x bi-lg"></i></i></button>
+                        </td> `;
+
                         tr += `<td>${key + 1}</td>`
 
                         tr += `<td>${val.month}</td>`
 
                         tr += `<td>${thousands_separators(val.price)}</td>`
 
-                        tr += `<td>
-                        <button type='button' class='btn btn-danger btn-sm'> 
-                        <i class="bi bi-x bi-lg"></i></i></button>
-                        </td> `;
+                       
 
                         tr += `</tr>`
 
@@ -208,14 +210,16 @@ $("#tbl_invoice").on('click', '.btn-danger', function () {
     if($("#item-lists tr").length > 1){
         $(this).closest('tr').remove();
 
-        getIndexNumber('#tbl_invoice tr');
+        $('#tbl_invoice tr').each(function(){
+            $( this ).find( "td" ).eq(1).html( $(this).index() + 1 );
+          });
 
         let total = 0;
 
         $("#tbl_invoice tr:not(:first)").each(function () {
             let tds = $(this).find("td");
 
-            total += Number(removeComma($(tds[2]).html()) );
+            total += Number(removeComma($(tds[3]).html()) );
 
         });
 
