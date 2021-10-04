@@ -254,8 +254,8 @@ function updateInvoice(){
             let tds = $(this).find("td");
 
             let obj = { 
-                        month: $(tds[1]).html(),
-                        price: removeComma($(tds[2]).html()),
+                        month: $(tds[2]).html(),
+                        price: removeComma($(tds[3]).html()),
                         id: $(this).attr('value')
                     }
             invoiceArr.push(obj);
