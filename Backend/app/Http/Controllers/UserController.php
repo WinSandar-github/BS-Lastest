@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\UserRoles;
 use App\User;
 
 class UserController extends Controller
@@ -25,9 +26,10 @@ class UserController extends Controller
                return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
     }
+
     public function getUser(Request $request)
     {
-        $User = User::all();
+        $User = User::with('role')->get();
         if(sizeof($User)){
             return response()->json($User, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
         }
@@ -35,6 +37,7 @@ class UserController extends Controller
             return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
     public function showUserInfo(Request $request)
     {
          $User = User::find($request->userId);
@@ -64,6 +67,7 @@ class UserController extends Controller
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+    
     public function deleteUser(Request $request)
     {
         $User = User::find($request->userId);
@@ -71,6 +75,17 @@ class UserController extends Controller
            return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);}
         else{
              return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getUserRoles() 
+    {
+        $roles = UserRoles::all();
+
+        if ( count($roles) > 0 ) {
+            return response()->json($roles, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        } else {
+            return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
 }

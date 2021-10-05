@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             MonthSeeder::class,
             CustomerClass::class,
             PaymentPlanSeeder::class,
+            UserRoleSeeder::class
         ]);
     }
 }

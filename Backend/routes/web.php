@@ -98,6 +98,7 @@ Route::get('showInvoice', 'InvoiceController@showInvoice');
 Route::post('updateInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceController@updateInvoice'));
 
 Route::post('del_inv_history', array('middleware' => 'cors', 'uses' => 'InvoiceController@delInvoiceHistory'));
+Route::get('get_user_roles', 'UserController@getUserRoles');
 
 Route::get('/publicgetPlan', function() {
     return 'Hello';
