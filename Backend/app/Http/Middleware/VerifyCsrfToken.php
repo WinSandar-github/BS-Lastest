@@ -59,6 +59,7 @@ class VerifyCsrfToken extends Middleware
         'createInvoice',
         'updateInvoice',
         'getAllInvoices',
-        'del_inv_history'
+        'del_inv_history',
+        'get_user_roles'
     ];
 }
