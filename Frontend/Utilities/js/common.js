@@ -95,9 +95,25 @@ function createDataTable(table) {
 
 }
 
-function createDataTableForPaymentDetail(table,name) {
+function createDataTableForPaymentDetail(table,name,filter) {
 
     $(table).DataTable({
+        'initComplete': function(settings){
+            var api = new $.fn.dataTable.Api(settings);
+
+            api.columns().header().each(function(column){
+                if(filter != 0){
+                    if($(column).text() === 'Collector'){
+                        $(column).text("Cancelled By");
+                    }
+                }else {
+                    if($(column).text() === 'Cancelled By'){
+                        $(column).text("Collector");
+                    }
+                }
+              
+            });
+         },
         "dom": '<"toolbar">frtip',
         'destroy': true,
         'paging': true,

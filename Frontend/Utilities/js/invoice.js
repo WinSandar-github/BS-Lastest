@@ -154,7 +154,7 @@ function getAllInvoices(customerId){
 
             })
 
-            createDataTableForPaymentDetail("#tbl_payment",res.customer_name); 
+            createDataTableForPaymentDetail("#tbl_payment",res.name,filter); 
         },
         error: function (xhr, message, text){
             
