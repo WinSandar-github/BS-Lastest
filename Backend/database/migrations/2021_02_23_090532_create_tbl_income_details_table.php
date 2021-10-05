@@ -31,6 +31,6 @@ class CreateTblIncomeDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_income_details');
+        Schema::dropIfExists('tbl_income_detail');
     }
 }

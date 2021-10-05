@@ -30,6 +30,6 @@ class CreateTblOutcomeDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_outcome_details');
+        Schema::dropIfExists('tbl_outcome_detail');
     }
 }
