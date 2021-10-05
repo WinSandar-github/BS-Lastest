@@ -19,7 +19,7 @@ class InvoiceController extends Controller
     {
         try{
             $req_data = json_decode($request->getContent(), true);
-            $invoices = $req_data[3];
+            $invoices = $req_data[4];
             for($j=0; $j<count($invoices); $j++){
                 $payment_detail = tbl_payment_detail::where('customer_id', $req_data[2])
                                                      ->where('month',$invoices[$j]['month'])
@@ -33,6 +33,7 @@ class InvoiceController extends Controller
             $invoice->customer_id = $req_data[2];
             $invoice->total = $req_data[1];
             $invoice->add_charges = $req_data[0];
+            $invoice->user_id = $req_data[3];
             $invoice->save();
 
             $invoice->invoice_no = "INV-" . $invoice->id;
@@ -40,7 +41,7 @@ class InvoiceController extends Controller
             
             $invoice_detail = new tbl_invoice_detail();
             $invoice_detail->invoice_id = $invoice->id;
-            $invoice_detail->desc = json_encode($req_data[3]) ;
+            $invoice_detail->desc = json_encode($req_data[4]) ;
             $invoice_detail->save();
            
             $customer = tbl_customer::find($req_data[2]);
@@ -124,17 +125,25 @@ class InvoiceController extends Controller
     public function getAllInvoices(Request $request)
     {
         try{
-            $approved =  DB::select("SELECT *
-                                        FROM  tbl_customer , tbl_invoices
-                                        Where tbl_customer.id = '$request->id'
-                                        AND tbl_customer.id =  tbl_invoices.customer_id
-                                        AND tbl_invoices.cancel = 0");
+            $approved =  DB::select("SELECT tbl_customer.name as customer_name , 
+                                            tbl_invoices.invoice_no,
+                                            tbl_invoices.total,tbl_invoices.id,
+                                            users.name as collector_name
+                                    FROM  tbl_customer , tbl_invoices , users
+                                    Where tbl_customer.id = '$request->id'
+                                    AND tbl_customer.id =  tbl_invoices.customer_id
+                                    AND tbl_invoices.user_id =  users.id
+                                    AND tbl_invoices.cancel = 0");
 
-            $cancelled =  DB::select("SELECT *
-            FROM  tbl_customer , tbl_invoices
-            Where tbl_customer.id = '$request->id'
-            AND tbl_customer.id =  tbl_invoices.customer_id
-            AND tbl_invoices.cancel = 1");
+            $cancelled =  DB::select("SELECT tbl_customer.name as customer_name , 
+                                        tbl_invoices.invoice_no,
+                                        tbl_invoices.total,tbl_invoices.id,
+                                        users.name as collector_name
+                                    FROM  tbl_customer , tbl_invoices , users
+                                    Where tbl_customer.id = '$request->id'
+                                    AND tbl_customer.id =  tbl_invoices.customer_id
+                                    AND tbl_invoices.user_id =  users.id
+                                    AND tbl_invoices.cancel = 1");
 
             $cus_name = tbl_customer::where('id', $request->id)->pluck('name')->first();
 
@@ -250,6 +259,7 @@ class InvoiceController extends Controller
 
                 // Change Cancel Status in Invoice Table //
                 $invoice = tbl_invoice::find($request->id);
+                $invoice->user_id = $request->user_id;
                 $invoice->cancel = 1;
                 $invoice->save();
 
