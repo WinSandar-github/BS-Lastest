@@ -12,6 +12,7 @@ function createInvoice(){
         arr.push( $("#add-charge").val() );
         arr.push( removeComma($("#total").text()) );
         arr.push( id );
+        arr.push( user_id );
 
         //get all of the values except the header
         $("#tbl_invoice tr:not(:first)").each(function () {
@@ -129,6 +130,8 @@ function getAllInvoices(customerId){
 
                 tr += `<td class='text-right'>${thousands_separators(obj.total)}</td>`;
 
+                tr += `<td class='text-center'>${obj.collector_name}</td>`;
+
                 tr += `<td class='text-center'>
                         
                         ${
@@ -151,7 +154,7 @@ function getAllInvoices(customerId){
 
             })
 
-            createDataTableForPaymentDetail("#tbl_payment",res.name); 
+            createDataTableForPaymentDetail("#tbl_payment",res.name,filter); 
         },
         error: function (xhr, message, text){
             
@@ -294,7 +297,7 @@ function delInvoiceHistory(customerId, id, inv) {
         $.ajax({
             type: 'POST',
             url: BACKEND_URL + 'del_inv_history',
-            data: { 'id': id, 'inv': inv },
+            data: { 'id': id, 'inv': inv , 'user_id' : user_id },
             beforeSend: function() {
                 showLoad()
             },

@@ -1,7 +1,9 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
+
 let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
 let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+
 // let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
 // let BACKEND_URL="http://localhost:8000/";
 
@@ -93,9 +95,25 @@ function createDataTable(table) {
 
 }
 
-function createDataTableForPaymentDetail(table,name) {
+function createDataTableForPaymentDetail(table,name,filter) {
 
     $(table).DataTable({
+        'initComplete': function(settings){
+            var api = new $.fn.dataTable.Api(settings);
+
+            api.columns().header().each(function(column){
+                if(filter != 0){
+                    if($(column).text() === 'Collector'){
+                        $(column).text("Cancelled By");
+                    }
+                }else {
+                    if($(column).text() === 'Cancelled By'){
+                        $(column).text("Collector");
+                    }
+                }
+              
+            });
+         },
         "dom": '<"toolbar">frtip',
         'destroy': true,
         'paging': true,
