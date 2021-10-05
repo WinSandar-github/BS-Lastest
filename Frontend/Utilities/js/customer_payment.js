@@ -284,7 +284,7 @@ function getCustomerForPayment() {
                 "data":           null,
                 "defaultContent": ''
             },
-            { data: 'DT_RowIndex' },
+            { data: 'code' },
             { data: 'name' },
             { data: null, render: function( data, type, row ) {
                 return row.plan.name + ' ' + row.plan.plan_class.name
@@ -334,10 +334,6 @@ $('#filter').on('change', function() {
 
 let format = (d) => {
     let extra = `<table class="table" id="extra-info">
-        <tr>
-            <td>ID: </td>
-            <td>${d.code}</td>
-        </tr>
         <tr>
             <td>Ip: </td>
             <td>${d.ip}</td>
@@ -534,14 +530,10 @@ function addCharge(total) {
 
 function checkAll(e) {
     if ( e.checked == true ) {
-        console.log('checked')
-
         $('#tbl-credit-body tr').each( function() {
             $(this).find('input[type="checkbox"]').prop('checked', true)
         })
     } else {
-        console.log('unchecked')
-
         $('#tbl-credit-body tr').each( function() {
             $(this).find('input[type="checkbox"]').prop('checked', false)
         })

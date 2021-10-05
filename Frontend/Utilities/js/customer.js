@@ -259,10 +259,21 @@ function matchId(){
         url: BACKEND_URL + "matchId",
         data: "code="+$("#code").val(),
         success: function (data) {
-            if(data=="1"){
+            if( data == "1"){
                 $("#codeStatus").val("Customer ID already exits.");
+
+                $('#code').siblings().text('Customer ID Already Exists')
+
+                $('#code').siblings().show()
             }
-            else $("#codeStatus").val("");
+            else 
+            {
+                $("#codeStatus").val("");
+
+                $('#code').siblings().text('Please Add Customer ID')
+
+                $('#code').siblings().hide()
+            }
         },
         error:function (message){
           errorMessage(message);
