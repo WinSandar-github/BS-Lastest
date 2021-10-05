@@ -19,14 +19,14 @@ class UserSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@iqnet.tech',
                 'password' => Hash::make('admin1234'),
-                'role'=>'2',
+                'role'=>'1',
                 'api_key'=>Str::random(40)
             ],
             [
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin1234'),
-                'role'=>'2',
+                'role'=>'1',
                 'api_key'=>Str::random(40)
             ]
             
