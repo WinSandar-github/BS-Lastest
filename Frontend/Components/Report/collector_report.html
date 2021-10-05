@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>IQNet &mdash; Collector Reports</title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <!--Toastr-->
+  <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
+  <!--Authentication JS-->
+  <script src="../../Utilities/js/auth.js"></script>
+  <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <style>
+    .form-control.is-invalid{
+      background-image: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay">
+    <div id="loader" class="spinner-border">
+    </div>
+  </div>
+  <div id="app">
+    <div class="main-wrapper">
+      <div class="custom-class navbar">
+        
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+            <img alt="image" src="../../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+            <div class="d-sm-none d-lg-inline-block" id="user_name"></div></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a onclick="logout();" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="fixed-content">
+        <section class="">
+          <div class="fixed-header">
+            <h1>Collector Report</h1>
+            <div class="fixed-header-breadcrumb">
+              <div class="fixed-breadcrumb-item breadcrumb-item active"><a href="#">Dashboard</a></div>
+              <div class="fixed-breadcrumb-item breadcrumb-item">Collector Report</div>
+            </div>
+          </div>
+        </section>
+      </div>
+      </div>
+      <div class="main-sidebar">
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body custom-section-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body"> 
+                            <div class="table-responsive">
+                                <table class="table" id="tbl_collector">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Collector</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbl_collector_body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          <!-- Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a> -->
+        </div>
+        <div class="footer-right">
+          2.3.0
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
+  <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
+  <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+  <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
+  <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
+  <script src="../../assets/js/stisla.js"></script>
+  <!-- JS Libraies -->
+  <script src="../Main/js/default_template.js.js"></script>
+  <!-- InputMask -->
+  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
+  <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+  <!-- Template JS File -->
+  <script src="../../assets/js/scripts.js"></script>
+  <!--Toastr-->
+  <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="../../assets/js/page/index.js"></script>
+  <script src="../../Utilities/js/common.js"></script>
+</body>
+</html>

@@ -13,11 +13,13 @@ class CreateTblMonthsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_month', function (Blueprint $table) {
-            $table->id();
-            $table->string('month_name',225);
-            $table->timestamps();
-        });
+        if ( !Schema::hasTable('tbl_month') ) {
+            Schema::create('tbl_month', function (Blueprint $table) {
+                $table->id();
+                $table->string('month_name',225);
+                $table->timestamps();
+            });
+        }
     }
 
     /**

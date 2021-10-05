@@ -13,12 +13,25 @@ function login(e)
                 errorMessage("Authentication Failed!");
             }
             else {
-                // var obj = JSON.parse((xhttp.responseText));
+
                 if (typeof (localStorage) !== "undefined") {
-                      localStorage.setItem('userinfo', xhttp.responseText);
-                      showLoad();
-                      location.href='../../Components/Customer/customer_registration.html';
-                      
+
+                    localStorage.setItem('userinfo', xhttp.responseText);
+
+                    showLoad();
+
+                    res = JSON.parse(xhttp.responseText);
+
+                    if(res.role == 1){
+
+                        location.href = '../../Components/Customer/customer_registration.html';
+
+                    }
+                    else{
+
+                        location.href = '../../Components/Customer/customer.html';
+                    
+                    }  
                   }
                 }
         }

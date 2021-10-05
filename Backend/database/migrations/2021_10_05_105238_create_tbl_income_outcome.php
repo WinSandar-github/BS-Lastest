@@ -13,13 +13,15 @@ class CreateTblIncomeOutcome extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_income_outcome', function (Blueprint $table) {
-            $table->id();
-            $table->date('date');
-            $table->integer('income_total')->default(0);
-            $table->integer('outcome_total')->default(0);
-            $table->timestamps();
-        });
+        if ( !Schema::hasTable('tbl_income_outcome') ) {
+            Schema::create('tbl_income_outcome', function (Blueprint $table) {
+                $table->id();
+                $table->date('date');
+                $table->integer('income_total')->default(0);
+                $table->integer('outcome_total')->default(0);
+                $table->timestamps();
+            });
+        }
     }
 
     /**

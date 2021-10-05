@@ -17,7 +17,7 @@ class CreateTblCustomersTable extends Migration
             $table->id();
             $table->string('name','225');
             $table->date('reg_date');
-            $table->string('code','125');
+            $table->string('code','125')->unique();
             $table->string('phone','125');
             $table->string('address','225');
             $table->string('ip','125');
