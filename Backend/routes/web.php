@@ -100,6 +100,8 @@ Route::post('updateInvoice', array('middleware' => 'cors', 'uses' => 'InvoiceCon
 Route::post('del_inv_history', array('middleware' => 'cors', 'uses' => 'InvoiceController@delInvoiceHistory'));
 Route::get('get_user_roles', 'UserController@getUserRoles');
 
+Route::get('get_collector_report', 'ReportController@getCollectorReports');
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });
