@@ -139,12 +139,12 @@ function destroyDatatable(table, tableBody) {
     $(tableBody).empty();
 }
 
-$('table tbody').on('click', 'tr', function () {
+$('table').on('click', 'tr', function () {
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
     }
     else {
-        $('table tbody tr.selected').removeClass('selected');
+        $('table tr.selected').removeClass('selected');
         $(this).addClass('selected');
     }
 });
@@ -243,7 +243,6 @@ function loadUser(){
     $("#user_name").append(user_name);
 }
 function mmmToMmmm(month){
-    console.log(month);
     let fullMonth = null;
     switch(month) {
       case "Jan":
