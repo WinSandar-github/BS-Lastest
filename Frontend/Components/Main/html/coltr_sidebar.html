@@ -1,0 +1,30 @@
+
+  <aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+      <a href="index.html">
+        IQNet</a>
+    </div>
+    <div class="sidebar-brand sidebar-brand-sm">
+      <a href="index.html">IQ</a>
+    </div>
+    <ul class="sidebar-menu">
+        <li class="menu-header">Dashboard</li>
+        <li>
+            <a class="nav-link" href="../../Components/Customer/customer.html">
+                <i class="far fa-user"></i> <span>Customers Info</span>
+            </a>
+        </li>
+        <li class="payment">
+            <a class="nav-link" href="../../Components/Customer/customer_payment.html">
+                <i class="fas fa-money-bill"></i> <span>Payment</span>
+            </a>
+        </li>
+      </ul>
+  </aside>
+  <script>
+     url = window.location.href.split('?')[0];
+     $('.sidebar-menu li a').filter(function () {
+      return this.href==url;
+      
+    }).parent('li').addClass('active');
+  </script>

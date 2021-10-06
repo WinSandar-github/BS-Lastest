@@ -18,19 +18,19 @@ class LoginController extends Controller
 			'password' => $password
 		);
 		if(auth::attempt($data)){
-				$user = auth::user();
+			$user = auth::user();
 
-				$data = array( 
-					'id' => $user->id,
-					'name' => $user->name,
-					'email' => $user->email,
-					'api_key' => $user->api_key,
-					'role' => $user->role
-					
-                );
-                return response()->json($data, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-			}else{
-                return 0;
-            }
+			$data = array( 
+				'id' => $user->id,
+				'name' => $user->name,
+				'email' => $user->email,
+				'api_key' => $user->api_key,
+				'role' => $user->role
+				
+			);
+            return response()->json($data, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+		}else{
+			return 0;
+		}
     }
 }
