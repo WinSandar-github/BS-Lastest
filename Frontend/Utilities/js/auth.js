@@ -9,8 +9,6 @@ if (typeof (localStorage) != "undefined")
         var user_name = user.name;
         var api_key = user.api_key;
         var role = user.role;
-        
-
       }
 }
 else {
