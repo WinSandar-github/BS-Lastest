@@ -1,14 +1,14 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
 
-// let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
-// let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
+let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
 
 // let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
 // let BACKEND_URL="http://localhost:8000/";
 
-let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
-let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
+// let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
+// let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
 
 var toastOptions = {
     "closeButton": true,
@@ -139,12 +139,12 @@ function destroyDatatable(table, tableBody) {
     $(tableBody).empty();
 }
 
-$('table tbody').on('click', 'tr', function () {
+$('table').on('click', 'tr', function () {
     if ($(this).hasClass('selected')) {
         $(this).removeClass('selected');
     }
     else {
-        $('table tbody tr.selected').removeClass('selected');
+        $('table tr.selected').removeClass('selected');
         $(this).addClass('selected');
     }
 });
@@ -243,7 +243,6 @@ function loadUser(){
     $("#user_name").append(user_name);
 }
 function mmmToMmmm(month){
-    console.log(month);
     let fullMonth = null;
     switch(month) {
       case "Jan":
