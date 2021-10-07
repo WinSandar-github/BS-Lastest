@@ -110,7 +110,6 @@ class CustomerController extends Controller
                 $customer->ip=$data["ip"];
                 $customer->plan=$data["plan"];
                 $customer->pon=$data["pon"];
-                $customer->customer_class = $data['customer_class'];
                 $customer->sn=$data["sn"];
                 $customer->dn=$data["dn"];
                 $customer->price=$data["price"];
