@@ -19,36 +19,30 @@ function getIncome() {
     document.getElementById('income').style.display='block';
     document.getElementById('yearincome').style.display='none';
     destroyDatatable("#tbl_income", "#tbl_income_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getIncome",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr  onclick='getIncomeDetailByIncomeId(" + element.id + ");'>";
-                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_income_container").append(tr);
 
-            });
-            startDataTable('#tbl_income');
-            hideLoad();
+    $('#tbl_income').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'POST',
+            url: BACKEND_URL + 'getIncome',
+            data: { 'created_date': ' ' }
         },
-        error: function (message) {
-            dataMessage(message,"#tbl_income", "#tbl_income_container");
-            hideLoad();
+        columns: [
+            { data: 'date' },
+            { data: null, render: function( data, type, row ) {
+                return thousands_separators(data.income_total)
+            }},
+            { data: 'action' }
+        ],
+        createdRow: function(row, data, dataIndex) {
+            row.setAttribute('onclick', `getIncomeDetailByIncomeId(${data.id})`)
         }
-    });
+    })
 }
 
 function addIncomeDetailInfo(incomeId) {
@@ -70,6 +64,7 @@ function addIncomeDetailInfo(incomeId) {
         }
     });
 }
+
 function showIncomeInfo(incomeId) {
     $("#income_form").attr('action', 'javascript:updateIncome()');
     $("#income_id").val(incomeId);
@@ -87,6 +82,7 @@ function showIncomeInfo(incomeId) {
         }
     });
 }
+
 function updateIncome() {
     var income_total=parseInt(removeComma($('#income_total').val()))+parseInt(removeComma($("#income_detail_amount").val()));
     var income = "income_id=" + $("#income_id").val() +"&income_total=" + income_total;
@@ -122,6 +118,7 @@ function deleteIncome(income_date, incomeId) {
         });
     }
 }
+
 function getIncomeBySelectMonth(select){
     if(select!='Monthly'){
         $('#income_datepicer').attr('disabled',false);
@@ -132,6 +129,7 @@ function getIncomeBySelectMonth(select){
         getIncomeByMonth();
     }
 }
+
 function getIncomeByDate(date){
     destroyDatatable("#tbl_income", "#tbl_income_container");
     destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
@@ -166,6 +164,7 @@ function getIncomeByDate(date){
         }
     });
 }
+
 function getIncomeByMonth(){
     document.getElementById('income').style.display='none';
     document.getElementById('yearincome').style.display='block';

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\tbl_income_outcome;
 use App\tbl_outcome_detail;
 use App\tbl_income_detail;
+use Yajra\DataTables\Facades\DataTables; 
 
 class OutcomeController extends Controller
 {
@@ -43,13 +44,39 @@ class OutcomeController extends Controller
         }else{
             $outcome = tbl_income_outcome::where('outcome_total','<>',0)->get();
             if(sizeof($outcome)){
-                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return $this->outcomeTable($outcome);
+                // return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
             else{
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }
 
+    }
+
+    public function outcomeTable($data)
+    {
+        return Datatables::of($data)
+        ->editColumn('date', function($data) {
+            $time = strtotime($data->date);
+            $dt = date('d/m/Y', $time);
+
+            return $dt;
+        })
+        ->editColumn('action', function($data) {
+            $add = "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo({$data->id})'>
+            <li class='fas fa-hand-holding-usd'></li></button>";
+
+            $del = "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"{$data->date}\",{$data->id})>
+            <li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+
+            return $add.$del;
+        })
+        ->rawColumns([
+            'date',
+            'action'
+        ])
+        ->make();
     }
 
     public function createOutcome(Request $request)
