@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\tbl_income_outcome;
 use App\tbl_income_detail;
 use App\tbl_outcome_detail;
+use Yajra\DataTables\Facades\DataTables; 
 
 class IncomeController extends Controller
 {
     public function getIncome(Request $request)
     {
         if($request->create_date){
-            $income = tbl_income_outcome::whereDate('date', $request->create_date)
+            $time = str_replace('/', '-', $request->create_date);
+            $time = strtotime($time);
+            $date = date('Y-m-d', $time);
+
+            $income = tbl_income_outcome::whereDate('date', $date)
                                         ->where('income_total','<>',0)
                                         ->get();
             if(sizeof($income)){
@@ -43,12 +48,37 @@ class IncomeController extends Controller
         }else{
              $income = tbl_income_outcome::where('income_total','<>',0)->get();
              if(sizeof($income)){
-                return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return $this->incomeTable($income);
             }
             else{
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }
+    }
+
+    public function incomeTable($data) 
+    {
+        return Datatables::of($data)
+        ->editColumn('date', function($data) {
+            $time = strtotime($data->date);
+            $dt = date('d/m/Y', $time);
+
+            return $dt;
+        })
+        ->editColumn('action', function($data) {
+            $add = "<div class='btn-group'><button type='button' class='btn btn-primary btn-sm' onClick='addIncomeDetailInfo({$data->id})'>
+            <li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
+
+            $del = "<button type='button' class='btn btn-danger btn-sm' onClick=deleteIncome(\"{$data->date}\",{$data->id})>
+            <li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
+
+            return $add.$del;
+        })
+        ->rawColumns([
+            'date',
+            'action'
+        ])
+        ->make();
     }
 
     public function createIncome(Request $request)

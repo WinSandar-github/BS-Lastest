@@ -5,12 +5,11 @@ if (typeof (localStorage) != "undefined")
     }
     else {
         var user = JSON.parse(localStorage.getItem("userinfo"));
+        let userid = user.id;
         var user_id = user.id;
         var user_name = user.name;
         var api_key = user.api_key;
         var role = user.role;
-        
-
       }
 }
 else {

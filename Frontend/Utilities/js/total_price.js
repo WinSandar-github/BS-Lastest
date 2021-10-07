@@ -1,46 +1,84 @@
 function loadTotal(){
-    destroyDatatable("#tbl_total", "#tbl_total_container");
-    $("#total").html("");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
+
+    let table = $('#tbl_total').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        scrollX: true,
+        lengthChange: false,
+        pageLength: 5,
+        ajax: {
+            type: 'POST',
+            url: BACKEND_URL + 'getTotal',
         },
-        type: "POST",
-        url: BACKEND_URL + "getTotal",
-        data: "",
-        success: function (data) {
+        columns: [
+           { data: 'date' , class : "text-center" },
+           { data: null, 
+                render: function( data, type, row ) {
 
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
-                tr += "<td onClick='getIncomeDetailByIncomeId(" + element.id + ")' class='text-right cursor-css' style='padding-right:50px'><span  class='font-weight-bold text-primary' >" + thousands_separators(element.income_total) + "</span></td>";
-                tr+="<td  onClick='getOutcomeDetailByOutcomeId(" + element.id + ")' class='text-right cursor-css' style='padding-right:50px'><span class='font-weight-bold text-primary'>"+ thousands_separators(element.outcome_total) + "</span></td>";
-                if(element.outcome_total>element.income_total){
-                    tr+="<td class='text-right text-danger' style='padding-right:50px'>"+ thousands_separators(parseInt(element.income_total)-parseInt(element.outcome_total)) + "</td>";
-                }else{
-                    tr+="<td class='text-right' style='padding-right:50px'>"+ thousands_separators(parseInt(element.income_total)-parseInt(element.outcome_total)) + "</td>";
-                }
-                tr += "</tr>";
-                $("#tbl_total_container").append(tr);
+                    let income_total = `${data.income_total}`;
+                    
+                    return thousands_separators(income_total);
 
+                }, class : "text-right"
+            },
+            { data: null, 
+                render: function( data, type, row ) {
+
+                    let outcome_total = `${data.outcome_total}`;
+
+                    return thousands_separators(outcome_total);
+
+                }, class : "text-right"
+            },
+            { data: null, 
+                render: function( data, type, row ) {
+
+                    let bal_sheet = `${data.total}`;
+                    
+                    return thousands_separators(bal_sheet);
+
+                }, class : "text-right"
+            }
+        ],
+
+        createdRow: function(row, data, dataIndex) {
+
+            $('td', row).eq(1).css('color','blue');
+            $('td', row).eq(2).css('color','blue');
+            $('td', row).eq(1).css('cursor','pointer');
+            $('td', row).eq(2).css('cursor','pointer');
+
+            $('td', row).eq(1).click(function(){
+                getIncomeDetailByIncomeId(data.id);
             });
-            getTotal();
-            startDataTable('#tbl_total');
-            hideLoad();
+
+            $('td', row).eq(2).click(function(){
+                getOutcomeDetailByOutcomeId(data.id);
+            });
         },
-        error: function (message) {
-            dataMessage(message,"#tbl_total", "#tbl_total_container");
+        "fnDrawCallback": function() {
+            let api = this.api()
+            let json = api.ajax.json();
+            $(api.column(3).footer()).html(thousands_separators(json.bal_sheet));
         }
     });
+
 }
 function getTotal() {
     var total = 0;
-    $('#tbl_total tbody tr').each(function () {
-        var value = parseInt(removeComma($('td', this).eq(3).text()));
-        if (!isNaN(value)) {
-            total += value;
-        }
+    $("#tbl_total tr:not(:first)").each(function () {
+        alert("Aa");
+        let tds = $(this).find("td");
+        let value =  parseInt(removeComma($(tds[3]).html())); 
+        total += value;
+        console.log($(tds[3]).html())
     });
+    //     var value = parseInt(removeComma($('td', this).eq(3).text()));
+    //     if (!isNaN(value)) {
+    //         total += value;
+    //     }
+    // });
     $("#total").html(thousands_separators(total));
 }
 function getOutcomeDetailByOutcomeId(income_outcome_id) {

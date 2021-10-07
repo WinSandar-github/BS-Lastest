@@ -34,9 +34,9 @@ function getPlan(){
                 tr += `<td class="text-center">${element.plan_class.name}</td>`
                 tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-primary btn-xs' onClick='showPlanInfo(" + element.id + ")'>" +
-                "<li class='fas fa-edit fa-sm'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deletePlan(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-sm' ></li ></button ></div ></td > ";
+                "<button type='button' class='btn btn-primary btn-sm' onClick='showPlanInfo(" + element.id + ")'>" +
+                "<li class='fa fa-edit fa-lg'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deletePlan(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
             
                 tr += "</tr>";
                 $("#tbl_plan_body").append(tr);

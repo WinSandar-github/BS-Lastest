@@ -16,6 +16,7 @@
   <!--Authentication JS-->
   <script src="../../Utilities/js/auth.js"></script>
   <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
   <style>
     .form-control.is-invalid{
       background-image: none !important;
@@ -82,7 +83,7 @@
                            
                             <div class="col-sm-5">
                               <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                <input type="date" id="registeration_date" class="form-control" >
+                                <input type="text" id="registeration_date" class="form-control" readonly>
                                 <div class="invalid-feedback">
                                   please add registered date.
                               </div>
@@ -192,7 +193,7 @@
                             <div class="col-sm-3 text-right">
                               <legend for="inputEmail3" class="col-form-label">Initial Payment</legend>
                             </div>
-                            <div class="col-sm-5 pt-2" id="initial-payment-radio">
+                            <div class="col-sm-5 pt-2" id="initial-payment-radio" >
                               <div class="invalid-feedback">
                                 please select initial payment plan.
                               </div>
@@ -272,10 +273,11 @@
   <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
   <!-- JS Libraies -->
-  <script src="../Main/js/default_template.js.js"></script>
+  <script src="../Main/js/default_template.js"></script>
   <!-- InputMask -->
   <script src="../../Utilities/plugins/moment/moment.min.js"></script>
   <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+  <script src="../../Utilities/plugins/daterangepicker/daterangepicker.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <script src="../../assets/js/custom.js"></script>
@@ -287,32 +289,39 @@
   <script src="../../Utilities/js/customer.js"></script>
   <script>
     $(document).ready(function() {
-      $('#registeration_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
-
       loadUser()
       loadPlan()
       getCustomerClass()
       getInitialPayment()
 
+      $('#registeration_date').daterangepicker({
+        singleDatePicker: true,
+        autoApply: true,
+        locale: {
+          format: 'DD/MM/YYYY'
+        }
+      })
 
-      var today = new Date();
-        var dd = today.getDate();
+      // var today = new Date();
+      //   var dd = today.getDate();
 
-        var mm = today.getMonth()+1; 
-        var yyyy = today.getFullYear();
-        if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
+      //   var mm = today.getMonth()+1; 
+      //   var yyyy = today.getFullYear();
+      //   if(dd<10) 
+      //   {
+      //       dd='0'+dd;
+      //   } 
 
-        if(mm<10) 
-        {
-            mm='0'+mm;
-        } 
-        today =yyyy+"-"+mm+"-"+dd;
-        $("#registeration_date").val(today);
+      //   if(mm<10) 
+      //   {
+      //       mm='0'+mm;
+      //   } 
+      //   today = `${dd + '/' + mm + '/' + yyyy}`;
+
+        // $("#registeration_date").val(today);
+
         $( "#customerForm" ).submit(function( event ) {
-             if($("#selected_plan_id").val()==""){
+             if($("#selected_plan_id").val() == ""){
                 $("#selected_plan_id").css('border-color','#dc3545')
                 $("#plan").css('display','block');
                 event.preventDefault();
@@ -328,6 +337,7 @@
               $("#plan").css('display','block');
              }
         });
+
     });
   </script>
 </body>

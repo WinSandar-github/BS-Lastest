@@ -74,7 +74,7 @@
                   <div class="card-body">
                     <div class="tab-content" id="custom-tabs-four-tabContent">
                       <div class="tab-pane fade active show" id="custom-tabs-income" role="tabpanel" aria-labelledby="custom-tabs-income-tab">
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user_modal">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#user_modal" id="add_new_user">
                           <i class="fas fa-plus fa-sm"> Add New</i>
                         </button><br/><br/>
                         <table id='tbl_user' class="table table-hover">
@@ -152,8 +152,6 @@
                     <label class="col-form-label">Role</label>
                     <select class="form-control" id="selected_role_id" style="width: 100%;">
                       <option value="" disabled selected>Select Role</option>
-                      <option value="1">User</option>
-                      <option value="2">Admin</option>
                     </select>
                   </div>
               </div>
@@ -176,7 +174,8 @@
   <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
   <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
-  <script src="../Main/js/default_template.js.js"></script>
+  <script src="../../Utilities/js/auth.js"></script>
+  <script src="../Main/js/default_template.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <script src="../../assets/js/custom.js"></script>

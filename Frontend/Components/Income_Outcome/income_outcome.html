@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="../../Utilities/css/common.css">
   <link rel="stylesheet" href="../../Utilities/css/login.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
 </head>
 <body>
   <div id="overlay">
@@ -120,15 +121,15 @@
                                       </div>
                                       <div class="col-sm-4 form-group">
                                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                          <input type="date" id="income_datepicer" class="form-control" disabled onchange='getIncomeByDate(this.value);' />
+                                          <input type="text" id="income_datepicker" class="form-control" placeholder="dd/mm/yyyy" readonly disabled  />
 
                                         </div>
                                       </div>
 
                                     </div>
                                     <div class='row' id="income">
-                                      <div class='col-12'>
-                                        <table id='tbl_income' class="table table-hover">
+                                      <div class='col-sm-12 table-responsive'>
+                                        <table id='tbl_income' class="table table-hover" width="100%">
                                           <thead>
                                               <tr>
                                                 <th class='text-center'>Income Date</th>
@@ -149,7 +150,6 @@
                                                 <th class='text-center'>Year</th>
                                                 <th class='text-center'>Month</th>
                                                 <th class='text-center'>Amount</th>
-                                                <th></th>
                                               </tr>
                                           </thead>
                                           <tbody id="tbl_yearincome_container"></tbody>
@@ -218,8 +218,8 @@
                                       </div>
                                       <div class="col-sm-4 form-group">
                                         <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                          <input type="date" id="outcome_datepicer" class="form-control" disabled onchange='getOutcomeByDate(this.value);'/>
-
+                                          <!-- <input type="date" id="outcome_datepicer" class="form-control" disabled onchange='getOutcomeByDate(this.value);'/> -->
+                                          <input type="text" id="outcome_datepicker" class="form-control" placeholder="dd/mm/yyyy" readonly disabled />
                                         </div>
                                       </div>
 
@@ -246,7 +246,6 @@
                                                   <th class='text-center'>Year</th>
                                                   <th class='text-center'>Month</th>
                                                   <th class='text-center'>Amount</th>
-                                                  <th></th>
                                               </tr>
                                           </thead>
                                           <tbody id="tbl_yearoutcome_container"></tbody>
@@ -433,7 +432,7 @@
                   <div class="col-md-12 col-sm-12">
                     <label class="col-form-label">Date</label>
                     <div class="input-group">
-                        <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
+                        <input type="text" id="income_date" class="form-control" placeholder="dd/mm/yyyy" readonly required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
                         <div class="input-group-append">
                           <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                         </div>
@@ -447,9 +446,6 @@
                 </div>
                 </div>
                 <div class="form-group row">
-
-                    
-                    
                     <div class="col-sm-12">
                         <label class="col-form-label">Amount</label>
                         <input type="number" class="form-control" autocomplete="off" id="income_amount" placeholder="Enter Amount" required oninvalid="this.setCustomValidity('Enter Amount')" oninput="setCustomValidity('')">
@@ -481,7 +477,8 @@
                   <div class="col-md-12 col-sm-12">
                     <label class="col-form-label">Date</label>
                     <div class="input-group">
-                        <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
+                      <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" readonly required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')">
+                        <!-- <input type="text" id="outcome_date" class="form-control" placeholder="dd/mm/yyyy" aria-label="Recipient's username" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask aria-describedby="basic-addon2" required oninvalid="this.setCustomValidity('Enter Date')" oninput="setCustomValidity('')"> -->
                         <div class="input-group-append">
                           <span class="input-group-text" ><i class="fas fa-calendar"></i></span>
                         </div>
@@ -521,7 +518,8 @@
   <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
   <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
   <script src="../../assets/js/stisla.js"></script>
-  <script src="../Main/js/default_template.js.js"></script>
+  <script src="../../Utilities/js/auth.js"></script>
+  <script src="../Main/js/default_template.js"></script>
 
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
@@ -536,17 +534,15 @@
   <script src="../../Utilities/plugins/moment/moment.min.js"></script>
   <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
   <script src="../../Utilities/js/common.js"></script>
+  <script src="../../Utilities/plugins/daterangepicker/daterangepicker.js"></script>
   <!--Toastr-->
   <script src="../../Utilities/plugins/toastr/toastr.min.js"></script>
-  <script src="../../Utilities/js/auth.js"></script>
   <script src="../../Utilities/js/income.js"></script>
   <script src="../../Utilities/js/income_detail.js"></script>
   <script src="../../Utilities/js/outcome.js"></script>
   <script src="../../Utilities/js/outcome_detail.js"></script>
   
   <script>
-    $('#income_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
-    $('#outcome_date').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' });
     getIncome();
     getOutcome();
     loadUser();
@@ -559,6 +555,50 @@
       showLoad();
       hideLoad();
     });
+
+    $('#income_datepicker').daterangepicker({
+      singleDatePicker: true,
+      autoApply: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      },
+    });
+    
+    $("#income_datepicker").on('change',function(){
+      getIncomeByDate( this.value );
+    })
+
+    $('#income_datepicker').val('')
+
+    $('#income_date').daterangepicker({
+      singleDatePicker: true,
+      autoApply: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      }
+    })
+
+    $('#outcome_datepicker').daterangepicker({
+      singleDatePicker: true,
+      autoApply: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      },
+    });
+
+    $("#outcome_datepicker").on('change',function(){
+      getOutcomeByDate( this.value );
+    })
+
+    $('#outcome_datepicker').val('')
+
+    $('#outcome_date').daterangepicker({
+      singleDatePicker: true,
+      autoApply: true,
+      locale: {
+        format: 'DD/MM/YYYY'
+      }
+    })
   </script>
 </body>
 </html>

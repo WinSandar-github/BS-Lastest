@@ -121,8 +121,6 @@ function showCustomerInfo(customerId) {
     $("#userId").val(customerId);
     var data = "&customerId=" +customerId;
 
-    getCustomerClass()
-
     setTimeout( function() {
         $.ajax({
             type: "POST",
@@ -259,10 +257,21 @@ function matchId(){
         url: BACKEND_URL + "matchId",
         data: "code="+$("#code").val(),
         success: function (data) {
-            if(data=="1"){
+            if( data == "1"){
                 $("#codeStatus").val("Customer ID already exits.");
+
+                $('#code').siblings().text('Customer ID Already Exists')
+
+                $('#code').siblings().show()
             }
-            else $("#codeStatus").val("");
+            else 
+            {
+                $("#codeStatus").val("");
+
+                $('#code').siblings().text('Please Add Customer ID')
+
+                $('#code').siblings().hide()
+            }
         },
         error:function (message){
           errorMessage(message);
@@ -388,7 +397,7 @@ function getInitialPayment(){
         success: function(data) {
             data.map((obj)=> {
                 let month = `<div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="initital_payment" id=${obj.month} value=${obj.id}>
+                                <input class="form-check-input" type="radio" name="initital_payment" id=${obj.month} value=${obj.id} required>
                                 <label class="form-check-label" for=${obj.month}>
                                     ${obj.month} month
                                 </label>

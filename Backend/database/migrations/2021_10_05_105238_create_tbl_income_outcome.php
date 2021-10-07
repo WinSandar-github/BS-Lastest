@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblMonthsTable extends Migration
+class CreateTblIncomeOutcome extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateTblMonthsTable extends Migration
      */
     public function up()
     {
-        if ( !Schema::hasTable('tbl_month') ) {
-            Schema::create('tbl_month', function (Blueprint $table) {
+        if ( !Schema::hasTable('tbl_income_outcome') ) {
+            Schema::create('tbl_income_outcome', function (Blueprint $table) {
                 $table->id();
-                $table->string('month_name',225);
+                $table->date('date');
+                $table->integer('income_total')->default(0);
+                $table->integer('outcome_total')->default(0);
                 $table->timestamps();
             });
         }
@@ -29,6 +31,6 @@ class CreateTblMonthsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_months');
+        Schema::dropIfExists('tbl_income_outcome');
     }
 }

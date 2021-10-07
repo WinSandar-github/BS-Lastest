@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\tbl_income_outcome;
 use App\tbl_outcome_detail;
 use App\tbl_income_detail;
+use Yajra\DataTables\Facades\DataTables; 
 
 class OutcomeController extends Controller
 {
     public function getOutcome(Request $request)
     {
         if($request->create_date){
-            $outcome = tbl_income_outcome::whereDate('date', $request->create_date)
+
+            $time = str_replace('/', '-', $request->create_date);
+            $time = strtotime($time);
+            $date = date('Y-m-d', $time);
+
+            $outcome = tbl_income_outcome::whereDate('date',  $date)
                                             ->where('outcome_total','<>',0)
                                             ->get();
             if(sizeof($outcome)){
@@ -43,13 +49,39 @@ class OutcomeController extends Controller
         }else{
             $outcome = tbl_income_outcome::where('outcome_total','<>',0)->get();
             if(sizeof($outcome)){
-                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return $this->outcomeTable($outcome);
+                // return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
             else{
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }
 
+    }
+
+    public function outcomeTable($data)
+    {
+        return Datatables::of($data)
+        ->editColumn('date', function($data) {
+            $time = strtotime($data->date);
+            $dt = date('d/m/Y', $time);
+
+            return $dt;
+        })
+        ->editColumn('action', function($data) {
+            $add = "<div class='btn-group'><button type='button' class='btn btn-primary btn-sm' onClick='addOutcomeDetailInfo({$data->id})'>
+            <li class='fa fa-hand-holding-usd fa-lg'></li></button>";
+
+            $del = "<button type='button' class='btn btn-danger btn-sm' onClick=deleteOutcome(\"{$data->date}\",{$data->id})>
+            <li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
+
+            return $add.$del;
+        })
+        ->rawColumns([
+            'date',
+            'action'
+        ])
+        ->make();
     }
 
     public function createOutcome(Request $request)

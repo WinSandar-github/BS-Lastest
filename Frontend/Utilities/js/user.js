@@ -12,6 +12,7 @@ $(document).ready(function() {
         }
     });
 });
+
 function createUser(){
     var user={};
     user["name"]=$("#name").val();
@@ -34,6 +35,7 @@ function createUser(){
     });
 
 }
+
 function getUser(){
     destroyDatatable("#tbl_user", "#tbl_user_container");
     $.ajax({
@@ -48,11 +50,11 @@ function getUser(){
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + element.name + "</td>";
                 tr += "<td class='text-center'>" + element.email + "</td>";
-                tr += `<td class=text-center>${element.role == "2" ? "Admin" : "User"}</td>`;
+                tr += `<td class=text-center>${element.role.role}</td>`;
                 tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-edit'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash-alt' ></li ></button ></div ></td > ";
+                    "<button type='button' class='btn btn-primary btn-sm' onClick='showUserInfo(" + element.id + ")'>" +
+                    "<li class='fa fa-edit fa-lg'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_user_container").append(tr);
     
@@ -66,25 +68,31 @@ function getUser(){
     });
 
 }
+
 function showUserInfo(userId){
     $("#user_form").attr('action', 'javascript:updateUser()');
     $("#user_id").val(userId);
+
+    getUserRoles()
+
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "showUserInfo",
         data: "userId="+userId,
         success: function (data) {
+            setTimeout( () => {
                 $("#name").val(data.name);
                 $("#email").val(data.email);
                 $("#selected_role_id").val(data.role);
                 $('#user_modal').modal('toggle');
+            }, 200)
         },
         error:function (message){
           errorMessage(message);
         }
     });
-
 }
+
 function updateUser(){
     var userData = {};
     userData["userId"]=$("#user_id").val();
@@ -109,6 +117,7 @@ function updateUser(){
     });
 
 }
+
 function deleteUser(userName, userId) {
     var result = confirm("WARNING: This will delete the user " + decodeURIComponent(userName) + " and all related data! Press OK to proceed.");
     if (result) {
@@ -127,6 +136,7 @@ function deleteUser(userName, userId) {
         });
     }
 }
+
 function validateEmail(email){
     const valid_email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (valid_email.test(email)) {
@@ -136,4 +146,54 @@ function validateEmail(email){
         $('#messageEmail').text("Email address is invalid!").addClass('alert alert-danger');
         return true;
     }
-  }
+}
+
+function onShownHideUserModal() {
+    $('#user_modal').on('shown.bs.modal', function() {
+        if ( $('#user_id').val() == '' || $('#user_id').val() == undefined ) {
+            rm_user_roles()
+            reset_modal_data()
+            getUserRoles()
+
+            $("#user_form").attr('action', 'javascript:createUser()');
+        }
+    })
+
+    $('#user_modal').on('hidden.bs.modal', function() {
+        reset_modal_data()
+    })
+}
+
+let rm_user_roles = () => {
+    $('#selected_role_id').children().not(':first').remove()
+}
+
+let reset_modal_data = async () => {
+    $('#user_modal').find('input').val('')
+    $('#user_modal').find('select').val('')
+}
+
+function getUserRoles() {
+    $.ajax({
+        type: 'GET',
+        url: BACKEND_URL + 'get_user_roles',
+        beforeSend: function() {
+            rm_user_roles()
+        },
+        success: function( res, text, xhr ) {
+            if ( xhr.status == '200' ) {
+                res.map( val => {
+                    let opt = `<option value=${val.id}>${val.role}</option>`
+
+                    $('#selected_role_id').append(opt)
+                })
+            }
+        },
+        error: function ( xhr, text, msg ) {
+            let opt_err = `<option disabled>Error Getting User Roles</option>`
+            $('#selected__role_id').append(opt_err)
+        }
+    })
+}
+
+onShownHideUserModal()
