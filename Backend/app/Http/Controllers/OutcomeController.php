@@ -47,14 +47,11 @@ class OutcomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else{
+
             $outcome = tbl_income_outcome::where('outcome_total','<>',0)->get();
-            if(sizeof($outcome)){
-                return $this->outcomeTable($outcome);
-                // return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
-            else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
+            
+            return $this->outcomeTable($outcome);
+            
         }
 
     }
