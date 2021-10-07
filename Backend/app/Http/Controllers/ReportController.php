@@ -13,6 +13,10 @@ class ReportController extends Controller
     {
         try 
         {
+            $time = str_replace('/', '-', $request->date);
+            $time = strtotime($time);
+            $date = date('Y-m-d', $time);
+            
             $records = DB::table('tbl_invoices as ti')
             ->join('users as u', 'ti.user_id', '=', 'u.id')
             ->join('user_roles as ur', 'ur.id', '=', 'u.role')
@@ -26,7 +30,7 @@ class ReportController extends Controller
             )
             ->where([
                 [ 'cancel', 0 ],
-                [ DB::raw("date_format(ti.updated_at, '%Y-%m-%d')"), $request->date ]
+                [ DB::raw("date_format(ti.updated_at, '%Y-%m-%d')"), $date ]
             ])
             ->groupBy('u.name')
             ->get();
