@@ -121,11 +121,11 @@ function deleteIncome(income_date, incomeId) {
 
 function getIncomeBySelectMonth(select){
     if(select!='Monthly'){
-        $('#income_datepicer').attr('disabled',false);
+        $('#income_datepicker').attr('disabled',false);
         getIncome();
     }else{
-        $('#income_datepicer').val("");
-        $('#income_datepicer').attr('disabled',true);
+        $('#income_datepicker').val("");
+        $('#income_datepicker').attr('disabled',true);
         getIncomeByMonth();
     }
 }
