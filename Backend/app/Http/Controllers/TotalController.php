@@ -12,7 +12,6 @@ class TotalController extends Controller
     public function getTotal()
     {
         $income_outcome = tbl_income_outcome::all();
-        // str_replace('/', '-', $request->date)
         return Datatables::of($income_outcome)
                 ->editColumn('date', function($data) {
                     $date = date('d-m-Y', strtotime($data->date));
@@ -24,14 +23,8 @@ class TotalController extends Controller
 
                     return $total;
                 })
-                ->addIndexColumn()
-                ->toJson();
-        // if(sizeof($income_outcome)){
-        //     return response()->json($income_outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-        // }
-        // else{
-        //     return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-        // }
+                ->with('bal_sheet', $income_outcome->sum('income_total') - $income_outcome->sum('outcome_total'))
+                ->make();
     }
     
 }

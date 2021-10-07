@@ -56,6 +56,11 @@ function loadTotal(){
             $('td', row).eq(2).click(function(){
                 getOutcomeDetailByOutcomeId(data.id);
             });
+        },
+        "fnDrawCallback": function() {
+            let api = this.api()
+            let json = api.ajax.json();
+            $(api.column(3).footer()).html(thousands_separators(json.bal_sheet));
         }
     });
 

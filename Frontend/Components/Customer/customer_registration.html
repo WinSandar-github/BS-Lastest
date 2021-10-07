@@ -193,7 +193,7 @@
                             <div class="col-sm-3 text-right">
                               <legend for="inputEmail3" class="col-form-label">Initial Payment</legend>
                             </div>
-                            <div class="col-sm-5 pt-2" id="initial-payment-radio">
+                            <div class="col-sm-5 pt-2" id="initial-payment-radio" >
                               <div class="invalid-feedback">
                                 please select initial payment plan.
                               </div>
@@ -321,7 +321,7 @@
         // $("#registeration_date").val(today);
 
         $( "#customerForm" ).submit(function( event ) {
-             if($("#selected_plan_id").val()==""){
+             if($("#selected_plan_id").val() == ""){
                 $("#selected_plan_id").css('border-color','#dc3545')
                 $("#plan").css('display','block');
                 event.preventDefault();
