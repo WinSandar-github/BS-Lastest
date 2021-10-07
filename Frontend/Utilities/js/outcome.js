@@ -33,11 +33,11 @@ function getOutcome() {
             data: { 'created_date': ' ' }
         },
         columns: [
-            { data: 'date' },
+            { data: 'date' , class: 'text-center' },
             { data: null, render: function( data, type, row ) {
                 return thousands_separators(data.outcome_total)
-            }},
-            { data: 'action' }
+            }, class: 'text-right' },
+            { data: 'action' ,  class: 'text-center' }
         ],
         createdRow: function(row, data, dataIndex) {
             row.setAttribute('onclick', `getOutcomeDetailByOutcomeId(${data.id})`)
@@ -123,12 +123,13 @@ function deleteOutcome(outcome_date, outcomeId) {
 }
 
 function getOutcomeBySelectMonth(select){
+    
     if(select!='Monthly'){
-        $('#outcome_datepicer').attr('disabled',false);
+        $('#outcome_datepicker').attr('disabled',false);
         getOutcome();
     }else{
-        $('#outcome_datepicer').val("");
-        $('#outcome_datepicer').attr('disabled',true);
+        $('#outcome_datepicker').val("");
+        $('#outcome_datepicker').attr('disabled',true);
         getOutcomeByMonth();
     }
 }
@@ -149,11 +150,9 @@ function getOutcomeByDate(date){
                 tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                    "<button type='button' class='btn btn-primary btn-sm' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
+                    "<li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_outcome_container").append(tr);
 
@@ -184,12 +183,7 @@ function getOutcomeByMonth(){
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + element.year + "</td>";
                 tr += "<td class='text-center'>" + element.month + "</td>";
-                //tr += "<td class='text-center'>" + element.status + "</td>";
                 tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_yearoutcome_container").append(tr);
 

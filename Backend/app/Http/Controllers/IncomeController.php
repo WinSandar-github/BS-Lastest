@@ -14,7 +14,11 @@ class IncomeController extends Controller
     public function getIncome(Request $request)
     {
         if($request->create_date){
-            $income = tbl_income_outcome::whereDate('date', $request->create_date)
+            $time = str_replace('/', '-', $request->create_date);
+            $time = strtotime($time);
+            $date = date('Y-m-d', $time);
+
+            $income = tbl_income_outcome::whereDate('date', $date)
                                         ->where('income_total','<>',0)
                                         ->get();
             if(sizeof($income)){
@@ -62,11 +66,11 @@ class IncomeController extends Controller
             return $dt;
         })
         ->editColumn('action', function($data) {
-            $add = "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo({$data->id})'>
-            <li class='fas fa-hand-holding-usd'></li></button>";
+            $add = "<div class='btn-group'><button type='button' class='btn btn-primary btn-sm' onClick='addIncomeDetailInfo({$data->id})'>
+            <li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
 
-            $del = "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"{$data->date}\",{$data->id})>
-            <li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+            $del = "<button type='button' class='btn btn-danger btn-sm' onClick=deleteIncome(\"{$data->date}\",{$data->id})>
+            <li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
 
             return $add.$del;
         })

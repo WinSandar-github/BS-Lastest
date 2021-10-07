@@ -121,8 +121,6 @@ function showCustomerInfo(customerId) {
     $("#userId").val(customerId);
     var data = "&customerId=" +customerId;
 
-    getCustomerClass()
-
     setTimeout( function() {
         $.ajax({
             type: "POST",
@@ -399,7 +397,7 @@ function getInitialPayment(){
         success: function(data) {
             data.map((obj)=> {
                 let month = `<div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="initital_payment" id=${obj.month} value=${obj.id}>
+                                <input class="form-check-input" type="radio" name="initital_payment" id=${obj.month} value=${obj.id} required>
                                 <label class="form-check-label" for=${obj.month}>
                                     ${obj.month} month
                                 </label>
