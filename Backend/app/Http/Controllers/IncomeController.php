@@ -25,7 +25,7 @@ class IncomeController extends Controller
                 return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
             else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return response()->json(config('common.message.data'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else if($request->monthly=='allmonth'){
 
@@ -46,13 +46,11 @@ class IncomeController extends Controller
                 return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else{
-             $income = tbl_income_outcome::where('income_total','<>',0)->get();
-             if(sizeof($income)){
-                return $this->incomeTable($income);
-            }
-            else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
+
+            $income = tbl_income_outcome::where('income_total','<>',0)->get();
+            
+            return $this->incomeTable($income);
+             
         }
     }
 
