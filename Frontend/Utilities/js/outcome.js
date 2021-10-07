@@ -14,41 +14,39 @@ function createOutcome() {
         }
     });
 }
+
 function getOutcome() {
     document.getElementById('outcome').style.display='block';
     document.getElementById('yearoutcome').style.display='none';
     destroyDatatable("#tbl_outcome", "#tbl_outcome_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getOutcome",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr  onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showOutcomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_outcome_container").append(tr);
 
-            });
-            startDataTable('#tbl_outcome');
-            hideLoad();
+    $('#tbl_outcome').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        pageLength: 5,
+        bAutoWidth: false,
+        ajax: {
+            type: 'POST',
+            url: BACKEND_URL + 'getOutcome',
+            data: { 'created_date': ' ' }
         },
-        error: function (message) {
-            dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
-            hideLoad();
+        columns: [
+            { data: 'date' },
+            { data: null, render: function( data, type, row ) {
+                return thousands_separators(data.outcome_total)
+            }},
+            { data: 'action' }
+        ],
+        createdRow: function(row, data, dataIndex) {
+            row.setAttribute('onclick', `getOutcomeDetailByOutcomeId(${data.id})`)
         }
-    });
+    })
+
+    $('#tbl_outcome').css('display','table') ;
 }
+
 function addOutcomeDetailInfo(outcomeId) {
     $("#outcomeForm").attr('action', 'javascript:updateOutcome()');
     $("#outcome_id").val(outcomeId);
@@ -68,6 +66,7 @@ function addOutcomeDetailInfo(outcomeId) {
         }
     });
 }
+
 function showOutcomeInfo(outcomeId) {
     $("#outcome_form").attr('action', 'javascript:updateOutcome()');
     $("#outcome_id").val(outcomeId);
@@ -85,6 +84,7 @@ function showOutcomeInfo(outcomeId) {
         }
     });
 }
+
 function updateOutcome() {
     var outcome_total=parseInt(removeComma($('#outcome_total').val()))+parseInt(removeComma($("#outcome_detail_amount").val()));
     var outcome = "outcome_id=" + $("#outcome_id").val() + "&outcome_total=" + outcome_total;
@@ -121,6 +121,7 @@ function deleteOutcome(outcome_date, outcomeId) {
         });
     }
 }
+
 function getOutcomeBySelectMonth(select){
     if(select!='Monthly'){
         $('#outcome_datepicer').attr('disabled',false);
@@ -131,6 +132,7 @@ function getOutcomeBySelectMonth(select){
         getOutcomeByMonth();
     }
 }
+
 function getOutcomeByDate(date){
     destroyDatatable("#tbl_outcome", "#tbl_outcome_container");
     destroyDatatable("#tbl_outcome_detail", "#tbl_outcome_detail_container");
@@ -165,6 +167,7 @@ function getOutcomeByDate(date){
         }
     });
 }
+
 function getOutcomeByMonth(){
     document.getElementById('outcome').style.display='none';
     document.getElementById('yearoutcome').style.display='block';

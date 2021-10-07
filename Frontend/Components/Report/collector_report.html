@@ -20,6 +20,7 @@
   <!--Authentication JS-->
   <script src="../../Utilities/js/auth.js"></script>
   <link rel="stylesheet" href="../../Utilities/css/common.css">
+  <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
   <style>
     .form-control.is-invalid{
       background-image: none !important;
@@ -78,10 +79,10 @@
                     <div class="card">
                         <div class="card-body"> 
                             <div class="row mb-3">
-                              <div class="form-group col-md-2">
+                              <div class="form-group col-md-3">
                                 <label class="control-label">Filter By Date</label>
                                 <div class="input-group date" data-target-input="nearest">
-                                  <input type="date" id="filter_date" class="form-control">
+                                  <input type="text" id="filter_date" class="form-control" readonly>
                                 </div>
                               </div>
                             </div>
@@ -128,6 +129,8 @@
   <!-- InputMask -->
   <script src="../../Utilities/plugins/moment/moment.min.js"></script>
   <script src="../../Utilities/plugins/inputmask/jquery.inputmask.min.js"></script>
+  <script src="../../Utilities/plugins/daterangepicker/daterangepicker.js"></script>
+  <script src="../../Utilities/plugins/moment/moment.min.js"></script>
   <!-- Template JS File -->
   <script src="../../assets/js/scripts.js"></script>
   <!--Toastr-->
@@ -143,7 +146,15 @@
   <script src="../../Utilities/js/collector_report.js"></script>
   <script>
     $(document).ready(function(){
-      $('#filter_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+      // $('#filter_date').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+
+      $('#filter_date').daterangepicker({
+        singleDatePicker: true,
+        autoApply: true,
+        locale: {
+          format: 'DD/MM/YYYY'
+        }
+      })
 
       var today = new Date();
       var dd = today.getDate();
@@ -159,7 +170,10 @@
       {
           mm='0'+mm;
       } 
-      today =yyyy+"-"+mm+"-"+dd;
+      today = dd + '/' + mm + '/' + yyyy 
+
+      // today = yyyy + '-' + mm + '-' + dd
+
       $("#filter_date").val(today);
   
       getCollectorReports()
