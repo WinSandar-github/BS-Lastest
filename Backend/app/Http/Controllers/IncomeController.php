@@ -14,7 +14,11 @@ class IncomeController extends Controller
     public function getIncome(Request $request)
     {
         if($request->create_date){
-            $income = tbl_income_outcome::whereDate('date', $request->create_date)
+            $time = str_replace('/', '-', $request->create_date);
+            $time = strtotime($time);
+            $date = date('Y-m-d', $time);
+
+            $income = tbl_income_outcome::whereDate('date', $date)
                                         ->where('income_total','<>',0)
                                         ->get();
             if(sizeof($income)){
