@@ -19,13 +19,11 @@ function getCollectorReports() {
                         tr += `<td>${ index + 1 }</td>`
                         tr += `<td>${val.name}</td>`
                         tr += `<td>${val.role}</td>`
-                        tr += `<td>${val.collected_amount}</td>`
+                        tr += `<td class='text-right'>${thousands_separators(val.collected_amount)}</td>`
                         tr += `</tr>`
 
                     $('#tbl_collector_body').append(tr)
                 })
-
-                // createDataTable('#tbl_collector')
 
                 $('#tbl_collector').DataTable()
             }

@@ -33,11 +33,11 @@ function getIncome() {
             data: { 'created_date': ' ' }
         },
         columns: [
-            { data: 'date' },
+            { data: 'date' , class: 'text-center'},
             { data: null, render: function( data, type, row ) {
                 return thousands_separators(data.income_total)
-            }},
-            { data: 'action' }
+            }, class: 'text-right' },
+            { data: 'action', class: 'text-center' }
         ],
         createdRow: function(row, data, dataIndex) {
             row.setAttribute('onclick', `getIncomeDetailByIncomeId(${data.id})`)
@@ -146,11 +146,10 @@ function getIncomeByDate(date){
                 tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
                 tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
+                    "<button type='button' class='btn btn-primary btn-sm' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
+                    "<li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")>"+
+                    "<li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_income_container").append(tr);
 
@@ -166,9 +165,11 @@ function getIncomeByDate(date){
 }
 
 function getIncomeByMonth(){
+
     document.getElementById('income').style.display='none';
     document.getElementById('yearincome').style.display='block';
     destroyDatatable("#tbl_yearincome", "#tbl_yearincome_container");
+
     $.ajax({
         beforeSend: function () {
             showLoad();
@@ -178,18 +179,13 @@ function getIncomeByMonth(){
         data: "monthly=allmonth",
         success: function (data) {
             data.forEach(function (element) {
+
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + element.year + "</td>";
                 tr += "<td class='text-center'>" + element.month + "</td>";
-                //tr += "<td class='text-center'>" + element.status + "</td>";
                 tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='addIncomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-hand-holding-usd'></li></button> ";
-                // tr +="<button type='button' class='btn btn-info btn-xs' onClick='showIncomeInfo(" + element.id + ")'>" +
-                //     "<li class='fas fa-pencil-alt'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteIncome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='far fa-trash-alt' ></li ></button ></div ></td > ";
                 tr += "</tr>";
+
                 $("#tbl_yearincome_container").append(tr);
 
             });

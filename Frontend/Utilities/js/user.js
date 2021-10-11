@@ -52,9 +52,9 @@ function getUser(){
                 tr += "<td class='text-center'>" + element.email + "</td>";
                 tr += `<td class=text-center>${element.role.role}</td>`;
                 tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-xs' onClick='showUserInfo(" + element.id + ")'>" +
-                    "<li class='fas fa-edit'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-xs' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash-alt' ></li ></button ></div ></td > ";
+                    "<button type='button' class='btn btn-primary btn-sm' onClick='showUserInfo(" + element.id + ")'>" +
+                    "<li class='fa fa-edit fa-lg'></li></button> ";
+                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
                 tr += "</tr>";
                 $("#tbl_user_container").append(tr);
     

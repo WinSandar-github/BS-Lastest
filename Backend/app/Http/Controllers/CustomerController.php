@@ -110,6 +110,7 @@ class CustomerController extends Controller
                 $customer->ip=$data["ip"];
                 $customer->plan=$data["plan"];
                 $customer->pon=$data["pon"];
+                // $customer->customer_class = $data['customer_class'];
                 $customer->sn=$data["sn"];
                 $customer->dn=$data["dn"];
                 $customer->price=$data["price"];
@@ -174,11 +175,11 @@ class CustomerController extends Controller
             }
         })
         ->editColumn('action', function($data) {
-            $edit_btn = "<button type='button' class='btn btn-primary btn-xs' onClick='showCustomerInfo({$data['id']})'>
-            <li class='fas fa-edit fa-sm'></li></button>";
+            $edit_btn = "<div class='btn-group'><button type='button' class='btn btn-primary btn-sm' onClick='showCustomerInfo({$data['id']})'>
+            <i class='fa fa-edit fa-lg'></i></button>";
 
-            $del_btn = "<button type='button' class='btn btn-danger btn-xs' onClick='deleteCustomer(\"{$data['name']}\", {$data['id']})'>
-            <li class='fa fa-trash fa-sm' ></li ></button >";
+            $del_btn = "<button type='button' class='btn btn-danger btn-sm' onClick='deleteCustomer(\"{$data['name']}\", {$data['id']})'>
+            <i class='fa fa-trash fa-lg' ></i ></div></button >";
 
             return $edit_btn.$del_btn;
         })
