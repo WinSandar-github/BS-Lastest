@@ -9,9 +9,19 @@ use Yajra\DataTables\Facades\DataTables;
 
 class TotalController extends Controller
 {
-    public function getTotal()
+    public function getTotal(Request $request)
     {
-        $income_outcome = tbl_income_outcome::all();
+        $start_date = $request->start_date == null ? '' : date('Y-d-m', strtotime($request->start_date)) ;
+        $end_date = $request->end_date == null ? '' : date('Y-d-m', strtotime($request->end_date));
+      
+        $income_outcome = DB::table('tbl_income_outcome')
+                            ->where(function ($query) use ($start_date,$end_date) {
+                                if($start_date != "" && $end_date != ""){
+                                    $query->whereBetween('date', [$start_date, $end_date]);
+                                }
+                                return $query;
+                            })->get();
+     
         return Datatables::of($income_outcome)
                 ->editColumn('date', function($data) {
                     $date = date('d-m-Y', strtotime($data->date));
@@ -24,7 +34,23 @@ class TotalController extends Controller
                     return $total;
                 })
                 ->with('bal_sheet', $income_outcome->sum('income_total') - $income_outcome->sum('outcome_total'))
+               
                 ->make();
     }
+
+    public function getTotalBalance(Request $request)
+    {
+        $start_date = $request->start_date == null ? '' : date('Y-d-m', strtotime($request->start_date)) ;
+        $end_date = $request->end_date == null ? '' : date('Y-d-m', strtotime($request->end_date));
+      
+        $income_outcome = DB::table('tbl_income_outcome')
+                            ->where(function ($query) use ($start_date,$end_date) {
+                                if($start_date != "" && $end_date != ""){
+                                    $query->whereBetween('date', [$start_date, $end_date]);
+                                }
+                                return $query;
+                            })->get();
+        return $income_outcome;
+       }
     
 }
