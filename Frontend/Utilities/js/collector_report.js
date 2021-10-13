@@ -91,6 +91,12 @@ function getCollectorDetail(){
         data: { 'user_id': user_id , 'date' : date , 'status' : status},
         success: function( res, text, xhr ) {
 
+            let cancel_icon = `<i class="bi bi-exclamation-triangle bi-lg text-danger"></i>`
+
+            if(status != 1){
+                $("#cancel_icon").append(cancel_icon);
+            }
+
             let collector_info = ` <div class="d-flex justify-content-between">
                                         <div><p class='font-weight-bold'>${status == 1 ? 'Collector' : 'Cancelled By'} : ${res.user_name}</p></div>
                                         <div><p class='font-weight-bold'>Date : ${date}</p></div>

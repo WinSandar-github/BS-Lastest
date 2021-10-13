@@ -11,9 +11,9 @@ class TotalController extends Controller
 {
     public function getTotal(Request $request)
     {
-        $start_date = $request->start_date == null ? '' : date('Y-d-m', strtotime($request->start_date)) ;
-        $end_date = $request->end_date == null ? '' : date('Y-d-m', strtotime($request->end_date));
-      
+        $start_date = $request->start_date == null ? '' : date('Y-m-d', strtotime(str_replace('/','-', $request->start_date))) ;
+        $end_date = $request->end_date == null ? '' : date('Y-m-d', strtotime(str_replace('/','-', $request->end_date)));
+        
         $income_outcome = DB::table('tbl_income_outcome')
                             ->where(function ($query) use ($start_date,$end_date) {
                                 if($start_date != "" && $end_date != ""){
@@ -40,8 +40,8 @@ class TotalController extends Controller
 
     public function getTotalBalance(Request $request)
     {
-        $start_date = $request->start_date == null ? '' : date('Y-d-m', strtotime($request->start_date)) ;
-        $end_date = $request->end_date == null ? '' : date('Y-d-m', strtotime($request->end_date));
+        $start_date = $request->start_date == null ? '' : date('Y-m-d', strtotime(str_replace('/','-', $request->start_date))) ;
+        $end_date = $request->end_date == null ? '' : date('Y-m-d', strtotime(str_replace('/','-', $request->end_date)));
       
         $income_outcome = DB::table('tbl_income_outcome')
                             ->where(function ($query) use ($start_date,$end_date) {

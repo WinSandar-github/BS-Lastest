@@ -165,6 +165,9 @@ function getTotalBalance(){
         url: BACKEND_URL + "getTotalBalance",
         data: "start_date=" + start_date + "&end_date=" + end_date,
         success: function (data) {
+
+           
+
             let total = 0;
             
             data.forEach(function (element) {
@@ -186,7 +189,11 @@ function getTotalBalance(){
                 total += element.income_total - element.outcome_total;
             });
 
-            $("#total").html(thousands_separators(total));
+            let info = `<p class="mb-0">Total Balance - ${thousands_separators(total)} ( ${start_date} - ${end_date} )</p>`;
+
+            $("blockquote").append(info);
+
+            // $("#total").html(thousands_separators(total));
         },
         error: function (message) {
 
