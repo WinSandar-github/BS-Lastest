@@ -121,7 +121,7 @@ function getCollectorDetail(){
 
                 $('#tbl_invoice_container').append(tr)
 
-                total += val.total ;
+                total += Number(val.total) ;
             })
 
             $("#total").append(thousands_separators(total));
