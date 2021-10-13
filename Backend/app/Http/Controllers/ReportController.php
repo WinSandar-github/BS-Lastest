@@ -65,7 +65,7 @@ class ReportController extends Controller
             )
             ->where([
                 [ 'cancel',  $status ],
-                [ DB::raw("date_format(ti.created_at, '%Y-%m-%d')"), $date ],
+                [ DB::raw("date_format(ti.updated_at, '%Y-%m-%d')"), $date ],
                 [ 'user_id' , $request->user_id]
             ])
             ->get();
