@@ -102,6 +102,10 @@ Route::get('get_user_roles', 'UserController@getUserRoles');
 
 Route::get('get_collector_report', 'ReportController@getCollectorReports');
 
+Route::get('getTotalBalance', 'TotalController@getTotalBalance');
+
+Route::get('getCollectorDetail', 'ReportController@getCollectorDetail');
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });
