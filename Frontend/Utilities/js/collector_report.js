@@ -97,18 +97,11 @@ function getCollectorDetail(){
                 $("#cancel_icon").append(cancel_icon);
             }
 
-            let collector_info = ` <div class="d-flex justify-content-between">
-                                        <div><p class='font-weight-bold'>${status == 1 ? 'Collector' : 'Cancelled By'} : ${res.user_name}</p></div>
-                                        <div><p class='font-weight-bold'>Date : ${date}</p></div>
-                                    </div>`;
+            // let collector_info = ` <div class="d-flex justify-content-between">
+            //                             <div><p class='font-weight-bold'>${status == 1 ? 'Collector' : 'Cancelled By'} : ${res.user_name}</p></div>
+            //                             <div><p class='font-weight-bold'>Date : ${date}</p></div>
+            //                         </div>`;
 
-            // let collector_info = `  <span class='d-inline-flex align-items-start flex-column border border-secondary rounded p-2 pl-1 mb-2'>
-            //                             <p>Date : ${date}</p>
-            //                             <p>${status == 1 ? 'Collector' : 'Cancelled By'} : ${res.user_name}</p>
-            //                             <p id='total'>Total Amount : </p>
-            //                         </span>`
-
-            $("#collector-info").append(collector_info);
             
             let total = 0;
 
@@ -124,7 +117,15 @@ function getCollectorDetail(){
                 total += Number(val.total) ;
             })
 
-            $("#total").append(thousands_separators(total));
+            // $("#total").append(thousands_separators(total));
+
+            let collector_info = `<p class='mb-0'>${status == 1 ? 'Collector' : 'Cancelled By'} : 
+                                    ${res.user_name}</p>
+                                <p class='mb-0'>Total ${status == 1 ? 'Collected' : 'Cancelled'} Amount For (${date}) : 
+                                    ${thousands_separators(total)}</p>`
+
+            $("#collector-info").append(collector_info);
+            
 
         },
         error: function( xhr, text, msg ) {
