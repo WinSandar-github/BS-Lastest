@@ -149,4 +149,12 @@
       display: inline-block !important;
     }
   }
+
+  .bi-lg{
+    font-size: 1rem;
+   }
+
+  blockquote:before {
+    content: unset !important;
+  }
   

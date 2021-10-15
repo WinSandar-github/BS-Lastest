@@ -21,6 +21,9 @@
   <script src="../../Utilities/js/auth.js"></script>
   <link rel="stylesheet" href="../../Utilities/css/common.css">
   <link rel="stylesheet" href="../../Utilities/plugins/daterangepicker/daterangepicker.css">
+  <!-- Bootstrap Font Icon CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
   <style>
     .form-control.is-invalid{
       background-image: none !important;
@@ -78,14 +81,21 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body"> 
-                            <div class="row mb-3">
-                              <div class="form-group col-md-3">
-                                <label class="control-label">Filter By Date</label>
-                                <div class="input-group date" data-target-input="nearest">
-                                  <input type="text" id="filter_date" class="form-control" readonly>
-                                </div>
+                          <div class="row mb-2">
+                            <div class="form-group col-md-3">
+                              <label class="control-label text-white">status</label>
+                              <select class="form-control" id="filter">
+                                <option value="1" selected>Approved</option>
+                                <option value="2">Cancelled</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label class="control-label">Filter By Date</label>
+                              <div class="input-group date" data-target-input="nearest">
+                                <input type="text" id="filter_date" class="form-control" readonly>
                               </div>
                             </div>
+                          </div>
                             <div class="table-responsive">
                                 <table class="table text-nowrap table-hover text-center" id="tbl_collector">
                                     <thead>
@@ -94,6 +104,7 @@
                                             <th>Collector</th>
                                             <th>Role</th>
                                             <th>Amount</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbl_collector_body"></tbody>
@@ -179,6 +190,7 @@
       getCollectorReports()
       onChangeDate()
     })
+  
   </script>
 </body>
 </html>

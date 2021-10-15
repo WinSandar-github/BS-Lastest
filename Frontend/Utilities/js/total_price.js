@@ -1,6 +1,16 @@
 function loadTotal(){
-
     let table = $('#tbl_total').DataTable({
+        // dom: 'lBfrtip',
+        // buttons: [
+        //     { extend:'print',
+        //       printOptions: {
+        //         modifier: {
+        //           page: 'all',
+        //           search: 'none'   
+        //         }
+        //      },
+        //     }
+        // ],
         destroy: true,
         processing: true,
         serverSide: true,
@@ -10,6 +20,7 @@ function loadTotal(){
         ajax: {
             type: 'POST',
             url: BACKEND_URL + 'getTotal',
+            data: {'start_date' : $("#start_date").val() , 'end_date' : $("#end_date").val() },
         },
         columns: [
            { data: 'date' , class : "text-center" },
@@ -60,6 +71,7 @@ function loadTotal(){
         "fnDrawCallback": function() {
             let api = this.api()
             let json = api.ajax.json();
+            console.log()
             $(api.column(3).footer()).html(thousands_separators(json.bal_sheet));
         }
     });
@@ -95,7 +107,7 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
                 var tr = "<tr>";
                 tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
                 tr += "<td class='text-center'>" +  element.reason+ "</td>";
-                tr += "<td class='text-right' style='padding-right:200px'>" + thousands_separators( element.unit_amount)+ "</td>";
+                tr += "<td class='text-right'>" + thousands_separators( element.unit_amount)+ "</td>";
                 tr += "</tr>";
                 $('#tbl_total_detail_container').append(tr);
             });
@@ -134,6 +146,58 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
         error: function (message) {
             dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
             hideLoad();
+        }
+    });
+}
+
+function getTotalBalance(){
+
+    let url = new URL(location.href)
+
+    let start_date = url.searchParams.get('start_date');
+
+    let end_date = url.searchParams.get('end_date');
+
+    $.ajax({
+        beforeSend: function () {
+        },
+        type: "get",
+        url: BACKEND_URL + "getTotalBalance",
+        data: "start_date=" + start_date + "&end_date=" + end_date,
+        success: function (data) {
+
+           
+
+            let total = 0;
+            
+            data.forEach(function (element) {
+
+                let tr = "<tr>";
+
+                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
+
+                tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
+                
+                tr += "</tr>";
+
+                $('#tbl_invoice_container').append(tr);
+
+                total += element.income_total - element.outcome_total;
+            });
+
+            let info = `<p class="mb-0">Total Balance - ${thousands_separators(total)} ( ${start_date} - ${end_date} )</p>`;
+
+            $("blockquote").append(info);
+
+            // $("#total").html(thousands_separators(total));
+        },
+        error: function (message) {
+
+            dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
         }
     });
 }
