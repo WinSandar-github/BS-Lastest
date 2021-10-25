@@ -1,16 +1,9 @@
 function loadTotal(){
+
+    $(".daily_report").show();
+    $(".monthly_report").hide();
+
     let table = $('#tbl_total').DataTable({
-        // dom: 'lBfrtip',
-        // buttons: [
-        //     { extend:'print',
-        //       printOptions: {
-        //         modifier: {
-        //           page: 'all',
-        //           search: 'none'   
-        //         }
-        //      },
-        //     }
-        // ],
         destroy: true,
         processing: true,
         serverSide: true,
@@ -200,4 +193,67 @@ function getTotalBalance(){
             dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
         }
     });
+}
+
+function getMonthlyBalance (status){
+
+    if(status == 1){
+        loadTotal();
+    }
+    else{
+
+        $(".daily_report").hide();
+        $(".monthly_report").show();
+
+        $.ajax({
+            beforeSend: function () {
+            },
+            type: "get",
+            url: BACKEND_URL + "getTotalByMonth",
+            success: function (data) {
+                let total = 0;
+            
+                data.map( (element) => {
+                    console.log(element);
+                    let tr = "<tr>";
+
+                    tr += "<td class='text-center'>" + element.year + "</td>";
+
+                    tr += "<td class='text-center'>" + element.month + "</td>";
+
+                    tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+
+                    tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+
+                    tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
+                
+                    tr += "</tr>";
+
+                    $('#monthly_report_body').append(tr);
+
+                    total += element.income_total - element.outcome_total;
+                });
+
+                $("#monthly_report").DataTable({
+                    'destroy': true,
+                    'paging': true,
+                    'lengthChange': false,
+                    "pageLength": 5,
+                    'searching': true,
+                    'ordering': true,
+                    'info': false,
+                    'autoWidth': false,
+                    "scrollX": true,
+                    'select': true,
+                    // "order": [[0, "desc"]]
+                });
+                // $("#total").html(thousands_separators(total));
+            },
+            error: function (message) {
+
+                dataMessage(message, "#tbl_total", "#tbl_total_container");
+            }
+        });
+    }
+    
 }
