@@ -151,6 +151,50 @@ function getTotalBalance(){
 
     let end_date = url.searchParams.get('end_date');
 
+    if ( start_date !== null && end_date !== null ) {
+        getTotalBalanceCustom(start_date, end_date)
+    } else {
+        getTotalBalanceMonthly()
+    } 
+}
+
+function getTotalBalanceMonthly() {
+    $.ajax({
+        type: 'GET',
+        url: BACKEND_URL + "getTotalByMonth",
+        success: function (data) {
+            let total = 0;
+        
+            data.map( (element) => {
+                let tr = "<tr>";
+
+                tr += "<td class='text-center'>" + element.year + " " + element.month + "</td>";
+
+                tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
+            
+                tr += "</tr>";
+
+                $('#tbl_invoice_container').append(tr);
+
+                total += element.income_total - element.outcome_total;
+            });
+
+            let info = `<p class="mb-0">Total Balance - ${thousands_separators(total)}</p>`;
+
+            $("blockquote").append(info);
+        },
+        error: function (message) {
+
+            dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
+        }
+    })
+}
+
+function getTotalBalanceCustom(start_date, end_date) {
     $.ajax({
         beforeSend: function () {
         },
@@ -158,8 +202,6 @@ function getTotalBalance(){
         url: BACKEND_URL + "getTotalBalance",
         data: "start_date=" + start_date + "&end_date=" + end_date,
         success: function (data) {
-
-           
 
             let total = 0;
             
@@ -197,10 +239,12 @@ function getTotalBalance(){
 
 function getMonthlyBalance (status){
 
-    if(status == 1){
+    if(status == 1) {
+        $('.date-range').show()
         loadTotal();
     }
     else{
+        $('.date-range').hide()
 
         $(".daily_report").hide();
         $(".monthly_report").show();

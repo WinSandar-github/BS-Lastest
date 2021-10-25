@@ -92,24 +92,24 @@
                           </select>
                         </div>
 
-                        <div class="col-md-1"> 
+                        <div class="col-md-1 date-range"> 
                           <label for="inputEmail3" class="col-form-label">From</label>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 date-range">
                           <input type="text" id="start_date" class="form-control " readonly>
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-md-1 date-range">
                           <label for="inputEmail3" class="col-form-label ">To</label>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 date-range">
                           <input type="text" id="end_date" class="form-control" readonly>
                         </div>
 
                         <div class="pr-2 col-md-2 mb-2">
-                          <button class="btn btn-primary mt-1" onclick="loadTotal()"><i class="bi bi-search bi-lg"></i></button>
+                          <button class="btn btn-primary mt-1 date-range" onclick="loadTotal()"><i class="bi bi-search bi-lg"></i></button>
                           <button class="btn btn-success mt-1" onclick="PrintBalanceSheet()"><i class="bi bi-printer bi-lg"></i></button>
                         </div>
                         
@@ -292,7 +292,15 @@
     })
   
    function PrintBalanceSheet(){
-     window.open( INVOICE_URL + "balance_detail.html?start_date="+$("#start_date").val() + "&end_date="+$("#end_date").val());
+     let filter_id = $('#filter').val()
+
+     if ( filter_id == 1 ) {
+      window.open( INVOICE_URL + "balance_detail.html?start_date="+$("#start_date").val() + "&end_date="+$("#end_date").val());
+
+      return
+     }
+     
+     window.open( INVOICE_URL + "balance_detail.html")
    }
    </script>
   </body>
