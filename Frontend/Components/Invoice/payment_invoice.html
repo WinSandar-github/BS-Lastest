@@ -1,172 +1,130 @@
+<script src="../../../includes/js/auth.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>IQNet &mdash; Payment Invoice</title>
-
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="../../Utilities/bootstrap-4.3.1-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-select/css/select.bootstrap4.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../Utilities/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <link rel="stylesheet" href="../../assets/css/components.css">
-  <link rel="stylesheet" href="../../Utilities/css/common.css">
-  <style>
-     @media print
-      {    
-          .no-print
-          {
-              display: none !important;
-          }
-      }
-  </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> IQNet &mdash; Payment Invoice</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../Utilities/bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../../bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="../../css/payment_invoice.css">
 </head>
-<body>
-  <!-- Main content -->
-      
-        <div id="app">
-          <div class="main-wrapper">
-            <div class="">
-              <section class="section">
-                <div class="custom-header">
-                  
+<body class="hold-transition skin-red sidebar-mini fixed" style="margin-top: 10px;">
+    <div class="container-fluid" style="margin-bottom: 5em;">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="text-center company_info">
+                    <img src="../../Utilities/img/logo.png" width="300">
+                    <h4 class="text-primary">FTTH Internet Service</h4>
+                    <h4>Under License By : Internet Maekhong Network Co.,Ltd</h4>
+                    <hr class="mb-3 mt-3" style="width:40%;border-top:1px solid grey;">
+                    <h5>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့။</h5>
+                    <h5 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h5>
+                    <h5 class="text-orange">Thai & Chinese Call : 09 688788188</h5>
                 </div>
-                <div class="section-body">
-                  <div class="row">
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-10">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="invoice">
-                            <div class="invoice-print">
-                          
-                              <div class="text-center company_info">
-      
-                                <img src="../../Utilities/img/logo.png" width="300">
-                                <h5 class="text-primary">FTTH Internet Service</h5>
-                                <h6>Under License By : Internet Maekhong Network Co.,Ltd</h6>
-                                <hr class="mb-3 mt-3" style="width:40%;border-top:1px solid grey;">
-                                <h6>မြို့နယ် ဓမ္မာရုံ အရှေ့တိုက်တန်း၊ ရွှေတိဂုံ ဘုရားလမ်း၊ ဆန်ဆိုင်း(ခ)ရပ်၊ တာချီလိတ်မြို့။</h6>
-                                <h6 class="text-orange">Myanmar Call : 09 428322377,  09 688788288</h6>
-                                <h6 class="text-orange">Thai & Chinese Call : 09 688788188</h6>
-                              </div>
-                              <hr class="mb-3 mt-3" style="border-top:1px solid grey;">
-                              <div class="text-right">
-                                <h6>Date - <span id="get_date"></span></h6>
-                                <h6>Invoice-No - <span id="inv_no"></span></h6>
-                              </div>
-                              <div class="row">
-                                <div class="col-12">
-                                  <table>
-                                    <tr>
-                                      <td><h6>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
-                                      <td><h6 id="name"></h6></td>
-                                    </tr>
-                                    <tr>
-                                      <td><h6>User ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
-                                      <td><h6 id="userId">-</h6></td>
-                                    </tr>
-                                    <tr>
-                                      <td><h6>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
-                                      <td><h6 id="address">-</h6></td>
-                                    </tr>
-                                    <tr>
-                                      <td><h6>PON NO.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h6></td>
-                                      <td><h6 id="pon">-</h6></td>
-                                    </tr>
-                                  </table>
-                                </div>
-                              </div>
-          
-                          <div class="row">
-                            <div class="col-12">
-                              <table class="table table-bordered" id='tbl_invoice'>
-                                <thead>
-                                  <tr>
-                                    <th class='text-center'>Month</th>
-                                    <th class='text-center'>Plan</th>
-                                    <th class='text-center'>Price</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="tbl_invoice_container"></tbody>
-                                <tfoot>
-                                  <tr>
-                                    <th colspan="2" class="text-right">Total</th>
-                                    <td class="text-right"><span id="total"></span></td>
-                                  </tr>
-                                  <tr>
-                                    <th colspan="2" class="text-right">Additional Charges</th>
-                                    <td class="text-right"><span id="add_charges"></span></td>
-                                  </tr>
-                                  <tr>
-                                    <th colspan="2" class="text-right">Grand Total</th>
-                                    <td class="text-right"><span id="grand_total"></span></td>
-                                  </tr>
-                                </tfoot>
-                              </table>
-                             
-                            </div>
-                          </div>
-                          
-                            <hr>
-                            <div class="text-md-right">
-                              <div class="float-lg-left mb-lg-0 mb-3">
-                            
-                              </div>
-                              <h6 class="text-center">----- Thank You -----</h6>
-                              <button class="btn btn-primary icon-left no-print" onclick="javascript: window.print();">Print</button>
-                            </div>
-                          </div>
-                        </div>
-                        
-                      </div>
-                     
-                    </div>
-                    <div class="col-sm-1"></div>
-                  </div>
-                </div>
-              </section>
             </div>
-          </div>
+        </div>
+        <hr style="border-top:1px solid grey;">
+        <div class="row">
+            <div class="col-xs-9" id="customer-info">
+                <table>
+                  <tr>
+                    <td><h5>Name:&nbsp;&nbsp;</h5></td>
+                    <td><h5 id="name"></h5></td>
+                  </tr>
+                  <tr>
+                    <td><h5>User ID:&nbsp;&nbsp;</h5></td>
+                    <td><h5 id="userId"></h5></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Address:&nbsp;&nbsp;</h5></td>
+                    <td><h5 id="address"></h5></td>
+                  </tr>
+                  <tr>
+                    <td><h5>Pon No:&nbsp;&nbsp;</h5></td>
+                    <td><h5 id="pon"></h5></td>
+                  </tr>
+                </table>
+            </div>
+            <div class="col-xs-3" id="invoice-info">
+                <table>
+                    <tr>
+                        <td>Date:</td>
+                        <td><h5 id="get_date"></h5></td>
+                    </tr>
+                    <tr>
+                        <td>Invoice:&nbsp;&nbsp;</td>
+                        <td><h5 id="inv_no"></h5></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-    <!-- General JS Scripts -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <table class="table" id='tbl_invoice'>
+                    <thead>
+                        <tr>
+                            <th class='text-center'>Month</th>
+                            <th class='text-center'>Plan</th>
+                            <th class='text-right'>Price</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbl_invoice_container"></tbody>
+                        <tfoot>
+                        <tr>
+                            <th colspan="2" class="text-right">Total</th>
+                            <td class="text-right"><span id="total"></span></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-right">Additional Charges</th>
+                            <td class="text-right"><span id="add_charges"></span></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-right">Grand Total</th>
+                            <td class="text-right"><span id="grand_total"></span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="text-md-right">
+            <div class="float-lg-left mb-lg-0 mb-3">
+        
+            </div>
+            <h6 class="text-center">----- Thank You -----</h6>
+            <button class="btn btn-primary pull-right no-print" onclick="javascript: window.print();">Print</button>
+        </div>
+    </div>
+    <!-- jQuery 3 -->
     <script src="../../plugins/default-theme/jquery-3.3.1.min.js" ></script>
-    <script src="../../plugins/default-theme/popper-1.14.7.min.js" ></script>
-    <script src="../../Utilities/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="../../Utilities/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="../../plugins/default-theme/jquery-3.7.6.nicescroll.min.js"></script>
-    <script src="../../plugins/default-theme/moment-2.24.0.moment.min.js"></script>
-    <script src="../../assets/js/stisla.js"></script>
-    <script src="../Main/js/default_template.js"></script>
-     <!-- Template JS File -->
-     <script src="../../assets/js/scripts.js"></script>
-     <script src="../../assets/js/custom.js"></script>
+    <script src="../../Utilities/js/common.js"></script>
+    <script src="../../Utilities/js/invoice.js"></script>
+    <!-- api -->
+    <script>
+        $(document).ready(function() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
 
-  <!-- DataTables -->
-  <script src="../../Utilities/plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="../../Utilities/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="../../Utilities/js/common.js"></script>
-  <script src="../../Utilities/js/invoice.js"></script>
-  <script>
-    $(document).ready(function() {
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
-
-      today = mm + '/' + dd + '/' + yyyy;
-      $('#get_date').append(today);
-      getPaymentInvoice();
-    });
-    
-  </script>
+            today = dd + '/' + mm + '/' + yyyy;
+            $('#get_date').append(today);
+            getPaymentInvoice();
+        });
+    </script>
+    <style>
+        hr {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
 </body>
 </html>

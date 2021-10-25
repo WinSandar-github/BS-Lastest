@@ -1,0 +1,24 @@
+@media print {    
+    .no-print {
+        display: none !important;
+    }
+
+    .container-fluid {
+        margin-bottom: 0em;
+    }
+
+    @page {
+        size: 72mm 298mm
+    }
+}
+
+@media print and (max-width: 72mm) {
+    #customer-info {
+        width: 100%;
+    }
+
+    #invoice-info {
+        width: 100%;
+    }
+}
+ 
