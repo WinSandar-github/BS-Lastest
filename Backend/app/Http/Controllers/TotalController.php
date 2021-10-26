@@ -51,6 +51,21 @@ class TotalController extends Controller
                                 return $query;
                             })->get();
         return $income_outcome;
-       }
+    }
     
+    public function getTotalByMonth(Request $request)
+    {
+        
+        $total = DB::table('tbl_income_outcome')
+            ->select(DB::raw('YEAR(tbl_income_outcome.date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income_outcome.income_total) as income_total'), DB::raw('SUM(tbl_income_outcome.outcome_total) as outcome_total'))
+            ->join('tbl_month', function ($join) {
+                $join->where('tbl_month.id','=',DB::raw('MONTH(tbl_income_outcome.date)'));
+
+            })
+            ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
+            ->get();
+
+        return response()->json($total, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+        
+    }
 }

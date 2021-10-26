@@ -1,0 +1,43 @@
+@media only screen and ( max-width: 480px ) {
+    #customer-info {
+        width: 60%;
+    }
+
+    #invoice-info {
+        width: 40%;
+    }
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+@media print and (max-width: 80mm) {
+    #customer-info {
+        width: 100%;
+    }
+
+    #invoice-info {
+        width: 100%;
+    }
+    
+    .container-fluid {
+        max-width: 100%;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+@media print {    
+    .no-print {
+        display: none !important;
+    }
+
+    .container-fluid {
+        margin-bottom: 0em;
+    }
+}
+ 

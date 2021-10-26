@@ -82,7 +82,40 @@
                       <h4>Daily Income/Outcome</h4>
                     </div>
                     <div class="card-body">
-                      <div class="form-group row">
+
+                      <div class="d-flex row align-items-start ">
+                        
+                        <div class="col-md-2">
+                          <select class="form-control" id="filter" onchange="getMonthlyBalance(this.value)">
+                            <option value="1" selected>Custom</option>
+                            <option value="2">Monthly</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-1 date-range"> 
+                          <label for="inputEmail3" class="col-form-label">From</label>
+                        </div>
+
+                        <div class="col-md-3 date-range">
+                          <input type="text" id="start_date" class="form-control " readonly>
+                        </div>
+
+                        <div class="col-md-1 date-range">
+                          <label for="inputEmail3" class="col-form-label ">To</label>
+                        </div>
+
+                        <div class="col-md-3 date-range">
+                          <input type="text" id="end_date" class="form-control" readonly>
+                        </div>
+
+                        <div class="pr-2 col-md-2 mb-2">
+                          <button class="btn btn-primary mt-1 date-range" onclick="loadTotal()"><i class="bi bi-search bi-lg"></i></button>
+                          <button class="btn btn-success mt-1" onclick="PrintBalanceSheet()"><i class="bi bi-printer bi-lg"></i></button>
+                        </div>
+                        
+                      </div>
+                      <!-- <div class="form-group row">
+                        
                         <div class="col-sm-1 text-right">
                           <label for="inputEmail3" class="col-form-label">From</label>
                         </div>
@@ -96,15 +129,15 @@
                         <div class="col-sm-3">
                           <input type="text" id="end_date" class="form-control" readonly>
                         </div>
-                        <div class="col-sm-4" style="display: inline">
+                        <div class="col-sm-2" style="display: inline">
                           <button class="btn btn-primary mt-1" onclick="loadTotal()"><i class="bi bi-search bi-lg"></i></button>
                           &nbsp;
                           <button class="btn btn-success mt-1" onclick="PrintBalanceSheet()"><i class="bi bi-printer bi-lg"></i></button>
                         </div>
                         
                       </div>
-                      
-                      <div class="table-responsive">
+                       -->
+                      <div class="table-responsive daily_report">
                         <table id='tbl_total' class="table table-hover" width="100%">
                           <thead>
                               <tr>
@@ -114,11 +147,32 @@
                                   <th class='text-center'>Total</th>
                               </tr>
                           </thead>
-                          <!-- <tbody id="tbl_total_container"></tbody> -->
+                          <tbody id="tbl_total_container"></tbody>
                           <tfoot>
                             <tr class="text-right">
                                 <th colspan="3" style="text-align: right !important;">Total Balance:</th>
                                 <th></th>
+                            </tr>
+                        </tfoot>
+                        </table>
+                      </div>
+
+                      <div class="table-responsive monthly_report" style="display:none;">
+                        <table id='monthly_report' class="table table-hover" width="100%">
+                          <thead>
+                              <tr>
+                                  <th class='text-center'>Year</th>
+                                  <th class='text-center'>Month</th>
+                                  <th class="text-center">Income</th>
+                                  <th class='text-center'>Outcome</th>
+                                  <th class='text-center'>Total</th>
+                              </tr>
+                          </thead>
+                          <tbody id="monthly_report_body"></tbody>
+                          <tfoot>
+                            <tr class="text-right">
+                                <th colspan="3" style="text-align: right !important;">Total Balance:</th>
+                                <th id="total-bal"></th>
                             </tr>
                         </tfoot>
                         </table>
@@ -238,7 +292,15 @@
     })
   
    function PrintBalanceSheet(){
-     window.open( INVOICE_URL + "balance_detail.html?start_date="+$("#start_date").val() + "&end_date="+$("#end_date").val());
+     let filter_id = $('#filter').val()
+
+     if ( filter_id == 1 ) {
+      window.open( INVOICE_URL + "balance_detail.html?start_date="+$("#start_date").val() + "&end_date="+$("#end_date").val());
+
+      return
+     }
+     
+     window.open( INVOICE_URL + "balance_detail.html")
    }
    </script>
   </body>

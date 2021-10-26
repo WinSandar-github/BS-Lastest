@@ -1,16 +1,9 @@
 function loadTotal(){
+
+    $(".daily_report").show();
+    $(".monthly_report").hide();
+
     let table = $('#tbl_total').DataTable({
-        // dom: 'lBfrtip',
-        // buttons: [
-        //     { extend:'print',
-        //       printOptions: {
-        //         modifier: {
-        //           page: 'all',
-        //           search: 'none'   
-        //         }
-        //      },
-        //     }
-        // ],
         destroy: true,
         processing: true,
         serverSide: true,
@@ -71,7 +64,7 @@ function loadTotal(){
         "fnDrawCallback": function() {
             let api = this.api()
             let json = api.ajax.json();
-            console.log()
+
             $(api.column(3).footer()).html(thousands_separators(json.bal_sheet));
         }
     });
@@ -158,6 +151,58 @@ function getTotalBalance(){
 
     let end_date = url.searchParams.get('end_date');
 
+    if ( start_date !== null && end_date !== null ) {
+        getTotalBalanceCustom(start_date, end_date)
+    } else {
+        getTotalBalanceMonthly()
+    } 
+}
+
+function getTotalBalanceMonthly() {
+    $('#tbl_invoice thead tr th:eq(0)').text('Month')
+
+    let year_html = `<th class="text-center">Year</th>`
+
+    $('#tbl_invoice thead tr').prepend(year_html)
+
+    $.ajax({
+        type: 'GET',
+        url: BACKEND_URL + "getTotalByMonth",
+        success: function (data) {
+            let total = 0;
+        
+            data.map( (element) => {
+                let tr = "<tr>";
+
+                tr += "<td class='text-center'>" + element.year + "</td>";
+
+                tr += "<td class='text-center'>" + element.month + "</td>";
+
+                tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+
+                tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
+            
+                tr += "</tr>";
+
+                $('#tbl_invoice_container').append(tr);
+
+                total += element.income_total - element.outcome_total;
+            });
+
+            let info = `<p class="mb-0">Total Balance - ${thousands_separators(total)}</p>`;
+
+            $("blockquote").append(info);
+        },
+        error: function (message) {
+
+            dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
+        }
+    })
+}
+
+function getTotalBalanceCustom(start_date, end_date) {
     $.ajax({
         beforeSend: function () {
         },
@@ -165,8 +210,6 @@ function getTotalBalance(){
         url: BACKEND_URL + "getTotalBalance",
         data: "start_date=" + start_date + "&end_date=" + end_date,
         success: function (data) {
-
-           
 
             let total = 0;
             
@@ -200,4 +243,70 @@ function getTotalBalance(){
             dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
         }
     });
+}
+
+function getMonthlyBalance (status){
+
+    if(status == 1) {
+        $('.date-range').show()
+        loadTotal();
+    }
+    else{
+        $('.date-range').hide()
+
+        $(".daily_report").hide();
+        $(".monthly_report").show();
+
+        $.ajax({
+            beforeSend: function () {
+            },
+            type: "get",
+            url: BACKEND_URL + "getTotalByMonth",
+            success: function (data) {
+                let total = 0;
+            
+                data.map( (element) => {
+
+                    let tr = "<tr>";
+
+                    tr += "<td class='text-center'>" + element.year + "</td>";
+
+                    tr += "<td class='text-center'>" + element.month + "</td>";
+
+                    tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+
+                    tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+
+                    tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
+                
+                    tr += "</tr>";
+
+                    $('#monthly_report_body').append(tr);
+
+                    total += element.income_total - element.outcome_total;
+                });
+
+                $("#monthly_report").DataTable({
+                    'destroy': true,
+                    'paging': true,
+                    'lengthChange': false,
+                    "pageLength": 5,
+                    'searching': true,
+                    'ordering': true,
+                    'info': false,
+                    'autoWidth': false,
+                    "scrollX": true,
+                    'select': true,
+                    // "order": [[0, "desc"]]
+                });
+
+                $('.dataTables_scrollFootInner #total-bal').text(thousands_separators(total))
+            },
+            error: function (message) {
+
+                dataMessage(message, "#tbl_total", "#tbl_total_container");
+            }
+        });
+    }
+    
 }
