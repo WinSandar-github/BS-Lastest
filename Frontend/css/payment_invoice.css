@@ -21,13 +21,10 @@
     #invoice-info {
         width: 100%;
     }
-    
+
     .container-fluid {
-        max-width: 100%;
-    }
-    
-    .no-print {
-        display: none !important;
+        width: 100%;
+        margin: 10px;
     }
 }
 
