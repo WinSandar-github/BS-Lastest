@@ -64,7 +64,7 @@ function loadTotal(){
         "fnDrawCallback": function() {
             let api = this.api()
             let json = api.ajax.json();
-            console.log()
+
             $(api.column(3).footer()).html(thousands_separators(json.bal_sheet));
         }
     });
@@ -159,6 +159,12 @@ function getTotalBalance(){
 }
 
 function getTotalBalanceMonthly() {
+    $('#tbl_invoice thead tr th:eq(0)').text('Month')
+
+    let year_html = `<th class="text-center">Year</th>`
+
+    $('#tbl_invoice thead tr').prepend(year_html)
+
     $.ajax({
         type: 'GET',
         url: BACKEND_URL + "getTotalByMonth",
@@ -168,7 +174,9 @@ function getTotalBalanceMonthly() {
             data.map( (element) => {
                 let tr = "<tr>";
 
-                tr += "<td class='text-center'>" + element.year + " " + element.month + "</td>";
+                tr += "<td class='text-center'>" + element.year + "</td>";
+
+                tr += "<td class='text-center'>" + element.month + "</td>";
 
                 tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
 
@@ -258,7 +266,7 @@ function getMonthlyBalance (status){
                 let total = 0;
             
                 data.map( (element) => {
-                    console.log(element);
+
                     let tr = "<tr>";
 
                     tr += "<td class='text-center'>" + element.year + "</td>";
@@ -291,7 +299,8 @@ function getMonthlyBalance (status){
                     'select': true,
                     // "order": [[0, "desc"]]
                 });
-                // $("#total").html(thousands_separators(total));
+
+                $('.dataTables_scrollFootInner #total-bal').text(thousands_separators(total))
             },
             error: function (message) {
 
