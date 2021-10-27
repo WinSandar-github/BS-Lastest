@@ -20,8 +20,8 @@ var toastOptions = {
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
-    "timeOut": "4000",
-    "extendedTimeOut": "3000",
+    "timeOut": "0",
+    "extendedTimeOut": "0",
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
@@ -29,6 +29,8 @@ var toastOptions = {
 };
 
 function successMessage(message) {
+    let imgUrl = $('.toast .toast-success').attr('background-image')
+    console.log(imgUrl)
     toastr.options = toastOptions;
     toastr.success(message);
 }
@@ -39,6 +41,21 @@ function errorMessage(message) {
 }
 
 function infoMessage(message) {
+
+    let infoImg = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+    YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAw
+    SKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7
+    Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6Q
+    tBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBt
+    cy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVL
+    wwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=`
+
+    let imgUrl = $('#toast-container .toast-info:before')
+
+    console.log(imgUrl)
+    
+    imgUrl.css('background-image', `url(${infoImg})`)
+
     toastr.options = toastOptions
     toastr.info(message)
 }
