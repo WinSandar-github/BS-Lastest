@@ -344,6 +344,7 @@ function getCustomerClass() {
                     })
                     
                     if ( $('#class-color-lists') ) {
+                        $('#class-color-lists').children().remove()
                         res.map( (el) => {
                             let elem = `<div class="col-md-2 col-sm-4 col-xs-6 class-status">
                             <div class="color-box" style="background-color: ${el.color};"></div>

@@ -65,7 +65,7 @@ function getPaymentInvoice(){
         data: "id=" + id,
         success: function (res) {
 
-            $('#name').append("-"+res.customer[0]['customer_name']);
+            $('#name').append(res.customer[0]['customer_name']);
 
             $('#userId').append(res.customer[0]['code']);
 
