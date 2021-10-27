@@ -249,10 +249,12 @@ function getMonthlyBalance (status){
 
     if(status == 1) {
         $('.date-range').show()
+        $('.custom-detail').show();
         loadTotal();
     }
     else{
         $('.date-range').hide()
+        $('.custom-detail').hide();
 
         $(".daily_report").hide();
         $(".monthly_report").show();
