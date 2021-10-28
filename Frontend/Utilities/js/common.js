@@ -1,14 +1,14 @@
 // BACKEND_URL="https://demo.aggademo.me/bs/Backend/public/";
 //BACKEND_URL="http://localhost/bs/Backend/public/";
 
-let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
-let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
+// let INVOICE_URL="https://iqnet.tech/billing/Frontend/Components/Customer/";
+// let BACKEND_URL="https://iqnet.tech/billing/Backend/public/";
 
 // let INVOICE_URL="http://localhost//iqnet/BS/Frontend/Components/Customer/";
 // let BACKEND_URL="http://localhost:8000/";
 
-// let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
-// let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
+let INVOICE_URL="http://localhost:1234/BS/Frontend/Components/Customer/"
+let BACKEND_URL = "http://localhost:1234/BS/Backend/public/"
 
 var toastOptions = {
     "closeButton": true,
@@ -20,7 +20,7 @@ var toastOptions = {
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
-    "timeOut": "4000",
+    "timeOut": "5000",
     "extendedTimeOut": "3000",
     "showEasing": "swing",
     "hideEasing": "linear",
@@ -39,6 +39,11 @@ function errorMessage(message) {
 }
 
 function infoMessage(message) {
+    toastr.options = toastOptions
+    toastr.info(message)
+}
+
+function warningMessage(message) {
     toastr.options = toastOptions
     toastr.info(message)
 }
