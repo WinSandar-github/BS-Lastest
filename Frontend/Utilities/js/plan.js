@@ -6,6 +6,7 @@ function createPlan() {
         url: BACKEND_URL + "createPlan",
         data: plan,
         success: function (data) {
+
             document.getElementById("plan-form").reset();
             successMessage(data);
             getPlan();
@@ -91,7 +92,7 @@ function showPlanInfo(planId) {
 }
 
 function updatePlan() {
-    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val() + "&class" + $('input[name="customer-class"]')
+    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val() + "&class=" +  $('input[name="customer-class"]:checked').val()
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "updatePlan",
@@ -102,8 +103,12 @@ function updatePlan() {
             successMessage(data);
             getPlan();
         },
-        error:function (message){
-            errorMessage(message);
+        error:function (xhr){
+            if ( xhr.status == 409 ) {
+                warningMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }
