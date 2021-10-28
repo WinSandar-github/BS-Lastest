@@ -89,9 +89,6 @@ function getTotal() {
 function getOutcomeDetailByOutcomeId(income_outcome_id) {
     destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
         type: "POST",
         url: BACKEND_URL + "getOutcomeDetailByOutcomeId",
         data: "income_outcome_id=" +income_outcome_id,
@@ -105,21 +102,16 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_total_detail");
-            hideLoad();
         },
         error: function (message) {
-
             dataMessage(message, "#tbl_total_detail", "#tbl_total_detail_container");
-            hideLoad();
         }
     });
 }
 function getIncomeDetailByIncomeId(income_outcome_id) {
+    alert("aa");
     destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
         type: "POST",
         url: BACKEND_URL + "getIncomeDetailByIncomeId",
         data: "income_outcome_id=" +income_outcome_id,
@@ -134,11 +126,9 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
                 $('#tbl_total_detail_container').append(tr);
             });
             startDataTable("#tbl_total_detail");
-            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_total_detail", "#tbl_total_detail_container");
-            hideLoad();
         }
     });
 }
@@ -259,56 +249,44 @@ function getMonthlyBalance (status){
         $(".daily_report").hide();
         $(".monthly_report").show();
 
-        $.ajax({
-            beforeSend: function () {
+        $('#monthly_report').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            bAutoWidth: false,
+            pageLength: 5,
+            ajax: {
+                type: 'get',
+                url: BACKEND_URL + 'getTotalByMonth'
             },
-            type: "get",
-            url: BACKEND_URL + "getTotalByMonth",
-            success: function (data) {
-                let total = 0;
-            
-                data.map( (element) => {
+            columns: [
 
-                    let tr = "<tr>";
+                { data: 'year' , class: 'text-center'},
 
-                    tr += "<td class='text-center'>" + element.year + "</td>";
+                { data: 'month' , class: 'text-center'},
 
-                    tr += "<td class='text-center'>" + element.month + "</td>";
+                { data: null, render: function( data, type, row ) {
+                    return thousands_separators(data.income_total)
+                }, class: 'text-right' },
 
-                    tr += "<td class='text-right'>" +  thousands_separators(element.income_total) + "</td>";
+                { data: null, render: function( data, type, row ) {
+                    return thousands_separators(data.outcome_total)
+                }, class: 'text-right' },
 
-                    tr += "<td class='text-right'>" + thousands_separators(element.outcome_total) + "</td>";
+                { data: null, render: function( data, type, row ) {
+                    return thousands_separators(data.income_total - data.outcome_total)
+                }, class: 'text-right' }
 
-                    tr += "<td class='text-right'>" + thousands_separators(element.income_total-element.outcome_total) + "</td>";
-                
-                    tr += "</tr>";
+            ],
+            "fnDrawCallback": function() {
+                let api = this.api()
+                let json = api.ajax.json();
 
-                    $('#monthly_report_body').append(tr);
-
-                    total += element.income_total - element.outcome_total;
-                });
-
-                $("#monthly_report").DataTable({
-                    'destroy': true,
-                    'paging': true,
-                    'lengthChange': false,
-                    "pageLength": 5,
-                    'searching': true,
-                    'ordering': true,
-                    'info': false,
-                    'autoWidth': false,
-                    "scrollX": true,
-                    'select': true,
-                    // "order": [[0, "desc"]]
-                });
-
-                $('.dataTables_scrollFootInner #total-bal').text(thousands_separators(total))
-            },
-            error: function (message) {
-
-                dataMessage(message, "#tbl_total", "#tbl_total_container");
+                $(api.column(4).footer()).html(thousands_separators(json.bal_sheet));
             }
-        });
+        })
+
     }
     
 }

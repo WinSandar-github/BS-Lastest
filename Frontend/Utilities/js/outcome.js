@@ -140,28 +140,29 @@ function getOutcomeByMonth(){
     document.getElementById('outcome').style.display='none';
     document.getElementById('yearoutcome').style.display='block';
     destroyDatatable("#tbl_yearoutcome", "#tbl_yearoutcome_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getOutcome",
-        data: "monthly=allmonth",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" + element.year + "</td>";
-                tr += "<td class='text-center'>" + element.month + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "</tr>";
-                $("#tbl_yearoutcome_container").append(tr);
 
-            });
-            startDataTable('#tbl_yearoutcome');
-            hideLoad();
+    $('#tbl_yearoutcome').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'post',
+            url: BACKEND_URL + 'getOutcome',
+            data: {monthly : 'allmonth'}
         },
-        error: function (message) {
-            dataMessage(message,"#tbl_yearoutcome", "#tbl_yearoutcome_container");
-        }
-    });
+        columns: [ 
+                
+            { data: 'year' , class: 'text-center'},
+
+            { data: 'month' , class: 'text-center'},
+
+            { data: null, render: function( data, type, row ) {
+                return thousands_separators(data.outcome_total)
+            }, class: 'text-right' }
+             
+        ]
+    })
 }
