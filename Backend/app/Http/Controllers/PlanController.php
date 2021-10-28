@@ -58,7 +58,7 @@ class PlanController extends Controller
 
         return Datatables::of($plan)
         ->editColumn('action', function($data) {
-            
+
             $paymentPage ="<div class='btn-group'>
             <button type='button' class='btn btn-primary btn-sm' onClick='showPlanInfo($data->id)'>
             <li class='fa fa-edit fa-lg'></li></button> 
@@ -156,4 +156,12 @@ class PlanController extends Controller
             return response()->json($e->getMessage(), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function get_plan_for_select(Request $request)
+    {
+        $plan = tbl_plan::with('plan_class')->get();
+
+        return $plan;
+    }
+    
 }

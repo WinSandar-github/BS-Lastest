@@ -108,6 +108,8 @@ Route::get('getCollectorDetail', 'ReportController@getCollectorDetail');
 
 Route::get('getTotalByMonth', 'TotalController@getTotalByMonth');
 
+Route::get('get_plan_for_select', 'PlanController@get_plan_for_select');
+
 Route::get('/publicgetPlan', function() {
     return 'Hello';
 });
