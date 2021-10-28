@@ -42,6 +42,8 @@ function createInvoice(){
                 destroyDatatable('#tbl-credit','#tbl-credit-body');
 
                 getCustomerById();
+
+                $('#customer-info p').remove()
             },
             error: function (xhr, message, text){
             
