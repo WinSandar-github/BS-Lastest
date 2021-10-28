@@ -212,8 +212,8 @@ function deleteCustomer(customerName, customerId) {
 function loadPlan(){
     var select = document.getElementById("selected_plan_id");
     $.ajax({
-        type: "POST",
-        url: BACKEND_URL + "getPlan",
+        type: "get",
+        url: BACKEND_URL + "get_plan_for_select",
         data: "",
         success: function (data) {
             data.forEach(function (element) {
