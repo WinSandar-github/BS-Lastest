@@ -134,39 +134,6 @@ function getOutcomeBySelectMonth(select){
     }
 }
 
-function getOutcomeByDate(date){
-    destroyDatatable("#tbl_outcome", "#tbl_outcome_container");
-    destroyDatatable("#tbl_outcome_detail", "#tbl_outcome_detail_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getOutcome",
-        data: "create_date="+date,
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_outcome_container").append(tr);
-
-            });
-            startDataTable('#tbl_outcome');
-            hideLoad();
-        },
-        error: function (message) {
-            dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
-            hideLoad();
-        }
-    });
-}
-
 function getOutcomeByMonth(){
     document.getElementById('outcome').style.display='none';
     document.getElementById('yearoutcome').style.display='block';

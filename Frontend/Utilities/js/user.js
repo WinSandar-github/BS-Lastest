@@ -126,12 +126,14 @@ function deleteUser(userName, userId) {
             type: "POST",
             url: BACKEND_URL + "deleteUser",
             data: data,
-            success: function (data) {
-                successMessage(data);
-                getUser();
+            success: function (data, text, xhr) {
+                if ( xhr.status == 200 ) {
+                    successMessage(data);
+                    getUser();
+                }
             },
-            error: function (message) {
-                errorMessage(message);
+            error: function (xhr, text, msg) {
+                errorMessage(xhr.responseJSON);
             }
         });
     }
