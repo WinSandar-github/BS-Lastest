@@ -138,30 +138,29 @@ function getIncomeByMonth(){
     document.getElementById('yearincome').style.display='block';
     destroyDatatable("#tbl_yearincome", "#tbl_yearincome_container");
 
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
+    $('#tbl_yearincome').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'post',
+            url: BACKEND_URL + 'getIncome',
+            data: {monthly : 'allmonth'}
         },
-        type: "POST",
-        url: BACKEND_URL + "getIncome",
-        data: "monthly=allmonth",
-        success: function (data) {
-            data.forEach(function (element) {
+        columns: [ 
+                
+            { data: 'year' , class: 'text-center'},
 
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" + element.year + "</td>";
-                tr += "<td class='text-center'>" + element.month + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.income_total) + "</td>";
-                tr += "</tr>";
+            { data: 'month' , class: 'text-center'},
 
-                $("#tbl_yearincome_container").append(tr);
+            { data: null, render: function( data, type, row ) {
+                return thousands_separators(data.income_total)
+            }, class: 'text-right' }
+             
+        ]
+    })
 
-            });
-            startDataTable('#tbl_yearincome');
-            hideLoad();
-        },
-        error: function (message) {
-            dataMessage(message,"#tbl_yearincome", "#tbl_yearincome_container");
-        }
-    });
 }

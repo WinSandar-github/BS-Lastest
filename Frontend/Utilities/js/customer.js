@@ -212,9 +212,6 @@ function deleteCustomer(customerName, customerId) {
 function loadPlan(){
     var select = document.getElementById("selected_plan_id");
     $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
         type: "POST",
         url: BACKEND_URL + "getPlan",
         data: "",
@@ -226,11 +223,9 @@ function loadPlan(){
                 select.add(option, 0);
 
             });
-            hideLoad();
 
         },
         error:function (message){
-            hideLoad();
         }
     });
 }

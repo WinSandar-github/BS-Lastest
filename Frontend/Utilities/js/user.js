@@ -38,34 +38,30 @@ function createUser(){
 
 function getUser(){
     destroyDatatable("#tbl_user", "#tbl_user_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
+
+    $('#tbl_user').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'post',
+            url: BACKEND_URL + 'getUser'
         },
-        type: "POST",
-        url: BACKEND_URL + "getUser",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" + element.name + "</td>";
-                tr += "<td class='text-center'>" + element.email + "</td>";
-                tr += `<td class=text-center>${element.role.role}</td>`;
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm' onClick='showUserInfo(" + element.id + ")'>" +
-                    "<li class='fa fa-edit fa-lg'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteUser(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_user_container").append(tr);
-    
-            });
-            startDataTable("#tbl_user");
-            hideLoad();
-        },
-        error:function (message){
-            dataMessage(message, "#tbl_user", "#tbl_user_container");
-        }
-    });
+        columns: [
+                
+            { data: 'name' , class: 'text-center'},
+
+            { data: 'email' , class: 'text-center'},
+
+            { data: 'role.role' , class: 'text-center'},
+
+            { data: 'action' , class: 'text-center'}
+
+        ]
+    })
 
 }
 

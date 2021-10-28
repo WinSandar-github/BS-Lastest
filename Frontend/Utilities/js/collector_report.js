@@ -3,63 +3,38 @@ function getCollectorReports() {
 
     let date = $('#filter_date').val()
 
-    $.ajax({
-        type: 'GET',
-        url: BACKEND_URL + 'get_collector_report',
-        data: { 'date': date , 'filter' : $("#filter").val()},
-        beforeSend: function() {
-            showLoad()
+    $('#tbl_collector').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'get',
+            url: BACKEND_URL + 'get_collector_report',
+            data: { 'date': date , 'filter' : $("#filter").val()},
         },
-        success: function( res, text, xhr ) {
-            if( xhr.status == 200 ) {
-                hideLoad()
+        columns: [
 
-                res.map( (val, index) => {
-                    let tr = `<tr>`
-                        tr += `<td>${ index + 1 }</td>`
-                        tr += `<td>${val.name}</td>`
-                        tr += `<td>${val.role}</td>`
-                        tr += `<td class='text-right'>${thousands_separators(val.collected_amount)}</td>`
-                        tr += `<td class='text-center'>
-                                    <button class='btn btn-primary btn-sm' onclick='viewCollectorDetail(${val.id})'>
-                                        <i class='bi bi-eye bi-lg''></i>
-                                    </button>
-                                </td>`
-                        tr += `</tr>`
+            { data: 'DT_RowIndex' },
 
-                    $('#tbl_collector_body').append(tr)
-                })
+            { data: 'name' , class: 'text-center'},
 
-                
-                $('#tbl_collector').DataTable({
+            { data: 'role' , class: 'text-center'},
 
-                    'initComplete': function(settings){
-                        
-                        var api = new $.fn.dataTable.Api(settings);
+            { data: null, render: function( data, type, row ) {
 
-                        api.columns().header().each(function(column){
+                return thousands_separators(data.collected_amount)
 
-                            if($("#filter").val() == 1){
-                                if($(column).text() === 'Cancelled By'){
-                                    $(column).text("Collector");
-                                }
-                               
-                            }else {
-                                if($(column).text() === 'Collector'){
-                                    $(column).text("Cancelled By");
-                                }
-                               
-                            }
-              
-                        });
-                     },
-                })
-            }
-        },
-        error: function( xhr, text, msg ) {
-            hideLoad()
-        }
+            }, class: 'text-center' },
+
+            { data: 'action' , class: 'text-center'}
+
+        ]
     })
+
+   
 }
 
 function onChangeDate() {

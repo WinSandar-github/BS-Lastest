@@ -50,9 +50,6 @@ function addIncomeDetail() {
 function getIncomeDetailByIncomeId(income_outcome_id) {
     destroyDatatable("#tbl_income_detail", "#tbl_income_detail_container");
     $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
         type: "POST",
         url: BACKEND_URL + "getIncomeDetailByIncomeId",
         data: "income_outcome_id=" +income_outcome_id,
@@ -68,11 +65,9 @@ function getIncomeDetailByIncomeId(income_outcome_id) {
                
             });
             startDataTable("#tbl_income_detail");
-            hideLoad();
         },
         error: function (message) {
             dataMessage(message,"#tbl_income_detail", "#tbl_income_detail_container");
-            hideLoad();
         }
     });
 }
