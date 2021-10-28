@@ -17,10 +17,9 @@ class PaymentController extends Controller
         try{
             $find_existed = tbl_payment_detail::where([
                 ['customer_id', $request->customerId],
-                ['month', $request->month],
-                ['status', 1]
+                ['month', $request->month]
             ])->first();
-
+            
             $reg_date = tbl_customer::where('id', $request->customerId)->pluck('reg_date')->first();
 
             $reg_mY = date('Ym', strtotime($reg_date));

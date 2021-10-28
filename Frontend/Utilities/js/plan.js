@@ -6,52 +6,54 @@ function createPlan() {
         url: BACKEND_URL + "createPlan",
         data: plan,
         success: function (data) {
+
             document.getElementById("plan-form").reset();
             successMessage(data);
             getPlan();
 
         },
-        error: function (message){
-            errorMessage(message);
+        error: function (xhr){
+            if ( xhr.status == 409 ) {
+                warningMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }
 
 function getPlan(){
     destroyDatatable("#tbl_plan", "#tbl_plan_body");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getPlan",
-        data: "",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" +  + "</td>";
-                tr += "<td class='text-center'>" + element.name + "</td>";
-                tr += `<td class="text-center">${element.plan_class.name}</td>`
-                tr += "<td class='text-right'>" + thousands_separators(element.price) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                "<button type='button' class='btn btn-primary btn-sm' onClick='showPlanInfo(" + element.id + ")'>" +
-                "<li class='fa fa-edit fa-lg'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deletePlan(\"" + encodeURIComponent(element.name) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
-            
-                tr += "</tr>";
-                $("#tbl_plan_body").append(tr);
 
-            });
-            getIndexNumber('#tbl_plan tr')
-            createDataTable("#tbl_plan");
-            hideLoad();
-
+    $('#tbl_plan').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'post',
+            url: BACKEND_URL + 'getPlan'
         },
-        error:function (message){
-            dataMessage(message, "#tbl_plan", "#tbl_plan_body");
-            hideLoad();
-        }
-    });
+        columns: [
+            { data: 'DT_RowIndex' },
+
+            { data: 'name' , class: 'text-center'},
+
+            { data: 'plan_class.name' , class: 'text-center'},
+
+            { data: null, render: function( data, type, row ) {
+
+                return thousands_separators(data.price)
+
+            }, class: 'text-right' },
+
+            { data: 'action' , class: 'text-center'}
+
+        ]
+    })
+    
 }
 
 function showPlanInfo(planId) {
@@ -61,9 +63,6 @@ function showPlanInfo(planId) {
     var data = "&planId=" + planId;
     
     $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
         type: "POST",
         url: BACKEND_URL + "showPlanInfo",
         data: data,
@@ -77,17 +76,15 @@ function showPlanInfo(planId) {
                 }
             })
 
-            hideLoad();
         },
         error:function (message){
           errorMessage(message);
-          hideLoad();
         }
     });
 }
 
 function updatePlan() {
-    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val() + "&class" + $('input[name="customer-class"]')
+    var planData = "planId=" + $("#plan-id").val() + "&name=" + $("#name").val()+"&price=" + $("#price").val() + "&class=" +  $('input[name="customer-class"]:checked').val()
     $.ajax({
         type: "POST",
         url: BACKEND_URL + "updatePlan",
@@ -98,8 +95,12 @@ function updatePlan() {
             successMessage(data);
             getPlan();
         },
-        error:function (message){
-            errorMessage(message);
+        error:function (xhr){
+            if ( xhr.status == 409 ) {
+                warningMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }

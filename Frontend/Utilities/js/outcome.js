@@ -136,65 +136,33 @@ function getOutcomeBySelectMonth(select){
     }
 }
 
-function getOutcomeByDate(date){
-    destroyDatatable("#tbl_outcome", "#tbl_outcome_container");
-    destroyDatatable("#tbl_outcome_detail", "#tbl_outcome_detail_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getOutcome",
-        data: "create_date="+date,
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr onclick='getOutcomeDetailByOutcomeId(" + element.id + ");'>";
-                tr += "<td class='text-center'>" + formatDate(element.date) + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "<td class='text-center'><div class='btn-group'>" +
-                    "<button type='button' class='btn btn-primary btn-sm' onClick='addOutcomeDetailInfo(" + element.id + ")'>" +
-                    "<li class='fa fa-hand-holding-usd fa-lg'></li></button> ";
-                tr += "<button type='button' class='btn btn-danger btn-sm' onClick=deleteOutcome(\"" + encodeURIComponent(element.date) + "\"," + element.id + ")><li class='fa fa-trash fa-lg' ></li ></button ></div ></td > ";
-                tr += "</tr>";
-                $("#tbl_outcome_container").append(tr);
-
-            });
-            startDataTable('#tbl_outcome');
-            hideLoad();
-        },
-        error: function (message) {
-            dataMessage(message,"#tbl_outcome", "#tbl_outcome_container");
-            hideLoad();
-        }
-    });
-}
-
 function getOutcomeByMonth(){
     document.getElementById('outcome').style.display='none';
     document.getElementById('yearoutcome').style.display='block';
     destroyDatatable("#tbl_yearoutcome", "#tbl_yearoutcome_container");
-    $.ajax({
-        beforeSend: function () {
-            showLoad();
-        },
-        type: "POST",
-        url: BACKEND_URL + "getOutcome",
-        data: "monthly=allmonth",
-        success: function (data) {
-            data.forEach(function (element) {
-                var tr = "<tr>";
-                tr += "<td class='text-center'>" + element.year + "</td>";
-                tr += "<td class='text-center'>" + element.month + "</td>";
-                tr += "<td class='text-right' style='padding-right:50px'>" + thousands_separators(element.outcome_total) + "</td>";
-                tr += "</tr>";
-                $("#tbl_yearoutcome_container").append(tr);
 
-            });
-            startDataTable('#tbl_yearoutcome');
-            hideLoad();
+    $('#tbl_yearoutcome').DataTable({
+        destroy: true,
+        processing: true,
+        serverSide: true,
+        lengthChange: false,
+        bAutoWidth: false,
+        pageLength: 5,
+        ajax: {
+            type: 'post',
+            url: BACKEND_URL + 'getOutcome',
+            data: {monthly : 'allmonth'}
         },
-        error: function (message) {
-            dataMessage(message,"#tbl_yearoutcome", "#tbl_yearoutcome_container");
-        }
-    });
+        columns: [ 
+                
+            { data: 'year' , class: 'text-center'},
+
+            { data: 'month' , class: 'text-center'},
+
+            { data: null, render: function( data, type, row ) {
+                return thousands_separators(data.outcome_total)
+            }, class: 'text-right' }
+             
+        ]
+    })
 }

@@ -70,12 +70,19 @@ class UserController extends Controller
     
     public function deleteUser(Request $request)
     {
-        $User = User::find($request->userId);
-        if($User->delete()){
-           return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);}
-        else{
-             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
+        try 
+        {
+            $User = User::find($request->userId);
+
+            if ($User->role == 1) {                
+                return response()->json("Sorry Admin Cannot Delete Other Admins!", 405, config('common.header'), JSON_UNESCAPED_UNICODE);
+            } else {
+                $User->delete();
+                return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
+        } 
     }
 
     public function getUserRoles() 
