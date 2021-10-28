@@ -125,9 +125,11 @@ function deleteOutcome(outcome_date, outcomeId) {
 function getOutcomeBySelectMonth(select){
     
     if(select!='Monthly'){
+        $('.outcome-detail').show();
         $('#outcome_datepicker').attr('disabled',false);
         getOutcome();
     }else{
+        $('.outcome-detail').hide();
         $('#outcome_datepicker').val("");
         $('#outcome_datepicker').attr('disabled',true);
         getOutcomeByMonth();
