@@ -54,7 +54,7 @@ function createInvoice(){
 }
 
 function printInvoice(id) {
-    window.open('../../Components/Invoice/payment_invoice.html?id=' + id );
+    window.open('https://iqnet.tech/billing/Frontend/Components/Invoice/payment_invoice.html?id=' + id );
 }
 
 function getPaymentInvoice(){
@@ -134,7 +134,7 @@ function getAllInvoices(customerId){
 
                 tr += `<td class='text-center'>${obj.collector_name}</td>`;
 
-                tr += `<td class='text-center'>
+                tr += `<td class='text-center text-nowrap'>
                         
                         ${
                             filter == 0 ?

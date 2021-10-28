@@ -99,19 +99,17 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table" id="tbl-credit">
-                                    <thead>
-                                        <tr>
-                                            <!-- <th><input type="checkbox" id="check-all" onclick="checkAll(this);"></th> -->
-                                            <th></th>
-                                            <th>#</th>
-                                            <th>Month</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbl-credit-body"></tbody>
-                                </table>
-                            </div>
+                          <table class="table" id="tbl-credit">
+                            <thead>
+                                <tr>
+                                    <!-- <th><input type="checkbox" id="check-all" onclick="checkAll(this);"></th> -->
+                                    <th></th>
+                                    <th>#</th>
+                                    <th>Month</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-credit-body"></tbody>
+                        </table>
                         </div>
                     </div>
                 </div>
@@ -145,17 +143,20 @@
           <form method="post" action="javascript:createInvoice();">
             <div class="modal-body">
               <div class="row">
-                <div class="col-md-12 table-responsive">
-                  <table class="table" id="tbl_invoice">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Month</th>
-                        <th>Price</th>
-                      </tr>
-                    </thead>
-                    <tbody id="item-lists"></tbody>
-                  </table>
+                <div class="col-md-12">
+                  <div style="overflow-x: auto;">
+                    <table class="table" id="tbl_invoice">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Month</th>
+                          <th>Price</th>
+                        </tr>
+                      </thead>
+                      <tbody id="item-lists"></tbody>
+                    </table>
+                  </div>
+                 
                 </div>
               </div>
               <div class="row">

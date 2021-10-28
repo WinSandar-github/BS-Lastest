@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../../Utilities/plugins/toastr/toastr.min.css">
   <!-- Template CSS -->
   <link rel="stylesheet" href="../../assets/css/style.css">
-  <link rel="stylesheet" href="../../assets/css/components.css">
   <!--Authentication JS-->
   <script src="../../Utilities/js/auth.js"></script>
   <link rel="stylesheet" href="../../Utilities/css/common.css">
@@ -101,19 +100,24 @@
                           </select>
                         </div>
                       </div>
-                      <table class="table table-hover text-nowrap" id="tbl_payment">
-                        <thead class="text-center">
-                          <tr>
-                              <th>#</th>
-                              <th>Invoice-No</th>
-                              <th>Total</th>
-                              <th>Collector</th>
-                              <th>Action</th>
-                          </tr> 
-                        </thead>
-
-                        <tbody id="tbl_payment_body" class="hoverTable"></tbody>
-                        </table>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <table class="table table-hover" id="tbl_payment">
+                            <thead class="text-center">
+                              <tr>
+                                  <th>#</th>
+                                  <th>Invoice-No</th>
+                                  <th>Total</th>
+                                  <th>Collector</th>
+                                  <th>Action</th>
+                              </tr> 
+                            </thead>
+  
+                            <tbody id="tbl_payment_body" class="hoverTable"></tbody>
+                          </table>
+                        </div>
+                      </div>
+                     
                     </div>
                   </div>
                 </div>
@@ -134,19 +138,22 @@
                 <input type="hidden" name="" id="invoice_id">
                 <div class="modal-body">
                   <div class="row">
-                    <div class="col-md-12 table-responsive">
-                      <table class="table" id="tbl_invoice">
-                        <thead class='text-center'>
-                          <tr>
-                            <th>Action</th>
-                            <th>#</th>
-                            <th>Month</th>
-                            <th>Price</th>
+                    <div class="col-md-12">
+                      <div style="overflow-x: auto;">
+                        <table class="table" id="tbl_invoice">
+                          <thead class='text-center'>
+                            <tr>
+                              <th>Action</th>
+                              <th>#</th>
+                              <th>Month</th>
+                              <th>Price</th>
                             
-                          </tr>
-                        </thead>
-                        <tbody id="item-lists" class='text-center'></tbody>
-                      </table>
+                            </tr>
+                          </thead>
+                          <tbody id="item-lists" class='text-center'></tbody>
+                        </table>
+                      </div>
+                     
                     </div>
                   </div>
                   <div class="row">
