@@ -20,7 +20,7 @@ var toastOptions = {
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "1000",
-    "timeOut": "4000",
+    "timeOut": "5000",
     "extendedTimeOut": "3000",
     "showEasing": "swing",
     "hideEasing": "linear",
@@ -39,6 +39,11 @@ function errorMessage(message) {
 }
 
 function infoMessage(message) {
+    toastr.options = toastOptions
+    toastr.info(message)
+}
+
+function warningMessage(message) {
     toastr.options = toastOptions
     toastr.info(message)
 }

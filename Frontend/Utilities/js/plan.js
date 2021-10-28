@@ -11,8 +11,12 @@ function createPlan() {
             getPlan();
 
         },
-        error: function (message){
-            errorMessage(message);
+        error: function (xhr){
+            if ( xhr.status == 409 ) {
+                warningMessage(xhr.responseJSON)
+            } else {
+                errorMessage(message)
+            }
         }
     });
 }

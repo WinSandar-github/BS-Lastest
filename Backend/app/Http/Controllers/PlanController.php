@@ -19,13 +19,33 @@ class PlanController extends Controller
     {
         try{
 
-            $plan = new tbl_plan();
-            $plan->name = $request->name;
-            $plan->price = $request->price;
-            $plan->class = $request->class;
-            $plan->save();
+            $is_existed = tbl_plan::where([
+                        ['name' , $request->name],
+                        ['class' , $request->class]
+                    ])->get();
+            
+            $obj_size = count($is_existed);
 
-            return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            if($obj_size > 0) {
+
+                $class = customerClass::find($request->class);
+                $class_name = $class->name;
+
+                $text = "Plan For {$request->name} {$class_name} Was Already Created";
+
+                return response()->json($text, 409, config('common.header'), JSON_UNESCAPED_UNICODE);
+            
+            }else {
+
+                $plan = new tbl_plan();
+                $plan->name = $request->name;
+                $plan->price = $request->price;
+                $plan->class = $request->class;
+                $plan->save();
+
+                return response()->json(config('common.message.success'), 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            }
+           
         }catch (\Exception $e) {
             return response()->json(config('common.message.error'), 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
