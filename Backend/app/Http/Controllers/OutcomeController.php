@@ -40,12 +40,8 @@ class OutcomeController extends Controller
                         ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
                         ->get();
 
-            if(sizeof($outcome)){
-                return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
-            else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
+            return Datatables::of($outcome)->toJson();
+            
         }else{
 
             $outcome = tbl_income_outcome::where('outcome_total','<>',0)->get();

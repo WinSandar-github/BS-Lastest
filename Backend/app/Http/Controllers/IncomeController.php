@@ -29,7 +29,7 @@ class IncomeController extends Controller
             }
         }else if($request->monthly=='allmonth'){
 
-            $income=DB::table('tbl_income_outcome')
+            $income = DB::table('tbl_income_outcome')
                             ->where('income_total','<>',0)
                             ->select(DB::raw('YEAR(tbl_income_outcome.date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income_outcome.income_total) as income_total'))
                             ->join('tbl_month', function ($join) {
@@ -38,13 +38,9 @@ class IncomeController extends Controller
                             })
                             ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
                             ->get();
-
-            if(sizeof($income)){
-                return response()->json($income, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
-            else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-            }
+            
+            return Datatables::of($income)->toJson();
+           
         }else{
 
             $income = tbl_income_outcome::where('income_total','<>',0)->get();

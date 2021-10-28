@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\UserRoles;
 use App\User;
+use Yajra\DataTables\Facades\DataTables; 
 
 class UserController extends Controller
 {
@@ -30,12 +31,20 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         $User = User::with('role')->get();
-        if(sizeof($User)){
-            return response()->json($User, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
-        else{
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
+
+        return Datatables::of($User)
+        ->editColumn('action', function($data) {
+            $paymentPage ="<div class='btn-group'><td class='text-center'><div class='btn-group'>
+            <button type='button' class='btn btn-primary btn-sm' onClick='showUserInfo($data->id)'>
+            <li class='fa fa-edit fa-lg'></li></button> 
+            <button type='button' class='btn btn-danger btn-sm' onClick=deleteUser($data->name,$data->id)>
+            <li class='fa fa-trash fa-lg' ></li ></button></div>";
+
+            return $paymentPage;
+        })
+        ->addIndexColumn()
+        ->toJson();
+        
     }
 
     public function showUserInfo(Request $request)

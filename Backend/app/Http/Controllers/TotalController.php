@@ -65,7 +65,11 @@ class TotalController extends Controller
             ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
             ->get();
 
-        return response()->json($total, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+            return Datatables::of($total)
+            ->with('bal_sheet', $total->sum('income_total') - $total->sum('outcome_total'))
+               
+            ->make();
+
         
     }
 }

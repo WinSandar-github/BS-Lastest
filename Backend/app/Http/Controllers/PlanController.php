@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\tbl_plan;
+use Yajra\DataTables\Facades\DataTables; 
 
 class PlanController extends Controller
 {
@@ -54,12 +55,20 @@ class PlanController extends Controller
     public function getPlan(Request $request)
     {
         $plan = tbl_plan::with('plan_class')->get();
-        if(sizeof($plan)){
-            return response()->json($plan, 200,config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
-        else{
-            return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
-        }
+
+        return Datatables::of($plan)
+        ->editColumn('action', function($data) {
+            
+            $paymentPage ="<div class='btn-group'>
+            <button type='button' class='btn btn-primary btn-sm' onClick='showPlanInfo($data->id)'>
+            <li class='fa fa-edit fa-lg'></li></button> 
+            <button type='button' class='btn btn-danger btn-sm' onClick=deletePlan($data->name,$data->id)>
+            <li class='fa fa-trash fa-lg' ></li ></button ></div>";
+
+            return $paymentPage;
+        })
+        ->addIndexColumn()
+        ->toJson();
     }
 
     public function showPlanInfo(Request $request)
@@ -79,7 +88,8 @@ class PlanController extends Controller
 
             $is_existed = tbl_plan::where([
                 ['name' , $request->name],
-                ['class' , $request->class]
+                ['class' , $request->class],
+                ['id' ,'<>' ,$request->planId]
             ])->get();
     
             $obj_size = count($is_existed);

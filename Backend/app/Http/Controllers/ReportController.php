@@ -7,6 +7,7 @@ use App\User;
 use App\tbl_invoice;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables; 
 
 class ReportController extends Controller
 {
@@ -38,8 +39,18 @@ class ReportController extends Controller
             ])
             ->groupBy('u.name')
             ->get();
+            
+            return Datatables::of($records)
+            ->editColumn('action', function($data) {
+                $paymentPage = "<button class='btn btn-primary btn-sm' onclick='viewCollectorDetail($data->id)'>
+                                <i class='bi bi-eye bi-lg'></i>
+                                </button>";
 
-            return response()->json($records, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return $paymentPage;
+            })
+            ->addIndexColumn()
+            ->toJson();
+        
         } catch(Exception $e) {
             return response()->json($e, 500, config('common.header'), JSON_UNESCAPED_UNICODE);
         }
