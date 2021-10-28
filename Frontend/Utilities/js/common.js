@@ -125,15 +125,12 @@ function createDataTableForPaymentDetail(table,name,filter) {
         'lengthChange': false,
         "pageLength": 5,
         'searching': true,
-        'ordering': true,
-        'info': false,
-        'autoWidth': false,
-        "scrollX": true,
-        'select': true,
         // "order": [[0, "desc"]]
     });
+
     jQuery(table).wrap('<div class="dataTables_scroll" />');
-     $("div.toolbar").html("<span class='font-weight-bold'>Name - "+name+"</span>");
+
+    // $("div.toolbar").html("<span class='font-weight-bold'>Name - "+name+"</span>");
 
 }
 
