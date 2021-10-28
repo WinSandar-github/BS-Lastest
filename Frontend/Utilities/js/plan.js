@@ -53,6 +53,8 @@ function getPlan(){
 
         ]
     })
+
+    jQuery('#tbl_plan').wrap('<div class="dataTables_scroll" />');
     
 }
 

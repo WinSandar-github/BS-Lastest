@@ -63,6 +63,8 @@ function getUser(){
         ]
     })
 
+    jQuery('#tbl_user').wrap('<div class="dataTables_scroll" />');
+
 }
 
 function showUserInfo(userId){

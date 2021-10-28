@@ -34,6 +34,8 @@ function getCollectorReports() {
         ]
     })
 
+    jQuery('#tbl_collector').wrap('<div class="dataTables_scroll" />');
+
    
 }
 

@@ -109,7 +109,7 @@ function getOutcomeDetailByOutcomeId(income_outcome_id) {
     });
 }
 function getIncomeDetailByIncomeId(income_outcome_id) {
-    alert("aa");
+    
     destroyDatatable("#tbl_total_detail", "#tbl_total_detail_container");
     $.ajax({
         type: "POST",
@@ -286,6 +286,8 @@ function getMonthlyBalance (status){
                 $(api.column(4).footer()).html(thousands_separators(json.bal_sheet));
             }
         })
+
+        jQuery('#monthly_report').wrap('<div class="dataTables_scroll" />');
 
     }
     
