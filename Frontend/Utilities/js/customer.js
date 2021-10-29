@@ -341,7 +341,7 @@ function getCustomerClass() {
                     if ( $('#class-color-lists') ) {
                         $('#class-color-lists').children().remove()
                         res.map( (el) => {
-                            let elem = `<div class="col-md-2 col-sm-4 col-xs-6 class-status">
+                            let elem = `<div class="col-md-2 col-sm-4 col-xs-4 class-status">
                             <div class="color-box" style="background-color: ${el.color};"></div>
                             <span class="explanation">${el.name}</span> 
                         </div>`
@@ -376,6 +376,9 @@ function getCustomerClass() {
                         bFilter: true,
                         bInfo: false,
                     })
+
+
+                    jQuery('#tbl-customer-class').wrap('<div class="dataTables_scroll" />');
 
                 }
             }
