@@ -111,9 +111,18 @@ function createDataTableForPaymentDetail(table,name,filter) {
                     if($(column).text() === 'Collector'){
                         $(column).text("Cancelled By");
                     }
+                    else if($(column).text() === 'Cancelled By'){
+                        
+                        $(column).text("Collector");
+                    }
                 }else {
                     if($(column).text() === 'Cancelled By'){
+                        
                         $(column).text("Collector");
+                    }
+                    else if($(column).text() === 'Collector'){
+                        
+                        $(column).text("Cancelled By");
                     }
                 }
               
@@ -125,6 +134,7 @@ function createDataTableForPaymentDetail(table,name,filter) {
         'lengthChange': false,
         "pageLength": 5,
         'searching': true,
+        responsive : true
         // "order": [[0, "desc"]]
     });
 

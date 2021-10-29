@@ -1,9 +1,28 @@
 function getCollectorReports() {
     destroyDatatable('#tbl_collector', '#tbl_collector_body')
 
-    let date = $('#filter_date').val()
+    let date = $('#filter_date').val();
+    
+    let filter = $("#filter").val();
 
     $('#tbl_collector').DataTable({
+        'initComplete': function(settings){
+            var api = new $.fn.dataTable.Api(settings);
+
+            api.columns().header().each(function(column){
+                if(filter == 2){
+                    if($(column).text() === 'Collector'){
+                        $(column).text("Cancelled By");
+                    }
+                }else {
+                    if($(column).text() === 'Cancelled By'){
+                        
+                        $(column).text("Collector");
+                    }
+                }
+              
+            });
+        },
         destroy: true,
         processing: true,
         serverSide: true,
