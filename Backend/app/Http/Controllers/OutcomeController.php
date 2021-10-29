@@ -26,7 +26,7 @@ class OutcomeController extends Controller
                 return response()->json($outcome, 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
             else{
-                return response()->json(config('common.message.data'), 404, config('common.header'), JSON_UNESCAPED_UNICODE);
+                return response()->json([], 200, config('common.header'), JSON_UNESCAPED_UNICODE);
             }
         }else if($request->monthly=='allmonth'){
 
