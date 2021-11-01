@@ -55,7 +55,7 @@ class TotalController extends Controller
     
     public function getTotalByMonth(Request $request)
     {
-        
+
         $total = DB::table('tbl_income_outcome')
             ->select(DB::raw('YEAR(tbl_income_outcome.date) as year'),'tbl_month.month_name as month',DB::raw('count(*) as status'),DB::raw('SUM(tbl_income_outcome.income_total) as income_total'), DB::raw('SUM(tbl_income_outcome.outcome_total) as outcome_total'))
             ->join('tbl_month', function ($join) {
@@ -65,10 +65,16 @@ class TotalController extends Controller
             ->groupBy(DB::raw('YEAR(tbl_income_outcome.date)'),'tbl_month.month_name')
             ->get();
 
+        if($request->draw != null){ // for datatable server side
             return Datatables::of($total)
             ->with('bal_sheet', $total->sum('income_total') - $total->sum('outcome_total'))
                
             ->make();
+        }
+        else{ // for print page
+            return $total;
+        }
+          
 
         
     }
