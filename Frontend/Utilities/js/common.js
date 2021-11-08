@@ -101,7 +101,6 @@ function createDataTable(table) {
 }
 
 function createDataTableForPaymentDetail(table,name,filter) {
-
     $(table).DataTable({
         'initComplete': function(settings){
             var api = new $.fn.dataTable.Api(settings);
@@ -111,19 +110,19 @@ function createDataTableForPaymentDetail(table,name,filter) {
                     if($(column).text() === 'Collector'){
                         $(column).text("Cancelled By");
                     }
-                    else if($(column).text() === 'Cancelled By'){
+                    // else if($(column).text() === 'Cancelled By'){
                         
-                        $(column).text("Collector");
-                    }
+                    //     $(column).text("Collector");
+                    // }
                 }else {
                     if($(column).text() === 'Cancelled By'){
                         
                         $(column).text("Collector");
                     }
-                    else if($(column).text() === 'Collector'){
+                    // else if($(column).text() === 'Collector'){
                         
-                        $(column).text("Cancelled By");
-                    }
+                    //     $(column).text("Cancelled By");
+                    // }
                 }
               
             });
